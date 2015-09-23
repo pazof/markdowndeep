@@ -230,7 +230,18 @@ namespace MarkdownDeep
 					case TokenType.img:
 					{
 						LinkInfo li = (LinkInfo)t.data;
-						li.def.RenderImg(m_Markdown, sb, li.link_text);
+						if (li.link_text != null && li.link_text.Length > 5)
+						if (li.link_text [5] == ':') {
+							var link_text = li.link_text.Substring (6).Trim();
+							if (li.link_text.StartsWith ("audio:"))
+								li.def.RenderAudio (m_Markdown, sb, link_text );
+							else if (li.link_text.StartsWith ("video:"))
+								li.def.RenderVideo (m_Markdown, sb, link_text);
+							else if (li.link_text.StartsWith ("image:"))
+								li.def.RenderImg (m_Markdown, sb, link_text);
+						}
+						else 
+							li.def.RenderImg(m_Markdown, sb, li.link_text);
 						break;
 					}
 

@@ -102,10 +102,49 @@ namespace MarkdownDeep
 				b.Append("</a>");
 			}
 		}
+		internal void RenderVideo(Markdown m, StringBuilder b, string alt_text) {
+			HtmlTag tag = new HtmlTag("video");
+			tag.attributes ["controls"] = null;
+			// encode url
+			StringBuilder sb = m.GetStringBuilder();
+			Utils.SmartHtmlEncodeAmpsAndAngles(sb, url);
 
+			HtmlTag source = new HtmlTag("source");
+			source.attributes["src"] = sb.ToString();
+			m.OnPrepareVideoSource(source);
+
+			// encode alt text
+			if (!String.IsNullOrEmpty(alt_text))
+			{
+				sb.Length = 0;
+				Utils.SmartHtmlEncodeAmpsAndAngles(sb, alt_text);
+				tag.attributes["alt"] = sb.ToString();
+			}
+
+			// encode title
+			if (!String.IsNullOrEmpty(title))
+			{
+				sb.Length = 0;
+				Utils.SmartHtmlEncodeAmpsAndAngles(sb, title);
+				tag.attributes["title"] = sb.ToString();
+			}
+
+			tag.closed = true;
+
+			tag.RenderOpening(b);
+			source.RenderOpening (b);
+			tag.RenderClosing (b);
+		}
+		internal void RenderAudio(Markdown m, StringBuilder b, string alt_text) {
+			RenderMedia (m, b, "audio", alt_text);
+		}
 		internal void RenderImg(Markdown m, StringBuilder b, string alt_text)
 		{
-			HtmlTag tag = new HtmlTag("img");
+			RenderMedia (m, b, "img", alt_text);
+		}
+		internal void RenderMedia(Markdown m, StringBuilder b, string tag_name, string alt_text)
+		{
+			HtmlTag tag = new HtmlTag(tag_name);
 
 			// encode url
 			StringBuilder sb = m.GetStringBuilder();

@@ -512,6 +512,11 @@ namespace MarkdownDeep
 			tag.attributes["src"] = OnQualifyUrl(tag.attributes["src"]);
 		}
 
+		public virtual void OnPrepareVideoSource(HtmlTag tag)
+		{
+			tag.attributes["src"] = OnQualifyUrl(tag.attributes["src"]);
+		}
+
 		// Set the html class for the footnotes div
 		// (defaults to "footnotes")
 		// btw fyi: you can use css to disable the footnotes horizontal rule. eg:
