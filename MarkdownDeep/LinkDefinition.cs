@@ -104,7 +104,7 @@ namespace MarkdownDeep
 		}
 		internal void RenderVideo(Markdown m, StringBuilder b, string alt_text) {
 			HtmlTag tag = new HtmlTag("video");
-			tag.attributes ["controls"] = null;
+			tag.attributes ["controls"] = "controls";
 			// encode url
 			StringBuilder sb = m.GetStringBuilder();
 			Utils.SmartHtmlEncodeAmpsAndAngles(sb, url);
@@ -136,15 +136,32 @@ namespace MarkdownDeep
 			tag.RenderClosing (b);
 		}
 		internal void RenderAudio(Markdown m, StringBuilder b, string alt_text) {
-			RenderMedia (m, b, "audio", alt_text);
+			HtmlTag tag = new HtmlTag("audio");
+			tag.attributes ["controls"] = "controls";
+			// encode url
+			StringBuilder sb = m.GetStringBuilder();
+			Utils.SmartHtmlEncodeAmpsAndAngles(sb, url);
+			tag.attributes["src"] = sb.ToString();
+			// encode alt text
+			if (!String.IsNullOrEmpty(alt_text))
+			{
+				sb.Length = 0;
+				Utils.SmartHtmlEncodeAmpsAndAngles(sb, alt_text);
+				tag.attributes["alt"] = sb.ToString();
+			}
+			// encode title
+			if (!String.IsNullOrEmpty(title))
+			{
+				sb.Length = 0;
+				Utils.SmartHtmlEncodeAmpsAndAngles(sb, title);
+				tag.attributes["title"] = sb.ToString();
+			}
+			tag.RenderOpening (b);
+			tag.RenderClosing (b);
 		}
 		internal void RenderImg(Markdown m, StringBuilder b, string alt_text)
 		{
-			RenderMedia (m, b, "img", alt_text);
-		}
-		internal void RenderMedia(Markdown m, StringBuilder b, string tag_name, string alt_text)
-		{
-			HtmlTag tag = new HtmlTag(tag_name);
+			HtmlTag tag = new HtmlTag("img");
 
 			// encode url
 			StringBuilder sb = m.GetStringBuilder();
