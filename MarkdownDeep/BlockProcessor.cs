@@ -878,7 +878,7 @@ namespace MarkdownDeep
 			}
 
 			// Nothing special
-			return BlockType.p;
+			return BlockType.div;
 		}
 
 		internal enum MarkdownInHtmlMode

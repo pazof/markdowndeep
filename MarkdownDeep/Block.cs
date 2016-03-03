@@ -55,6 +55,7 @@ namespace MarkdownDeep
 		dl,				// render only
 		footnote,		// footnote definition  eg: [^id]   `data` holds the footnote id
 		p_footnote,		// paragraph with footnote return link append.  Return link string is in `data`.
+		div,            // Nothing special, at parsing and rendering time
 	}
 
 	class Block
@@ -148,7 +149,8 @@ namespace MarkdownDeep
 					return;
 
 				case BlockType.p:
-					m.SpanFormatter.FormatParagraph(b, buf, contentStart, contentLen);
+				case BlockType.div:
+					m.SpanFormatter.FormatParagraph(b, buf, contentStart, contentLen, blockType);
 					break;
 
 				case BlockType.span:
@@ -350,6 +352,7 @@ namespace MarkdownDeep
 
 				case BlockType.p:
 				case BlockType.span:
+				case BlockType.div:
 					m.SpanFormatter.FormatPlain(b, buf, contentStart, contentLen);
 					b.Append(" ");
 					break;

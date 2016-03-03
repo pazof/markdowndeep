@@ -30,7 +30,7 @@ namespace MarkdownDeep
 		}
 
 
-		internal void FormatParagraph(StringBuilder dest, string str, int start, int len)
+		internal void FormatParagraph(StringBuilder dest, string str, int start, int len, BlockType blockType)
 		{
 			// Parse the string into a list of tokens
 			Tokenize(str, start, len);
@@ -64,10 +64,25 @@ namespace MarkdownDeep
 			}
 			else
 			{
-				// Render the paragraph
-				dest.Append("<p>");
-				Render(dest, str);
-				dest.Append("</p>\n");
+				switch (blockType) {
+				case BlockType.div:
+					// Render the paragraph.
+					// As long as we can not use a 
+					// `p` html tag anywhere in the DOM
+					// As we could do with a `div` tag, 
+					// we choose a `div` tag by default,
+					// when nothing else could be choosed by parsing the Markdown code
+					dest.Append ("<div>");
+					Render (dest, str);
+					dest.Append ("</div>\n");
+					break;
+				default :
+					// Render the paragraph
+					dest.Append ("<p>");
+					Render (dest, str);
+					dest.Append ("</p>\n");
+					break;
+				}
 			}
 		}
 
@@ -230,8 +245,8 @@ namespace MarkdownDeep
 					case TokenType.img:
 					{
 						LinkInfo li = (LinkInfo)t.data;
-						if (li.link_text != null && li.link_text.Length > 5)
-						if (li.link_text [5] == ':') {
+						if (li.link_text != null && li.link_text.Length > 5 &&
+						 li.link_text [5] == ':') {
 							var link_text = li.link_text.Substring (6).Trim();
 							if (li.link_text.StartsWith ("audio:"))
 								li.def.RenderAudio (m_Markdown, sb, link_text );
@@ -239,6 +254,8 @@ namespace MarkdownDeep
 								li.def.RenderVideo (m_Markdown, sb, link_text);
 							else if (li.link_text.StartsWith ("image:"))
 								li.def.RenderImg (m_Markdown, sb, link_text);
+							else 
+								li.def.RenderImg(m_Markdown, sb, li.link_text);
 						}
 						else 
 							li.def.RenderImg(m_Markdown, sb, li.link_text);
