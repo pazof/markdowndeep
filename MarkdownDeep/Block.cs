@@ -55,7 +55,8 @@ namespace MarkdownDeep
 		dl,				// render only
 		footnote,		// footnote definition  eg: [^id]   `data` holds the footnote id
 		p_footnote,		// paragraph with footnote return link append.  Return link string is in `data`.
-		div,            // Nothing special, at parsing and rendering time
+		div,  
+    txt // Nothing special, at parsing and rendering time
 	}
 
 	class Block
