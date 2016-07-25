@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
-		<id>MarkdownDeep.NET</id>
-		<title>MarkdownDeep - .NET Only Edition</title>
-		<version>1.5</version>
+		<id>MarkdownDeep-av.NET</id>
+		<title>MarkdownDeep-av</title>
+		<version>1.5.2</version>
 		<authors>Topten Software</authors>
 		<owners>Topten Software</owners>
 		<licenseUrl>http://www.toptensoftware.com/markdowndeep/license</licenseUrl>
@@ -20,5 +20,6 @@
 	</metadata>
 	<files>
 		<file src="bin/Release/MarkdownDeep.dll" target="lib/net451" />
+		<file src="bin/Release/MarkdownDeep.dll" target="lib/dnxcore50" />
 	</files>
 </package>
