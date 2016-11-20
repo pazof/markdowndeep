@@ -1236,18 +1236,19 @@ namespace MarkdownDeep
 						li.link_text [5] == ':') {
 						var link_text = li.link_text.Substring (6).Trim ();
 						if (li.link_text.StartsWith ("audio:"))
-							renderer.Audio (li.def.url, link_text, li.def.title);
+							item = renderer.Audio (li.def.url, link_text, li.def.title);
 						else if (li.link_text.StartsWith ("video:"))
-							renderer.Video (li.def.url, link_text, li.def.title);
+							item = renderer.Video (li.def.url, link_text, li.def.title);
 						else if (li.link_text.StartsWith ("image:"))
-							renderer.Image (li.def.url, link_text, li.def.title);
+							item = renderer.Image (li.def.url, link_text, li.def.title);
 						else
-							renderer.Image (li.def.url, link_text, li.def.title);
+							item = renderer.Image (li.def.url, link_text, li.def.title);
 					} else
-						renderer.Image (li.def.url, li.link_text, li.def.title); 
+						item = renderer.Image (li.def.url, li.link_text, li.def.title); 
 					break;
 				case TokenType.footnote:
 				case TokenType.abbreviation:
+					throw new NotImplementedException ();
 					break;
 				}
 				if (item != null) if (!item.Equals(default(T))) 

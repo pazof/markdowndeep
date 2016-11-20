@@ -11,7 +11,10 @@ namespace MarkdownDevBed
 		}
 		public string Render()
 		{
-			return inner.Render ().TrimEnd('\n') + '\n';
+			string data = inner.Render ();
+			if (string.IsNullOrWhiteSpace (data))
+				return "";
+			return data.TrimEnd('\n') + '\n';
 		}
 	}
 }

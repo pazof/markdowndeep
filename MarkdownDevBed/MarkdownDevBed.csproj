@@ -53,7 +53,6 @@
     <Compile Include="Rendering\MD\Interfaces.cs" />
     <Compile Include="Rendering\MD\MDBlock.cs" />
     <Compile Include="Rendering\MD\MDCodeBlock.cs" />
-    <Compile Include="Rendering\MD\MDEM.cs" />
     <Compile Include="Rendering\MD\ListItem.cs" />
     <Compile Include="Rendering\MD\OrderedList.cs" />
     <Compile Include="Rendering\MD\UnorderedList.cs" />
@@ -62,6 +61,7 @@
     <Compile Include="Rendering\MD\DT.cs" />
     <Compile Include="Rendering\MD\Table.cs" />
     <Compile Include="Rendering\MD\Paragraph.cs" />
+    <Compile Include="Rendering\MD\MDEmphasis.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MarkdownDeep\MarkdownDeep.csproj">

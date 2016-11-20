@@ -8,7 +8,8 @@ namespace MarkdownDevBed
 		public Func<MDText,string> Rendering { get; set; } = r => r.Text;
 		public string Render()
 		{
-			return Rendering(this);
+			var res = Rendering(this);
+			return res;
 		}
 
 		public MDText(string text)

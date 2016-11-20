@@ -35,7 +35,11 @@ namespace MarkdownDevBed
 
 		public IMDNode Audio(string href, string alt, string title)
         {
-			return new MDText($"![audio:{alt}]({href} \"{title}\")");
+			return new MDText(
+				string.IsNullOrWhiteSpace (title) ? 
+				$"![audio:{alt}]({href})" : 
+				$"![audio:{alt}]({href} \"{title}\")"
+				);
         }
 
 		public IMDNode Video (string href, string alt, string title)
@@ -62,7 +66,7 @@ namespace MarkdownDevBed
 
 		public IMDNode Emphasis(IMDNode [] inner)
         {
-			return new MDEM(inner);
+			return new MDEmphasis(inner);
         }
 
 		public IMDNode Header(IMDNode inner, HeaderLevel level)
@@ -116,13 +120,10 @@ namespace MarkdownDevBed
 				Rendering = (block,prefix) => {
 					var rendered = block.Items.Select(
 						item => item.Render());
-					bool multiLine = rendered.Any(
-						item => item.Contains('\n'));
-					string str = string.Join(" ",rendered);
-
-					return (multiLine ?
-						"**\n"+ str +"\n**\n" :
-						"*"+str+"*");
+					return (rendered.Any(
+							item => item.Contains('\n'))) ? 
+						"**\n"+ string.Join("\n",rendered) +"\n**\n" :
+						"**"+string.Join(" ",rendered)+"**";
 					}
 			};
         }
@@ -163,15 +164,6 @@ namespace MarkdownDevBed
 
 		public IMDNode TableHeader (string [] titles)
 		{
-			/*
-
-			var middle = string.Join ("|", titles);
-			var len = middle.Length + 2;
-			var bar = new string('-', len) ;
-
-			return $"{bar}\n|{middle}|\n{bar}\n";
-			*/
-
 			throw new NotImplementedException ();
 		}
 
