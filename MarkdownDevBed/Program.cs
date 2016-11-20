@@ -65,25 +65,32 @@ namespace MarkdownDevBed
 
 
 			string markdown=FileContents("input.txt");
-			string str = m.Transform(markdown);
-			Console.Write(str);
+			#if UPSTREAMSOURCE
+				string str = m.Transform (markdown);
+				Console.Write (str);
+			
+				var sections = MarkdownDeep.Markdown.SplitUserSections (markdown);
+				for (int i = 0; i < sections.Count; i++) {
+					Console.WriteLine ("---- Section {0} ----", i);
+					Console.Write (sections [i]);
+					Console.Write ("\n");
+				}
+				Console.WriteLine ("------------------");
 
-			var sections = MarkdownDeep.Markdown.SplitUserSections(markdown);
-			for (int i = 0; i < sections.Count; i++)
-			{
-				Console.WriteLine("---- Section {0} ----", i);
-				Console.Write(sections[i]);
-				Console.Write("\n");
-			}
-			Console.WriteLine("------------------");
+				Console.WriteLine ("------Joined-------");
+				Console.WriteLine (MarkdownDeep.Markdown.JoinUserSections (sections));
+				Console.WriteLine ("------Joined-------");
 
-			Console.WriteLine("------Joined-------");
-			Console.WriteLine(MarkdownDeep.Markdown.JoinUserSections(sections));
-			Console.WriteLine("------Joined-------");
-
-			Console.WriteLine("------start head block-------");
-			Console.WriteLine(m.HeadBlockContent);
-			Console.WriteLine("------end head block-------");
+				Console.WriteLine ("------start head block-------");
+				Console.WriteLine (m.HeadBlockContent);
+				Console.WriteLine ("------end head block-------");
+			#else
+			Console.WriteLine ("-----------start source------------------");
+			Console.WriteLine (markdown);
+			Console.WriteLine ("------end source - start filtered -------");
+			Console.WriteLine (m.Render(markdown, new MarkdownRenderer()).Render());
+			Console.WriteLine ("-----------end filtered------------------");
+			#endif
 		}
 
 

@@ -654,7 +654,7 @@ namespace MarkdownDeep
 			}
 
 			// Fenced code blocks?
-			if (m_markdown.ExtraMode && (ch == '~' || ch=='`'))
+			if (m_markdown.ExtraMode && (ch=='`'))
 			{
 				if (ProcessFencedCodeBlock(b))
 					return b.blockType;
@@ -741,7 +741,7 @@ namespace MarkdownDeep
 				return BlockType.quote;
 			}
 
-			// Horizontal rule - a line consisting of 3 or more '-', '_' or '*' with optional spaces and nothing else
+			// Horizontal rule - a line consisting of 3 or more '-', '_'  or '*' with optional spaces and nothing else
 			if (ch == '-' || ch == '_' || ch == '*')
 			{
 				int count = 0;
@@ -1522,7 +1522,7 @@ namespace MarkdownDeep
 				return false;
 
 			// Create the code block
-			b.blockType = BlockType.codeblock;
+			b.blockType = delim == '`' ? BlockType.codeblock : BlockType.span;
 			b.children = new List<Block>();
 
 			// Remove the trailing line end

@@ -200,7 +200,7 @@ namespace MarkdownDeep
 			dest.Append(">");
 		}
 
-
+		[Obsolete("Use HtmlTag Parse(StringScanner p)")]
 		public static HtmlTag Parse(string str, ref int pos)
 		{
 			StringScanner sp = new StringScanner(str, pos);

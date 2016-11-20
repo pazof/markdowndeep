@@ -40,29 +40,31 @@ namespace MarkdownDeep
 		close_em,		// </em>
 		open_strong,	// <strong>
 		close_strong,	// </strong>
-		code_span,		// <code></code>
+		code_span,		// <code></code>, data = (string) // language
+		underline,      // <u></u>
 		br,				// <br />
-
+		strike,         // <strike></strike>
 		link,			// <a href>, data = LinkInfo
 		img,			// <img>, data = LinkInfo
 		footnote,		// Footnote reference
 		abbreviation,	// An abbreviation, data is a reference to Abbrevation instance
 
 		// These are used during construction of <em> and <strong> tokens
-		opening_mark,	// opening '*' or '_'
-		closing_mark,	// closing '*' or '_'
-		internal_mark,	// internal '*' or '_'
+		opening_mark,	// opening '*' 
+		closing_mark,	// closing '*' 
+		internal_mark,	// internal '*' 
 	}
 
 	// Token
 	internal class Token
 	{
 		// Constructor
-		public Token(TokenType type, int startOffset, int length)
+		public Token(TokenType type, int startOffset, int length, object data = null)
 		{
 			this.type = type;
 			this.startOffset = startOffset;
 			this.length = length;
+			this.data = data;
 		}
 
 		// Constructor
@@ -74,7 +76,7 @@ namespace MarkdownDeep
 
 		public override string ToString()
 		{
-			if (true || data == null)
+			if (data == null)
 			{
 				return string.Format("{0} - {1} - {2}", type.ToString(), startOffset, length);
 			}

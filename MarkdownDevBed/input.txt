@@ -2,3 +2,23 @@
  1. List 2 - Item 1
  2. List 2 - Item 2
 * List Item 2
+
+```csharp
+void Test (id="C0|)€")
+{ return "BLAH"; }
+```
+
+Test `code i1` in text
+
+Test spans ~~strikeout~~
+
+Test spans **emhasysis** 
+
+1.  ~Strike~
+2.  _Underline_
+3.  *Emphasys*
+4.  **Strong**
+
+![video:test](test.avi)
+
+![audio:test](test.avi)

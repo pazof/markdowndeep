@@ -14,8 +14,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
+using System.Linq;
 
 namespace MarkdownDeep
 {
@@ -58,10 +58,22 @@ namespace MarkdownDeep
 			// Process blocks
 			return new BlockProcessor(this, MarkdownInHtml).Process(str);
 		}
+		private Dictionary<string, LinkDefinition> definitions;
+		public Dictionary<string, LinkDefinition> Definitions { get { return definitions; } set { definitions=value; } }
+
 		public string Transform(string str)
 		{
-			Dictionary<string, LinkDefinition> defs;
-			return Transform(str, out defs);
+			return Transform(str, out definitions);
+		}
+
+		// Renders markdown using a client renderer,
+		// thanks to its IMarkdownRenderer implementation
+		public T Render<T>(string str, IMarkdownRenderer<T> renderer) 
+		{
+			if (renderer == null)
+				throw new InvalidOperationException (
+					"No renderer were specified");
+			return Render<T>(str, out definitions, renderer);
 		}
 
 		// Transform a string
@@ -200,6 +212,81 @@ namespace MarkdownDeep
 
 			// Done
 			return sb.ToString();
+		}
+
+		// Renders markdown using a client renderer,
+		// thanks to its IMarkdownRenderer implementation
+		public T Render<T>(string str, out Dictionary<string, LinkDefinition> definitions, IMarkdownRenderer<T> renderer)
+		{
+			if (renderer == null)
+				throw new InvalidOperationException();
+			
+			// Build blocks
+			var blocks = ProcessBlocks(str);
+
+			definitions = m_LinkDefinitions;
+
+			// Sort abbreviations by length, longest to shortest
+			if (m_AbbreviationMap != null)
+			{
+				m_AbbreviationList = new List<Abbreviation>();
+				m_AbbreviationList.AddRange(m_AbbreviationMap.Values);
+				m_AbbreviationList.Sort(
+					delegate (Abbreviation a, Abbreviation b)
+					{
+						return b.Abbr.Length - a.Abbr.Length;
+					}
+				);
+			}
+			var rendered = blocks.Select (b => b.Render (this, renderer));
+				
+			return renderer.AggregateBlock (rendered.ToArray());
+
+			/* 
+			int iSection = -1;
+
+			// Leading section (ie: plain text before first heading)
+			if (blocks.Count > 0 && !IsSectionHeader(blocks[0]))
+			{
+				iSection = 0;
+			// TODO	OnSectionHeader(renderer, 0);
+			// but not this, that yet was a non sense
+			// using a string builder: OnSectionHeadingSuffix(renderer, 0);
+			}
+
+
+			foreach (var b in blocks) { 
+				// New section?
+				if (IsSectionHeader(b))
+				{
+					// Finish the previous section
+					if (iSection >= 0)
+					{
+						OnSectionFooter(sb, iSection);
+					}
+
+					// Work out next section index
+					iSection = iSection < 0 ? 1 : iSection + 1;
+
+					// Section header
+					OnSectionHeader(sb, iSection);
+
+					// Section Heading
+					b.Render(this, sb);
+
+					// Section Heading suffix
+					OnSectionHeadingSuffix(sb, iSection);
+				}
+				else
+				{
+					// Regular section
+					b.Render(this, sb);
+				}
+			}
+*/
+
+
+			
 		}
 
 		public int SummaryLength

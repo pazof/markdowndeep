@@ -56,7 +56,8 @@ namespace MarkdownDeep
 		footnote,		// footnote definition  eg: [^id]   `data` holds the footnote id
 		p_footnote,		// paragraph with footnote return link append.  Return link string is in `data`.
 		div,  
-    txt // Nothing special, at parsing and rendering time
+		strike,
+    	txt // Nothing special, at parsing and rendering time
 	}
 
 	class Block
@@ -111,6 +112,16 @@ namespace MarkdownDeep
 			}
 		}
 
+		internal T RenderChildren<T>(Markdown m, IMarkdownRenderer<T> b)
+		{
+			var list = new List<T> ();
+			foreach (var child in children)
+			{
+				list.Add( child.Render(m,b));
+			}
+			return b.AggregateBlock (list.ToArray ());
+		}
+
 		internal void RenderChildrenPlain(Markdown m, StringBuilder b)
 		{
 			foreach (var block in children)
@@ -140,6 +151,123 @@ namespace MarkdownDeep
 
 			this.data = id;
 			return id;
+		}
+
+		internal T Render<T>(Markdown m, IMarkdownRenderer<T> b) 
+		{
+			switch (blockType)
+			{
+			case BlockType.Blank:
+				return b.Blank ();
+
+			case BlockType.p:
+			case BlockType.div:
+				var inner = m.SpanFormatter.RenderToAny<T> (b, buf.Substring (contentStart, contentLen));
+				return b.Paragraph (inner);
+			case BlockType.span:
+				return m.SpanFormatter.RenderToAny<T>(b, buf.Substring(contentStart, contentLen)) ;
+
+			case BlockType.h1: return b.Header (m.Render (buf, b), HeaderLevel.H1);
+			case BlockType.h2: return b.Header (m.Render (buf, b), HeaderLevel.H2);
+			case BlockType.h3: return b.Header (m.Render (buf, b), HeaderLevel.H3);
+			case BlockType.h4: return b.Header (m.Render (buf, b), HeaderLevel.H4);
+			case BlockType.h5: return b.Header (m.Render (buf, b), HeaderLevel.H5);
+			case BlockType.h6: return b.Header (m.Render (buf, b), HeaderLevel.H6);
+
+			case BlockType.hr:
+				return b.NewLine ();
+
+			case BlockType.user_break:
+				return b.NewLine ();
+
+			case BlockType.ol_li:
+			case BlockType.ul_li:
+				return b.ListItem(m.SpanFormatter.RenderToAny<T>(b,buf.Substring(contentStart, contentLen)));
+
+			case BlockType.dd:
+				if (children != null) {
+					return RenderChildren(m, b);
+				}
+				else {
+					return b.DD(m.SpanFormatter.RenderToAny<T>(b,buf.Substring(contentStart, contentLen)));
+				}
+
+			case BlockType.dt:
+				if (children != null) {
+					return RenderChildren(m,b);
+				}
+				else {
+					return b.DD(m.SpanFormatter.RenderToAny<T>(b,buf.Substring(contentStart, contentLen)));
+				}
+
+			case BlockType.dl: return RenderChildren(m, b);
+
+			case BlockType.html:
+			case BlockType.unsafe_html:
+				return b.Text (buf.Substring (contentStart, contentLen));
+
+			case BlockType.codeblock: 
+				{
+					
+					var lines = children.Select (line => line.buf.Substring (line.contentStart, line.contentLen));
+
+
+					return b.CodeBlock (lines.ToArray(),null);
+				}
+
+			case BlockType.quote: return b.Quote(RenderChildren(m, b));
+
+			case BlockType.li: return b.ListItem(RenderChildren(m, b));
+
+			case BlockType.ol:
+				{
+					List<T> items = new List<T> ();
+					foreach (var block in children) {
+						items.Add (block.Render (m, b));
+					}
+					return b.OrderedList (items.ToArray());
+				}
+
+			case BlockType.ul: 
+				{
+					List<T> items = new List<T> ();
+					foreach (var block in children) {
+						items.Add (block.Render (m, b));
+					}
+					return b.UnorderedList (items.ToArray());
+				}
+
+			case BlockType.HtmlTag:
+				{
+					var tag = (HtmlTag)data;
+
+					// Prepare special tags
+					var name = tag.name.ToLowerInvariant ();
+					if (name == "a") {
+						m.OnPrepareLink (tag);
+					} else if (name == "img") {
+						m.OnPrepareImage (tag, m.RenderingTitledImage);
+					}
+					return RenderChildren (m, b);
+				}
+
+			case BlockType.Composite:
+			case BlockType.footnote:
+				return RenderChildren(m, b);
+
+			case BlockType.table_spec:
+				throw new NotImplementedException ();
+
+			case BlockType.p_footnote:
+				if (contentLen > 0)
+				{
+					return b.FootNote( m.SpanFormatter.RenderToAny<T>(b,buf.Substring(contentStart, contentLen)) , "");
+				}
+				return b.FootNote(default(T),(string) data);
+
+			default:
+				return m.SpanFormatter.RenderToAny<T>(b,buf.Substring(contentStart, contentLen));
+			}
 		}
 
 		internal void Render(Markdown m, StringBuilder b)

@@ -247,6 +247,19 @@ namespace MarkdownDeep
 			return true;
 		}
 
+		public string ReadId()
+		{
+			if (!char.IsLetter (current))
+				return null;
+			string lang = "";
+			while (char.IsLetterOrDigit (current) ||
+				char.IsPunctuation(current)) {
+				lang += current;
+				SkipForward (1);
+			}
+			return lang;
+		}
+
 		// Check if a character is space or tab
 		public static bool IsLineSpace(char ch)
 		{

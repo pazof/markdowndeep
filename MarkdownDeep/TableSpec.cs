@@ -114,7 +114,16 @@ namespace MarkdownDeep
 				b.Append(">\n");
 			}
 		}
-	
+		internal T Render<T> (Markdown m, IMarkdownRenderer<T> b) where T : IEquatable<T>
+		{
+			var head = b.TableHeader(Headers.ToArray());
+			T body = default(T);
+			foreach (var row in Rows) {
+				throw new NotImplementedException ();
+			}
+			return b.Table (head,body);
+		}
+
 		public void Render(Markdown m, StringBuilder b)
 		{
 			b.Append("<table>\n");

@@ -1,0 +1,15 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workbench ActiveDocument="SpanFormatter.cs">
+    <Files>
+      <File FileName="SpanFormatter.cs" Line="400" Column="7" />
+      <File FileName="Token.cs" Line="39" Column="8" />
+      <File FileName="StringScanner.cs" Line="202" Column="15" />
+      <File FileName="MardownDeep.cs" Line="815" Column="31" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

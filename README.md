@@ -8,4 +8,3 @@ is prefixed with either audio:`or video.
 ex:
 
          ![video:Hello world](http://your.company.com/hello.mp4)
-
