@@ -11,7 +11,7 @@ namespace MarkdownDevBed
 		}
 		public string Render()
 		{
-			return inner.Render () + '\n';
+			return inner.Render ().TrimEnd('\n') + '\n';
 		}
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace MarkdownDevBed
 {
@@ -12,9 +13,9 @@ namespace MarkdownDevBed
 		public string ListPrefix { get; set; } = "  ";
 		public string Render()
 		{
-			return Prefix +
-				string.Join ("\n" + ListPrefix, 
-					inner.Render ().Split ('\n'));
+			var toRender = inner.Render ().Split ('\n').Where(s=>!string.IsNullOrWhiteSpace(s));
+
+			return Prefix + string.Join ("\n" + ListPrefix, toRender);
 		}
 	}
 }
