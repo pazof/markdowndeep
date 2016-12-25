@@ -5,6 +5,7 @@ using System.Text;
 using MarkdownDeep;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace MarkdownDevBed
 {
@@ -65,7 +66,7 @@ namespace MarkdownDevBed
 
 
 			string markdown=FileContents("input.txt");
-			#if UPSTREAMSOURCE
+#if UPSTREAMSOURCE
 				string str = m.Transform (markdown);
 				Console.Write (str);
 			
@@ -84,14 +85,16 @@ namespace MarkdownDevBed
 				Console.WriteLine ("------start head block-------");
 				Console.WriteLine (m.HeadBlockContent);
 				Console.WriteLine ("------end head block-------");
-			#else
-			Console.WriteLine ("-----------start source------------------");
-			Console.WriteLine (markdown);
-			Console.WriteLine ("------end source - start filtered -------");
-			Console.WriteLine (m.Render(markdown, new MarkdownRenderer()).Render());
-			Console.WriteLine ("-----------end filtered------------------");
-			#endif
-		}
+#else
+
+            Console.WriteLine("-----------start source------------------");
+            Console.WriteLine(markdown);
+            Console.WriteLine("------end source - start filtered -------");
+            Console.WriteLine(m.Render(markdown, new MarkdownRenderer()).Render());
+            Console.WriteLine("-----------end filtered------------------");
+            Console.ReadLine();
+#endif
+        }
 
 
 		/// <summary>
