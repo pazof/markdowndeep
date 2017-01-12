@@ -145,7 +145,7 @@ namespace MarkdownDeep.Rendering.Markdown
 		public IMDNode Underline(IMDNode existent)
 		{
 			return new MDText(existent.Render()) {
-				Rendering = x=> $"*{x.Text}*"
+				Rendering = x=> $"_{x.Text}_"
 			};
         }
 
