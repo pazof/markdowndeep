@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MarkdownDevBed
+namespace MarkdownDeep.Rendering.Markdown
 {
 	public class Paragraph : IMDNode {
 

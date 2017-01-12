@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace MarkdownDevBed
+namespace MarkdownDeep.Rendering.TeX
 {
 	public class MDEmphasis : IMDBlock {
 		IMDNode [] parts;

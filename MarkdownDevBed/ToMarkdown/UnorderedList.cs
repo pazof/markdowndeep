@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace MarkdownDevBed
+namespace MarkdownDeep.Rendering.Markdown
 {
 	public class UnorderedList : IMDNode {
 		IMDNode [] items;

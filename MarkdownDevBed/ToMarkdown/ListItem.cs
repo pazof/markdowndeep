@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace MarkdownDevBed
+namespace MarkdownDeep.Rendering.Markdown
 {
 	public class ListItem : IMDNode {
 		IMDNode inner;
@@ -10,7 +10,7 @@ namespace MarkdownDevBed
 			this.inner = inner;
 		}
 		public string Prefix { get; set; } = "* ";
-		public string ListPrefix { get; set; } = "  ";
+		public string ListPrefix { get; set; } = " ";
 		public string Render()
 		{
 			var toRender = inner.Render ().Split ('\n').Where(s=>!string.IsNullOrWhiteSpace(s));

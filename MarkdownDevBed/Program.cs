@@ -5,6 +5,7 @@ using System.Text;
 using MarkdownDeep;
 using System.IO;
 using System.Text.RegularExpressions;
+using MarkdownDeep.Rendering.Markdown;
 
 namespace MarkdownDevBed
 {

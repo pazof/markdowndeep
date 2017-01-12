@@ -4,8 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Collections.Generic;
 
-namespace MarkdownDevBed
+namespace MarkdownDeep.Rendering.Markdown
 {
+	/// <summary>
+	/// Markdown renderer.
+	/// Once fully implemented, it could be used to parse markdown and build an
+	/// `IMDNode` implementation used as a DOM.
+	/// Note: the first rendering produces an IMDNode.
+	/// This IMDNode allows the latest rendering, to Markdown, as a string
+	/// </summary>
 	public class MarkdownRenderer : IMarkdownRenderer<IMDNode> 
 	{
 		public IMDNode Paragraph(IMDNode inner)
@@ -97,7 +104,7 @@ namespace MarkdownDevBed
 
 		public IMDNode OrderedList(IMDNode[] list)
         {
-			return new MarkdownDevBed.OrderedList(list);
+			return new OrderedList(list);
         }
 
 		public IMDNode Quote(IMDNode inner)
@@ -144,22 +151,22 @@ namespace MarkdownDevBed
 
 		public IMDNode UnorderedList (IMDNode[] list)
         {
-			return new MarkdownDevBed.UnorderedList(list);
+			return new UnorderedList(list);
 		}
 		
 		public IMDNode DD(IMDNode data)
 		{
-			return new MarkdownDevBed.DD(data);
+			return new DD(data);
 		}
 
 		public IMDNode DT(IMDNode data)
 		{
-			return new MarkdownDevBed.DT(data);
+			return new DT(data);
 		}
 
 		public IMDNode Table(IMDNode head, IMDNode body)
 		{
-			return new MarkdownDevBed.Table ( head, body) ;
+			return new Table ( head, body) ;
 		}
 
 		public IMDNode TableHeader (string [] titles)

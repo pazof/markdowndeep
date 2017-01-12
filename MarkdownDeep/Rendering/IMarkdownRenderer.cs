@@ -1,5 +1,5 @@
 ﻿using System;
-namespace MarkdownDeep
+namespace MarkdownDeep.Rendering
 {
 	public enum HeaderLevel: int
 	{

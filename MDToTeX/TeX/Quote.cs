@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MarkdownDevBed
+namespace MarkdownDeep.Rendering.TeX
 {
 	public class Quote : IMDNode {
 

@@ -82,7 +82,7 @@
     <Compile Include="TableSpec.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="Utils.cs" />
-    <Compile Include="IMarkdownRenderer.cs" />
+    <Compile Include="Rendering\IMarkdownRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MarkdownDeep.nuspec" />
@@ -114,4 +114,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <Folder Include="Rendering\" />
+  </ItemGroup>
 </Project>

@@ -1,10 +1,7 @@
 ﻿using System;
 
-namespace MarkdownDevBed
+namespace MarkdownDeep.Rendering.TeX
 {
-	public interface IMDNode  {
-		string Render();
-	}
 	public interface IMDBlock: IMDNode {
 		string Render(string prefix);
 	}

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{04228801-54FA-43A8-9CA4-545F2D223BF3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>MDToTeX</RootNamespace>
+    <AssemblyName>MDToTeX</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MyClass.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TeX\DD.cs" />
+    <Compile Include="TeX\DT.cs" />
+    <Compile Include="TeX\IMDNode.cs" />
+    <Compile Include="TeX\ListItem.cs" />
+    <Compile Include="TeX\TeXRenderer.cs" />
+    <Compile Include="TeX\MDBlock.cs" />
+    <Compile Include="TeX\MDCodeBlock.cs" />
+    <Compile Include="TeX\MDEmphasis.cs" />
+    <Compile Include="TeX\MDText.cs" />
+    <Compile Include="TeX\OrderedList.cs" />
+    <Compile Include="TeX\Paragraph.cs" />
+    <Compile Include="TeX\Quote.cs" />
+    <Compile Include="TeX\Table.cs" />
+    <Compile Include="TeX\UnorderedList.cs" />
+    <Compile Include="TeX\IMDBlock.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\MarkdownDeep\MarkdownDeep.csproj">
+      <Project>{1569ED47-C7C9-4261-B6F4-7445BD0F2C95}</Project>
+      <Name>MarkdownDeep</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TeX\" />
+  </ItemGroup>
+</Project>
