@@ -17,12 +17,17 @@ namespace MarkdownDeepGui
 			this.txtMarkdown.Text = "# Welcome to MarkdownDeep #\r\n\r\nType markdown text above, see formatted text below!";
 			this.txtMarkdown.SelectionStart = this.txtMarkdown.Text.Length;
 			m_Markdown.ExtraMode = true;
+			webPreview.DocumentCompleted += (sender, e) => {
+				this.Update();
+			};
 		}
 
 		private void doUpdate()
 		{
-			this.txtSource.Text = m_Markdown.Transform(txtMarkdown.Text).Replace("\n", "\r\n");
-			this.webPreview.DocumentText = this.txtSource.Text;
+			var body = m_Markdown.Transform (txtMarkdown.Text).Replace ("\n", "\r\n");
+			this.txtSource.Text = body;
+			this.webPreview.DocumentText = $"<html><head></head><body>{body}</body>";
+
 		}
 
 		private void txtMarkdown_TextChanged(object sender, EventArgs e)

@@ -31,7 +31,8 @@
 			this.txtMarkdown = new System.Windows.Forms.TextBox();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
-			this.webPreview = new System.Windows.Forms.WebBrowser();
+			this.webPreview = new System.Windows.Forms.WebBrowser(){
+				AllowWebBrowserDrop = true, DocumentText = "nah"};
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.txtSource = new System.Windows.Forms.TextBox();
 			this.checkSafeMode = new System.Windows.Forms.CheckBox();

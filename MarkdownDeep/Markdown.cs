@@ -20,16 +20,7 @@ using MarkdownDeep.Rendering;
 
 namespace MarkdownDeep
 {
-
-	public class ImageInfo
-	{
-		public string url;
-		public bool titled_image;
-		public int width;
-		public int height;
-	}
-
-
+	
 	public class Markdown
 	{
 		// Constructor
@@ -74,7 +65,8 @@ namespace MarkdownDeep
 			if (renderer == null)
 				throw new InvalidOperationException (
 					"No renderer were specified");
-			return Render<T>(str, out definitions, renderer);
+			var items = Render<T>(str, out definitions, renderer);
+			return renderer.AggregateFinalBlock(items.ToArray()); 
 		}
 
 		// Transform a string
@@ -217,7 +209,7 @@ namespace MarkdownDeep
 
 		// Renders markdown using a client renderer,
 		// thanks to its IMarkdownRenderer implementation
-		public T Render<T>(string str, out Dictionary<string, LinkDefinition> definitions, IMarkdownRenderer<T> renderer)
+		public IEnumerable<T> Render<T>(string str, out Dictionary<string, LinkDefinition> definitions, IMarkdownRenderer<T> renderer)
 		{
 			if (renderer == null)
 				throw new InvalidOperationException();
@@ -239,9 +231,9 @@ namespace MarkdownDeep
 					}
 				);
 			}
-			var rendered = blocks.Select (b => b.Render (this, renderer));
+
+			return  blocks.Select (b => b.Render (this, renderer));
 				
-			return renderer.AggregateBlock (rendered.ToArray());
 
 			/* 
 			int iSection = -1;
@@ -288,6 +280,16 @@ namespace MarkdownDeep
 
 
 			
+		}
+
+		// RenderInternal
+		public T RenderInternal<T>(string str, IMarkdownRenderer<T> renderer) 
+		{
+			if (renderer == null)
+				throw new InvalidOperationException (
+					"No renderer were specified");
+			var result = Render<T>(str, out definitions, renderer);
+			return renderer.AggregateBlock (result.ToArray());
 		}
 
 		public int SummaryLength

@@ -1,45 +1,35 @@
-﻿<Properties StartupItem="MarkdownDevBed/MarkdownDevBed.csproj" GitUserInfo="UsingMD">
-  <MonoDevelop.Ide.ItemProperties.MarkdownDevBed PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="MDToTeX/TeX/MDText.cs">
+﻿<Properties StartupConfiguration="{FBDF1B77-BF84-4B3D-83DE-46271C468690}|Default" GitUserInfo="UsingMD" StartupItem="MDGui.Gtk2/MDGui.Gtk2.csproj">
+  <MonoDevelop.Ide.ItemProperties.MarkdownDeep PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="MDGui/MainForm.xeto.cs">
     <Files>
-      <File FileName="MarkdownDevBed/Program.cs" Line="92" Column="76" />
-      <File FileName="MarkdownDeep/Rendering/IMarkdownRenderer.cs" Line="15" Column="41" />
-      <File FileName="MDToTeX/MyClass.cs" Line="13" Column="1" />
-      <File FileName="MDToTeX/TeX/TeXRenderer.cs" Line="16" Column="56" />
-      <File FileName="MDToTeX/TeX/IMDNode.cs" Line="5" Column="2" />
-      <File FileName="MDToTeX/TeX/IMDBlock.cs" Line="3" Column="37" />
-      <File FileName="MDToTeX/TeX/MDText.cs" Line="14" Column="3" />
-      <File FileName="MDToTeX/TeX/MDCodeBlock.cs" Line="3" Column="37" />
-      <File FileName="MDToTeX/TeX/MDBlock.cs" Line="22" Column="18" />
-      <File FileName="MDToTeX/TeX/MDEmphasis.cs" Line="4" Column="37" />
-      <File FileName="MDToTeX/TeX/DD.cs" Line="3" Column="37" />
-      <File FileName="MDToTeX/TeX/DT.cs" Line="17" Column="72" />
-      <File FileName="MDToTeX/TeX/ListItem.cs" Line="11" Column="4" />
-      <File FileName="MarkdownDevBed/ToMarkdown/ListItem.cs" Line="23" Column="1" />
-      <File FileName="MDToTeX/TeX/OrderedList.cs" Line="4" Column="37" />
-      <File FileName="MDToTeX/TeX/Paragraph.cs" Line="7" Column="17" />
-      <File FileName="MDToTeX/TeX/Quote.cs" Line="8" Column="30" />
-      <File FileName="MDToTeX/TeX/Table.cs" Line="17" Column="2" />
-      <File FileName="MDToTeX/TeX/UnorderedList.cs" Line="6" Column="32" />
+      <File FileName="MDGui/MainForm.xeto.cs" Line="46" Column="26" />
+      <File FileName="MarkdownDeepTest/Test.cs" Line="1" Column="1" />
+      <File FileName="MarkdownDeepTest/Resources.resx" Line="1" Column="1" />
+      <File FileName="MarkdownDeep/Markdown.cs" Line="1" Column="1" />
+      <File FileName="MarkdownDeep/Block.cs" Line="1" Column="1" />
+      <File FileName="MarkdownDeep/SpanFormatter.cs" Line="1176" Column="25" />
+      <File FileName="MDGui.Gtk2/Program.cs" Line="12" Column="1" />
+      <File FileName="MDGui/MainForm.xeto" Line="25" Column="15" />
     </Files>
     <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="MarkdownDeep" expanded="True">
-            <Node name="MDToTeX" selected="True" />
-          </Node>
-        </State>
-      </Pad>
       <Pad Id="ClassPad">
         <State name="__root__">
           <Node name="MarkdownDeep" expanded="True">
-            <Node name="MarkdownDeep" expanded="True">
-              <Node name="MarkdownDeep" expanded="True">
-                <Node name="Rendering" expanded="True">
-                  <Node name="Markdown" expanded="True">
-                    <Node name="MarkdownDeep.Rendering.Markdown.IMDBlock" selected="True" />
-                    <Node name="MarkdownDeep.Rendering.Markdown.IMDNode" expanded="True" />
-                  </Node>
+            <Node name="MDGui" expanded="True">
+              <Node name="MDGui" expanded="True">
+                <Node name="MDGui.XamlPanel" expanded="True" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.NUnit.TestPad">
+        <State name="__root__">
+          <Node name="MarkdownDeep" expanded="True">
+            <Node name="MarkdownDeepTest" expanded="True">
+              <Node name="MarkdownDeepTest" expanded="True">
+                <Node name="Test" expanded="True">
+                  <Node name="MarkdownLegacyBehaviorRuns" selected="True" />
                 </Node>
               </Node>
             </Node>
@@ -48,14 +38,16 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/home/paul/workspace/markdowndeep/MarkdownDeep/Block.cs" line="213" column="14" />
+      <Breakpoint file="/home/paul/workspace/markdowndeep/MDGui/XamlPanel.cs" line="12" column="8" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
     <Watch file="../yavsc/web/Controllers/BlogsController.cs" line="180" offsetX="384" offsetY="2864" expression="e" liveUpdate="False" />
   </MonoDevelop.Ide.DebuggingService.PinnedWatches>
-  <MonoDevelop.Ide.ItemProperties.MarkdownDeep PreferredExecutionTarget="MonoDevelop.Default" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.MarkdownDevBed PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.ItemProperties.MarkdownDeepGui PreferredExecutionTarget="MonoDevelop.Default" />
 </Properties>

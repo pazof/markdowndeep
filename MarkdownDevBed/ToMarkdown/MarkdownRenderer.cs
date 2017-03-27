@@ -34,6 +34,11 @@ namespace MarkdownDeep.Rendering.Markdown
 			return new MDBlock (parts);
 		}
 
+		public IMDNode AggregateFinalBlock(IMDNode [] parts)
+		{
+			return new MDBlock (parts);
+		}
+
 		public IMDNode Image(string href, string alt, string title)
 		{
 			return new MDText((string.IsNullOrWhiteSpace (title)) ? 
@@ -58,12 +63,7 @@ namespace MarkdownDeep.Rendering.Markdown
 
 		public IMDNode Code(string source)
         {
-			if (source.Contains ('\n')) {
-				var lines = source.Split ('\n');
-				return new MDCodeBlock (lines.ToArray (), null);
-			} else {
-				return new MDText($"`{source}`");
-			}
+			return new MDText($"`{source}`");
         }
 			
 		public IMDNode CodeBlock (string[] lines, string lang)

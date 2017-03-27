@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MarkdownDeep</RootNamespace>
     <AssemblyName>MarkdownDeep</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -74,7 +74,6 @@
     <Compile Include="HtmlTag.cs" />
     <Compile Include="LinkDefinition.cs" />
     <Compile Include="LinkInfo.cs" />
-    <Compile Include="MardownDeep.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Block.cs" />
     <Compile Include="SpanFormatter.cs" />
@@ -83,6 +82,9 @@
     <Compile Include="Token.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Rendering\IMarkdownRenderer.cs" />
+    <Compile Include="ImageInfo.cs" />
+    <Compile Include="Markdown.cs" />
+    <Compile Include="Rendering\HeaderLevel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MarkdownDeep.nuspec" />

@@ -1169,7 +1169,8 @@ namespace MarkdownDeep
 			Stack<Grouping<T>> groups = new Stack<Grouping<T>> ();
 			List<T> result = new List<T>();
 			LinkInfo li;
-			foreach (Token t in m_Tokens) {
+			var items = m_Tokens.ToArray ();
+			foreach (Token t in items) {
 				T item = default(T);
 				switch (t.type) {
 				case TokenType.Text:
@@ -1250,7 +1251,6 @@ namespace MarkdownDeep
 				case TokenType.footnote:
 				case TokenType.abbreviation:
 					throw new NotImplementedException ();
-					break;
 				}
 				if (item != null) if (!item.Equals(default(T))) 
 				{

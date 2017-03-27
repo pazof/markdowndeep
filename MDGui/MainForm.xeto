@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://schema.picoe.ca/eto.forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+  xmlns:local="MDGui"
+  Title="My Eto Form" x:Name="form">
+	<Splitter Orientation="Horizontal">
+		<Splitter.Panel1>
+<RichTextArea x:Name="sourceCode" Wrap="True" SpellCheck="True" AcceptsReturn="True" AcceptsTab="True">
+# Hello Markdown! #
+
+---
+[Paul's freuh](http://lua.pschneider.fr)
+</RichTextArea>
+		</Splitter.Panel1>
+		<Splitter.Panel2>
+			<TabControl>
+				<TabPage Text="Html View">
+						<WebView x:Name="htmlView" XBrowserContextMenuEnabled="True" Width="450" Height="270">
+						</WebView>
+				</TabPage>
+				<TabPage Text="Html code">
+					<Label Font="Fixed" x:Name="htmlCode">&lt;html/&gt;</Label>
+				</TabPage>
+				<TabPage Text="Xaml view" x:Name="xamlContainer">
+				</TabPage>
+				<TabPage Text="Xaml code">
+					<Label Font="Fixed"  x:Name="xamlCode">Some Content</Label>
+				</TabPage>
+			</TabControl>
+		</Splitter.Panel2>
+	</Splitter>
+	<Form.Menu>
+		<MenuBar>
+			<ButtonMenuItem Text="F&amp;ile">
+				<ButtonMenuItem Text="Click Me!" Click="HandleClickMe" />
+			</ButtonMenuItem>
+			<MenuBar.ApplicationItems>
+				<ButtonMenuItem Text="Preferences.." Shortcut="{On Control+O, Mac=Application+Comma}" />
+			</MenuBar.ApplicationItems>
+			<MenuBar.QuitItem>
+				<ButtonMenuItem Text="Quit!" Shortcut="CommonModifier+Q" Click="HandleQuit" />
+			</MenuBar.QuitItem>
+		</MenuBar>
+	</Form.Menu>
+	<Form.ToolBar>
+		<ToolBar>
+			<ButtonToolItem Text="Click Me!" Click="HandleClickMe" />
+		</ToolBar>
+	</Form.ToolBar>
+</Form>

@@ -1,13 +1,7 @@
 ﻿using System;
 namespace MarkdownDeep.Rendering
 {
-	public enum HeaderLevel: int
-	{
-		H1 = 1, H2, H3, H4, H5, H6
-	}
-
 	public interface IMarkdownRenderer<T>
-
 	{
 		/// <summary>
 		/// Paragraph the specified inner.
@@ -26,6 +20,9 @@ namespace MarkdownDeep.Rendering
 		/// <returns>The block.</returns>
 		/// <param name="children">Children.</param>
 		T AggregateBlock (T [] children); 
+
+		T AggregateFinalBlock (T [] children); 
+
 		/// <summary>
 		/// Render as text the specified txt.
 		/// </summary>

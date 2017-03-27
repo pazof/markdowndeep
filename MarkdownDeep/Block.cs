@@ -116,6 +116,8 @@ namespace MarkdownDeep
 		internal T RenderChildren<T>(Markdown m, IMarkdownRenderer<T> b)
 		{
 			var list = new List<T> ();
+			if (children == null)
+				return default(T);
 			foreach (var child in children)
 			{
 				list.Add( child.Render(m,b));
@@ -168,12 +170,12 @@ namespace MarkdownDeep
 			case BlockType.span:
 				return m.SpanFormatter.RenderToAny<T>(b, buf.Substring(contentStart, contentLen)) ;
 
-			case BlockType.h1: return b.Header (m.Render (buf, b), HeaderLevel.H1);
-			case BlockType.h2: return b.Header (m.Render (buf, b), HeaderLevel.H2);
-			case BlockType.h3: return b.Header (m.Render (buf, b), HeaderLevel.H3);
-			case BlockType.h4: return b.Header (m.Render (buf, b), HeaderLevel.H4);
-			case BlockType.h5: return b.Header (m.Render (buf, b), HeaderLevel.H5);
-			case BlockType.h6: return b.Header (m.Render (buf, b), HeaderLevel.H6);
+			case BlockType.h1: return b.Header (m.RenderInternal (Content, b), HeaderLevel.H1);
+			case BlockType.h2: return b.Header (m.RenderInternal (Content, b), HeaderLevel.H2);
+			case BlockType.h3: return b.Header (m.RenderInternal (Content, b), HeaderLevel.H3);
+			case BlockType.h4: return b.Header (m.RenderInternal (Content, b), HeaderLevel.H4);
+			case BlockType.h5: return b.Header (m.RenderInternal (Content, b), HeaderLevel.H5);
+			case BlockType.h6: return b.Header (m.RenderInternal (Content, b), HeaderLevel.H6);
 
 			case BlockType.hr:
 				return b.NewLine ();
@@ -183,14 +185,14 @@ namespace MarkdownDeep
 
 			case BlockType.ol_li:
 			case BlockType.ul_li:
-				return b.ListItem(m.SpanFormatter.RenderToAny<T>(b,buf.Substring(contentStart, contentLen)));
+				return b.ListItem(m.SpanFormatter.RenderToAny<T>(b,Content));
 
 			case BlockType.dd:
 				if (children != null) {
 					return RenderChildren(m, b);
 				}
 				else {
-					return b.DD(m.SpanFormatter.RenderToAny<T>(b,buf.Substring(contentStart, contentLen)));
+					return b.DD(m.SpanFormatter.RenderToAny<T>(b,Content));
 				}
 
 			case BlockType.dt:
@@ -198,14 +200,14 @@ namespace MarkdownDeep
 					return RenderChildren(m,b);
 				}
 				else {
-					return b.DD(m.SpanFormatter.RenderToAny<T>(b,buf.Substring(contentStart, contentLen)));
+					return b.DD(m.SpanFormatter.RenderToAny<T>(b,Content));
 				}
 
 			case BlockType.dl: return RenderChildren(m, b);
 
 			case BlockType.html:
 			case BlockType.unsafe_html:
-				return b.Text (buf.Substring (contentStart, contentLen));
+				return b.Text (Content);
 
 			case BlockType.codeblock: 
 				{
