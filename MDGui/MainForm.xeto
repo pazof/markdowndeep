@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Form xmlns="http://schema.picoe.ca/eto.forms"
-  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-  xmlns:local="MDGui"
+  xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml" 
+  xmlns:local = "clr-namespace:MDGui;assembly=MDGui"
   Title="My Eto Form" x:Name="form">
 	<Splitter Orientation="Horizontal">
 		<Splitter.Panel1>
@@ -21,10 +21,11 @@
 				<TabPage Text="Html code">
 					<Label Font="Fixed" x:Name="htmlCode">&lt;html/&gt;</Label>
 				</TabPage>
-				<TabPage Text="Xaml view" x:Name="xamlContainer">
+				<TabPage Text="Xaml view" x:Name="xamlViewTab">
+				   <Button Text="Test" />
 				</TabPage>
 				<TabPage Text="Xaml code">
-					<Label Font="Fixed"  x:Name="xamlCode">Some Content</Label>
+					<Label Font="Fixed"  x:Name="xamlCode">Xaml code</Label>
 				</TabPage>
 			</TabControl>
 		</Splitter.Panel2>

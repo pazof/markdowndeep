@@ -9,7 +9,13 @@ namespace MDGui.Gtk3
 		[STAThread]
 		public static void Main (string[] args)
 		{
-			new Application (Platforms.Gtk3).Run (new MainForm ());
+			var generator = new Eto.GtkSharp.Platform();
+
+			var platform = Eto.Platform.Detect;
+
+			// To register new controls :
+			// platform.Add<MyDynamicControl> (() => new MyDynamicControl(null));
+			new Application (generator).Run (new MainForm ());
 		}
 	}
 }

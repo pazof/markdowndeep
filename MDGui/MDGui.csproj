@@ -47,20 +47,17 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Reference Include="Eto">
-      <HintPath>..\..\..\.config\NuGet\packages\Eto.Forms.2.2.0\lib\net45\Eto.dll</HintPath>
-    </Reference>
-    <Reference Include="Portable.Xaml">
-      <HintPath>..\..\..\.config\NuGet\packages\Portable.Xaml.0.6.1\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\Portable.Xaml.dll</HintPath>
-    </Reference>
-    <Reference Include="Eto.Serialization.Xaml">
-      <HintPath>..\..\..\.config\NuGet\packages\Eto.Serialization.Xaml.2.2.0\lib\net45\Eto.Serialization.Xaml.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <Reference Include="Eto">
+      <HintPath>..\..\..\.config\NuGet\packages\Eto.Forms.2.3.0\lib\net45\Eto.dll</HintPath>
+    </Reference>
+    <Reference Include="Eto.Serialization.Xaml">
+      <HintPath>..\..\..\.config\NuGet\packages\Eto.Serialization.Xaml.2.3.0\lib\net45\Eto.Serialization.Xaml.dll</HintPath>
+    </Reference>
+    <Reference Include="Portable.Xaml">
+      <HintPath>..\..\..\.config\NuGet\packages\Portable.Xaml.0.15.0\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\Portable.Xaml.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MarkdownDeep\MarkdownDeep.csproj">
@@ -71,5 +68,8 @@
       <Project>{B855AE85-C96A-4C28-944F-D1C3F332E0D6}</Project>
       <Name>Markdown-AV-ToXaml</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

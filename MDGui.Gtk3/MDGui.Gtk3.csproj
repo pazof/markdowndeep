@@ -33,10 +33,10 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Eto">
-      <HintPath>..\..\..\.config\NuGet\packages\Eto.Forms.2.2.0\lib\net45\Eto.dll</HintPath>
+      <HintPath>..\..\..\.config\NuGet\packages\Eto.Forms.2.3.0\lib\net45\Eto.dll</HintPath>
     </Reference>
     <Reference Include="Eto.Gtk3">
-      <HintPath>..\..\..\.config\NuGet\packages\Eto.Platform.Gtk3.2.2.0\lib\net45\Eto.Gtk3.dll</HintPath>
+      <HintPath>..\..\..\.config\NuGet\packages\Eto.Platform.Gtk3.2.3.0\lib\net45\Eto.Gtk3.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

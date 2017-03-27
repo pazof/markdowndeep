@@ -13,20 +13,20 @@ namespace MarkdownDeepTest
 			var m = new Markdown ();
 			var xr = new XamlRenderer ();
 			var str = Resources.ResourceManager.GetString ("LegacyTestSource");
-			var result = m.Render(str, xr);
+			m.Render(str, xr);
 		}
 
 		[Fact ()]
 		public void MarkdownInstanceExists ()
 		{
-			var m = new Markdown ();
+			new Markdown ();
 		}
 
 		[Fact ()]
 		public void MarkdownLegacyBehaviorRuns ()
 		{
 			var m = new Markdown ();
-			var result = m.Transform (Resources.ResourceManager.GetString("LegacyTestSource"));
+			m.Transform (Resources.ResourceManager.GetString("LegacyTestSource"));
 		}
 
 	}
