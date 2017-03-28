@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using Eto.Forms;
 using Eto.Drawing;
-using Eto.Serialization.Xaml;
 using MarkdownDeep.Rendering.Xaml;
 using System.IO;
 using System.Text;
 using System.Xml;
+using Eto.Serialization.Xaml;
+using System.Collections.ObjectModel;
 
 namespace MDGui
 {
@@ -28,13 +29,13 @@ namespace MDGui
 
 		private Markdown markdown;
 
-		private Label htmlCode;
+		private TextArea htmlCode;
 
 		private XamlRenderer xamlRenderer = new XamlRenderer();
 
 		// private MyDynamicControl xamlContainer;
 
-		private Label xamlCode;
+		private TextArea xamlCode;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MDGui.MainForm"/> class.
@@ -42,8 +43,8 @@ namespace MDGui
 		public MainForm ()
 		{
 			markdown = new Markdown ();
+			Logs = new Log ();
 			MyInitialize ();
-
 		}
 
 		/// <summary>
@@ -81,9 +82,11 @@ namespace MDGui
 				}
 				catch (Portable.Xaml.XamlObjectWriterException ex) {
 					// FIXME handle?
+
+					Log.LogError($"Xaml({ex.LineNumber},{ex.LinePosition})", ex.Message);
 				}
 				catch (System.Xml.XmlException ex) {
-					// FIXME handle?
+					Log.LogError($"Xml({ex.LineNumber},{ex.LinePosition})", ex.Message);
 				}
 				finally {
 					ResumeLayout ();
@@ -106,10 +109,63 @@ namespace MDGui
 		{
 			Application.Instance.Quit ();
 		}
+		protected void HandleOpen (object sender, EventArgs e)
+		{
+			var dialog = new OpenFileDialog {
+				Filters = { 
+					new FileDialogFilter ("Markdown", 
+						new string[] { "*.md", "*.txt" }),
+					new FileDialogFilter ("Tous", 
+						new string[] { "*" })
+				},
+				Title = "Ouvrir un fichier texte"
+			};
+			DialogResult fileToLoad = dialog.ShowDialog (this.Content);
+			if (fileToLoad.HasFlag (DialogResult.Ok)) {
+				var fi = new FileInfo(dialog.FileName);
+				using (FileStream stream = fi.OpenRead ()) {
+					using (var rdr = new StreamReader (stream)) {
+						sourceCode.Text = rdr.ReadToEnd ();
+					}
+				}
+			}
+		}
+
+
 		protected void HandleSave (object sender, EventArgs e)
 		{
-			throw new NotImplementedException ();
+			var dialog = new SaveFileDialog { 
+				Filters = { 
+					new FileDialogFilter ("Markdown", 
+						new string[] { "*.md", "*.txt" }),
+					new FileDialogFilter ("Tous", 
+						new string[] { "*" })
+				}
+			};
+			DialogResult fileToSave = dialog.ShowDialog (this.Content);
+			if (fileToSave.HasFlag (DialogResult.Ok)) {
+				// If file exists, user should have been warn about.
+				var fi = new FileInfo(dialog.FileName);
+				using (var stream = fi.OpenWrite ()) {
+					var wr = Encoding.UTF8.GetBytes(sourceCode.Text);
+					stream.Write (wr, 0, wr.Length);
+					stream.Close ();
+				}
+			}
 		}
+		protected void HandleLog (object sender, EventArgs e)
+		{
+			log.Show ();
+		}
+		LogMessagesDialog log = new LogMessagesDialog ();
+
+		protected void HandleCredits (object sender, EventArgs e)
+		{
+			new Credits ().ShowModal ();
+		}
+
+		internal static Log Logs { get; private set; }
+
 	}
 }
 

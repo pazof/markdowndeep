@@ -18,13 +18,13 @@
 						<WebView x:Name="htmlView" BrowserContextMenuEnabled="True" />
 				</TabPage>
 				<TabPage Text="Html code">
-					<Label Font="Fixed" x:Name="htmlCode">&lt;html/&gt;</Label>
+					<TextArea Font="Fixed" x:Name="htmlCode" Enabled="True" ReadOnly="True">&lt;html/&gt;</TextArea>
 				</TabPage>
 				<TabPage Text="Xaml view" x:Name="xamlViewTab">
 				   <Button Text="Test" />
 				</TabPage>
 				<TabPage Text="Xaml code">
-					<Label Font="Fixed"  x:Name="xamlCode">Xaml code</Label>
+					<TextArea Font="Fixed" Enabled="True" ReadOnly="True" x:Name="xamlCode">Xaml code</TextArea>
 				</TabPage>
 			</TabControl>
 		</Splitter.Panel2>
@@ -32,10 +32,16 @@
 	<Form.Menu>
 		<MenuBar>
 			<ButtonMenuItem Text="F&amp;ile">
+			    <ButtonMenuItem Text="Open" Shortcut="CommonModifier+O" Click="HandleOpen" />
 				<ButtonMenuItem Text="Save" Shortcut="CommonModifier+S" Click="HandleSave" />
 			</ButtonMenuItem>
 			<MenuBar.ApplicationItems>
 				<ButtonMenuItem Text="Preferences.." Shortcut="{On Control+O, Mac=Application+Comma}" />
+				<ButtonMenuItem Text="À propos">
+					<ButtonMenuItem Text="Logs" Shortcut="CommonModifier+L" 
+					Click="HandleLog" />
+					<ButtonMenuItem Text="Crédits" Click="HandleCredits" />
+				</ButtonMenuItem>
 			</MenuBar.ApplicationItems>
 			<MenuBar.QuitItem>
 				<ButtonMenuItem Text="Quit!" Shortcut="CommonModifier+Q" Click="HandleQuit" />

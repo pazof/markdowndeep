@@ -1,0 +1,20 @@
+﻿<Form xmlns="http://schema.picoe.ca/eto.forms" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:local = "clr-namespace:MDGui;assembly=MDGui" ShowInTaskbar="False" Topmost="True"  >
+<Scrollable>
+	<StackLayout Spacing="10" Padding="10">
+		<Label>Some Content</Label>
+		<DynamicLayout Spacing="5,5" x:Name="rows">
+		<DynamicRow >
+		<Label>Niveau</Label>
+		<Label>Module</Label>
+		<Label>Message</Label>
+		</DynamicRow>
+		<DynamicRow>
+		<Label>jmjk </Label>
+		<Label>asfd </Label>
+		<Label>esqdf </Label>
+		</DynamicRow>
+		</DynamicLayout>
+	</StackLayout>
+	</Scrollable>
+</Form>

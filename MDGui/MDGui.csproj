@@ -37,12 +37,21 @@
     <Compile Include="Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Credits.cs" />
+    <Compile Include="Log.cs" />
+    <Compile Include="LogMessagesDialog.xeto.cs">
+      <DependentUpon>LogMessagesDialog.xeto</DependentUpon>
+    </Compile>
+    <Compile Include="LogWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainForm.xeto" />
     <EmbeddedResource Include="Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogMessagesDialog.xeto">
+      <LogicalName>MDGui.LogMessagesDialog.xeto</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
