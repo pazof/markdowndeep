@@ -1,0 +1,12 @@
+
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=mdgui
+Exec=mdgui.gtk3
+Terminal=false
+
+GenericName=MDGui
+Comment=Editeur Markdown
+Categories=TextEditor;
+MimeType=text/x-markdown;

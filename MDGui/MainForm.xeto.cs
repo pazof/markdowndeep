@@ -43,6 +43,7 @@ namespace MDGui
 		{
 			markdown = new Markdown ();
 			MyInitialize ();
+
 		}
 
 		/// <summary>
@@ -74,7 +75,20 @@ namespace MDGui
 				;
 			
 			using (var reader = new StringReader (wholeSource)) {
-				XamlReader.Load (reader, xamlViewTab);
+				SuspendLayout ();
+				try { 
+					XamlReader.Load (reader, xamlViewTab);
+				}
+				catch (Portable.Xaml.XamlObjectWriterException ex) {
+					// FIXME handle?
+				}
+				catch (System.Xml.XmlException ex) {
+					// FIXME handle?
+				}
+				finally {
+					ResumeLayout ();
+				}
+
 			}
 
 		}
@@ -91,6 +105,10 @@ namespace MDGui
 		protected void HandleQuit (object sender, EventArgs e)
 		{
 			Application.Instance.Quit ();
+		}
+		protected void HandleSave (object sender, EventArgs e)
+		{
+			throw new NotImplementedException ();
 		}
 	}
 }

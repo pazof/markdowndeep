@@ -86,13 +86,26 @@ namespace MarkdownDeep.Rendering.Xaml
 
 		public string ListItem(string inner)
         {
-			return $"* {inner}\n";
+			return $"<Label>{inner}</Label>";
         }
 
 		public string NewLine()
         {
-			return"<!-- new line -->\n";
+			return"<Label/>\n";
         }
+
+		public string UnorderedList (string[] list)
+		{
+			StringBuilder builder = new StringBuilder ();
+			builder.Append ("<StackLayout Style=\"UL\">");
+			foreach (var line in list) {
+				builder.Append ("<StackLayout Orientation=\"Horizontal\">");
+				builder.Append ("<Label>◉</Label>" + line);
+				builder.Append ("</StackLayout>");
+			}
+			builder.Append ("</StackLayout>");
+			return builder.ToString ();
+		}
 
 		public string OrderedList(string[] list)
         {
@@ -134,14 +147,7 @@ namespace MarkdownDeep.Rendering.Xaml
 			return $"<StackLayout Style=\"Underline\">{existent}</StackLayout>";
         }
 
-		public string UnorderedList (string[] list)
-        {
-			StringBuilder builder = new StringBuilder ();
-			foreach (var line in list) {
-				builder.Append ("<Label>◉</Label>" + line);
-			}
-			return builder.ToString ();
-		}
+
 		
 		public string DD(string data)
 		{

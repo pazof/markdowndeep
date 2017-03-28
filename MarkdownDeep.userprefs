@@ -1,34 +1,20 @@
 ﻿<Properties StartupConfiguration="{FBDF1B77-BF84-4B3D-83DE-46271C468690}|Default" GitUserInfo="UsingMD" StartupItem="MDGui.Gtk3/MDGui.Gtk3.csproj">
   <MonoDevelop.Ide.ItemProperties.MarkdownDeepGui PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="MarkdownDeepTest/Test.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="MDGui/MainForm.xeto">
     <Files>
-      <File FileName="MDGui/MainForm.xeto.cs" Line="67" Column="6" />
-      <File FileName="MarkdownDeepTest/Test.cs" Line="26" Column="27" />
+      <File FileName="MDGui/MainForm.xeto.cs" Line="111" Column="41" />
+      <File FileName="MarkdownDeepTest/Test.cs" Line="1" Column="1" />
       <File FileName="MarkdownDeepTest/Resources.resx" Line="1" Column="1" />
-      <File FileName="MDGui.Gtk2/Program.cs" Line="19" Column="4" />
+      <File FileName="MDGui.Gtk2/Program.cs" Line="1" Column="1" />
       <File FileName="MDGui.WinForms/Program.cs" Line="1" Column="1" />
-      <File FileName="MDGui.Gtk3/Program.cs" Line="19" Column="4" />
-      <File FileName="MDGui/DynamicPanel.cs" Line="1" Column="1" />
+      <File FileName="MDGui.Gtk3/Program.cs" Line="21" Column="2" />
       <File FileName="MDGui.Gtk2/packages.config" Line="1" Column="1" />
-      <File FileName="MDGui/MainForm.xeto" Line="24" Column="13" />
-      <File FileName="Markdown-AV-ToXaml/ToXaml/XamlRenderer.cs" Line="1" Column="1" />
+      <File FileName="Markdown-AV-ToXaml/ToXaml/XamlRenderer.cs" Line="105" Column="5" />
       <File FileName="MDGui.Wpf/Program.cs" Line="1" Column="1" />
+      <File FileName="MDGui/MainForm.xeto" Line="19" Column="15" />
     </Files>
-    <Pads>
-      <Pad Id="MonoDevelop.NUnit.TestPad">
-        <State name="__root__">
-          <Node name="MarkdownDeep" expanded="True">
-            <Node name="MarkdownDeepTest" expanded="True">
-              <Node name="MarkdownDeepTest" expanded="True">
-                <Node name="Test" expanded="True" selected="True" />
-              </Node>
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/home/paul/workspace/markdowndeep/MDGui/XamlPanel.cs" line="12" column="8" />
