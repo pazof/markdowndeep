@@ -60,9 +60,9 @@
       <Project>{1569ED47-C7C9-4261-B6F4-7445BD0F2C95}</Project>
       <Name>MarkdownDeep</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Markdown-AV-ToXaml\Markdown-AV-ToXaml.csproj">
+    <ProjectReference Include="..\MarkdownRenderers\MarkdownRenderers.csproj">
       <Project>{B855AE85-C96A-4C28-944F-D1C3F332E0D6}</Project>
-      <Name>Markdown-AV-ToXaml</Name>
+      <Name>MarkdownRenderers</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

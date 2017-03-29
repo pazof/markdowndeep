@@ -25,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDGui.Gtk2", "MDGui.Gtk2\MD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDGui.Gtk3", "MDGui.Gtk3\MDGui.Gtk3.csproj", "{1395BC29-BB0B-46A5-8FEF-F3197E088938}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Markdown-AV-ToXaml", "Markdown-AV-ToXaml\Markdown-AV-ToXaml.csproj", "{B855AE85-C96A-4C28-944F-D1C3F332E0D6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkdownRenderers", "MarkdownRenderers\MarkdownRenderers.csproj", "{B855AE85-C96A-4C28-944F-D1C3F332E0D6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkdownDeepTest", "MarkdownDeepTest\MarkdownDeepTest.csproj", "{71E6DDD7-95A8-45F7-9E6A-965AF43EB26A}"
 EndProject

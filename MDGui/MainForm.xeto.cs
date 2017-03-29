@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using Eto.Forms;
 using Eto.Drawing;
-using MarkdownDeep.Rendering.Xaml;
 using System.IO;
 using System.Text;
 using System.Xml;
 using Eto.Serialization.Xaml;
 using System.Collections.ObjectModel;
+using MarkdownDeep.Rendering.Xaml;
 
 namespace MDGui
 {
@@ -62,7 +62,8 @@ namespace MDGui
 			var html = markdown.Transform(sourceCode.Text);
 			htmlCode.Text = html;
 			htmlView.LoadHtml(html);
-			string source = markdown.Render (sourceCode.Text, xamlRenderer);
+			var node = markdown.Render (sourceCode.Text, xamlRenderer);
+			string source = node?.ToXaml();
 			xamlCode.Text = source;
 
 			//FIXME Generate valide Xaml

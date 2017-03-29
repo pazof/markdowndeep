@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>MarkdownDeep.Renderers</id>
+    <version>1.5.5</version>
+    <title>MarkdownDeep-Av renderer to Xaml</title>
+    <authors>Paul Schneider</authors>
+    <owners>Paul Schneider</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <projectUrl>https://github.com/pazof/markdowndeep</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Parses and renders Markdown to Html and Xaml</description>
+    <releaseNotes>Provides a GUI interface</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>Markdown Text</tags>
+  </metadata>
+	<files>
+		<file src="bin/Release/MarkdownRenderers.dll" target="lib/net451" />
+		<file src="bin/Release/MarkdownRenderers.dll" target="lib/dnxcore50" />
+		<file src="bin/Release/MarkdownRenderers.dll" target="lib/MonoAndroid10" />
+	</files>
+</package>
