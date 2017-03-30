@@ -22,6 +22,8 @@ namespace MarkdownDeepTest
 			new Markdown ();
 		}
 
+
+
 		[Fact ()]
 		public void MarkdownLegacyBehaviorRuns ()
 		{

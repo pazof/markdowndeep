@@ -8,6 +8,8 @@ using System.Xml;
 using Eto.Serialization.Xaml;
 using System.Collections.ObjectModel;
 using MarkdownDeep.Rendering.Xaml;
+using System.Resources;
+using System.Windows.Input;
 
 namespace MDGui
 {
@@ -156,6 +158,7 @@ namespace MDGui
 		}
 		protected void HandleLog (object sender, EventArgs e)
 		{
+			FontFormat ();
 			log.Show ();
 		}
 		LogMessagesDialog log = new LogMessagesDialog ();
@@ -166,6 +169,14 @@ namespace MDGui
 		}
 
 		internal static Log Logs { get; private set; }
+		public void FontFormat() 
+		{
+			string font1 = new Font("Serif",45).ToString ();
+			font1 = new Font("Serif",45,FontStyle.Bold,FontDecoration.Strikethrough).ToString ();
+			font1 = new Font("Serif",45,FontStyle.Italic,FontDecoration.Underline).ToString ();
+
+
+		}
 
 	}
 }

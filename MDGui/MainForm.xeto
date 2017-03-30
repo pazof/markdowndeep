@@ -24,7 +24,7 @@
 				   <Button Text="Test" />
 				</TabPage>
 				<TabPage Text="Xaml code">
-					<TextArea Font="Fixed" Enabled="True" ReadOnly="True" x:Name="xamlCode">Xaml code</TextArea>
+					<TextArea Font="Fixed+16pt" Enabled="True" ReadOnly="True" x:Name="xamlCode">Xaml code</TextArea>
 				</TabPage>
 			</TabControl>
 		</Splitter.Panel2>

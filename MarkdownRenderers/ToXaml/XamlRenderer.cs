@@ -24,13 +24,48 @@ namespace MarkdownDeep.Rendering.Xaml
 		public ListStyle IsList { get; set; }
 		public string ToXaml ()
 		{
+			// TODO smarter ...
+			string font = "Sans+Regular+10pt";
+			switch (IsHeader) {
+			case HeaderLevel.H1:
+				font = "Serif+Regular+30pt";
+				break;
+			case HeaderLevel.H2:
+				font = "Serif+Regular+24pt";
+				break;
+			case HeaderLevel.H3:
+				font = "Serif+Regular+20pt";
+				break;
+			case HeaderLevel.H4:
+				font = "Serif+Regular+16pt";
+				break;
+			case HeaderLevel.H5:
+				font = "Serif+Regular+14pt";
+				break;
+			case HeaderLevel.H6:
+				font = "Serif+Regular+12pt";
+				break;
+			}
+
+			// rendre reccursivement la taille de l'entête:
+			if (IsHeader > 0) {
+				if (Children!=null)
+				foreach (var i in Children) {
+					i.IsHeader = IsHeader;
+				}
+			}
+
 			// les cas terminaux
 			if (Source != null) {
 				string txt = this.Value ?? this.Children? [0].Value ?? null;
-				return $"<LinkButton Command=\"open{SourceType}\" CommandParameter=\"{Source}\">{txt} ({Meta})</LinkButton>";
+				return $"<LinkButton Command=\"{{Binding open{SourceType}}}\" CommandParameter=\"{Source}\">{txt} ({Meta})</LinkButton>";
 			}
 			if (Value != null) {
-				return $"<Label>{Value}</Label>";
+				// ugly min html
+				var txt = Value.Replace("\n"," ").Split (' ');
+				var tr = string.Join(" ",txt.Where(m=>!string.IsNullOrWhiteSpace(m))
+					.Select(m=>m.Trim ()));
+				return $"<Label Font=\"{font}\">{tr}</Label>";
 			}
 			if (IsBlock) {
 				if (Children == null)
@@ -40,7 +75,7 @@ namespace MarkdownDeep.Rendering.Xaml
 			}
 			if (Children != null) {
 				var items = string.Join("\n",Children.Select (c => ((MdToXamlNode)c).ToXaml ()));
-				return $"<StackLayout Orientation=\"Horizontal\">\n{items}\n</StackLayout>\n";
+				return $"<DynamicLayout>\n{items}\n</DynamicLayout>\n";
 			}
 			return null;
 		}
