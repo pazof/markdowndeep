@@ -79,7 +79,8 @@ namespace MDGui
 				;
 			
 			using (var reader = new StringReader (wholeSource)) {
-				SuspendLayout ();
+
+				xamlViewTab.SuspendLayout();
 				try { 
 					XamlReader.Load (reader, xamlViewTab);
 				}
@@ -92,7 +93,7 @@ namespace MDGui
 					Log.LogError($"Xml({ex.LineNumber},{ex.LinePosition})", ex.Message);
 				}
 				finally {
-					ResumeLayout ();
+					xamlViewTab.ResumeLayout ();
 				}
 
 			}
@@ -158,7 +159,6 @@ namespace MDGui
 		}
 		protected void HandleLog (object sender, EventArgs e)
 		{
-			FontFormat ();
 			log.Show ();
 		}
 		LogMessagesDialog log = new LogMessagesDialog ();
@@ -169,14 +169,6 @@ namespace MDGui
 		}
 
 		internal static Log Logs { get; private set; }
-		public void FontFormat() 
-		{
-			string font1 = new Font("Serif",45).ToString ();
-			font1 = new Font("Serif",45,FontStyle.Bold,FontDecoration.Strikethrough).ToString ();
-			font1 = new Font("Serif",45,FontStyle.Italic,FontDecoration.Underline).ToString ();
-
-
-		}
 
 	}
 }

@@ -58,10 +58,11 @@ namespace MarkdownDeep.Rendering.Xaml
 			// les cas terminaux
 			if (Source != null) {
 				string txt = this.Value ?? this.Children? [0].Value ?? null;
-				return $"<LinkButton Command=\"{{Binding open{SourceType}}}\" CommandParameter=\"{Source}\">{txt} ({Meta})</LinkButton>";
+				string metaInfo = string.IsNullOrWhiteSpace (Meta) ? null : $" ({Meta})";
+				return $"<LinkButton Command=\"{{Binding open{SourceType}}}\" CommandParameter=\"{Source}\">{txt}{metaInfo}</LinkButton>";
 			}
 			if (Value != null) {
-				// ugly min html
+				// strip spaces
 				var txt = Value.Replace("\n"," ").Split (' ');
 				var tr = string.Join(" ",txt.Where(m=>!string.IsNullOrWhiteSpace(m))
 					.Select(m=>m.Trim ()));
@@ -69,13 +70,15 @@ namespace MarkdownDeep.Rendering.Xaml
 			}
 			if (IsBlock) {
 				if (Children == null)
+					// FIXME newLine? 
 					return "<Label/>\n";
 				var items = string.Join("\n",Children.Select (c => ((MdToXamlNode)c).ToXaml ()));
-				return $"<StackLayout Orientation=\"Vertical\">\n{items}\n</StackLayout>\n";
+				// span
+				return Children.Length>1? $"<StackLayout>{items}</StackLayout>\n" : items;
 			}
 			if (Children != null) {
 				var items = string.Join("\n",Children.Select (c => ((MdToXamlNode)c).ToXaml ()));
-				return $"<DynamicLayout>\n{items}\n</DynamicLayout>\n";
+				return $"<DynamicLayout Padding=\"10,10\">\n{items}\n</DynamicLayout>\n";
 			}
 			return null;
 		}

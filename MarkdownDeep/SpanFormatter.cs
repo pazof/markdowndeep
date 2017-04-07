@@ -1206,14 +1206,17 @@ namespace MarkdownDeep
 					break;
 
 				case TokenType.code_span:
+					if (t.length > 0)
+					 {
 						string code = str.Substring (t.startOffset, t.length);
 						// allows a code span to be rendered
-						if (t.data == null && !code.Contains ('\n')) {
-							item = renderer.Code (code);
+					if (t.data == null && !str.Contains ('\n')) {
+						item = renderer.Code (str);
 						} else {
 							item = renderer.CodeBlock (
-								code.Split ('\n'), (string) t.data);
+							code.Split ('\n'), str);
 						}
+					}
 					break;
 
 				case TokenType.strike:

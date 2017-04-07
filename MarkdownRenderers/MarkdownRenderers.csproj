@@ -44,7 +44,7 @@
   <ItemGroup>
     <Folder Include="ToXaml\" />
     <Folder Include="Model\" />
-    <Folder Include="ToText\" />
+    <Folder Include="ToDom\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MarkdownDeep\MarkdownDeep.csproj">

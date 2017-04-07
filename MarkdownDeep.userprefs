@@ -1,9 +1,8 @@
-﻿<Properties StartupConfiguration="{1395BC29-BB0B-46A5-8FEF-F3197E088938}|Default" GitUserInfo="UsingMD" StartupItem="MDGui.Gtk3/MDGui.Gtk3.csproj">
+﻿<Properties StartupItem="MDGui.Gtk2/MDGui.Gtk2.csproj" StartupConfiguration="{1395BC29-BB0B-46A5-8FEF-F3197E088938}|Default" GitUserInfo="UsingMD">
   <MonoDevelop.Ide.ItemProperties.MDGui.Gtk3 PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="MarkdownRenderers/ToXaml/XamlRenderer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="MDGui.Gtk2/Widget.cs">
     <Files>
-      <File FileName="MDGui/MainForm.xeto" Line="26" Column="31" />
-      <File FileName="MarkdownRenderers/ToXaml/XamlRenderer.cs" Line="69" Column="5" />
+      <File FileName="MDGui.Gtk2/Widget.cs" Line="14" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
@@ -17,7 +16,6 @@
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
     <Watch file="../yavsc/web/Controllers/BlogsController.cs" line="180" offsetX="384" offsetY="2864" expression="e" liveUpdate="False" />
   </MonoDevelop.Ide.DebuggingService.PinnedWatches>
-  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.ItemProperties.MarkdownDeepGui PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.ItemProperties.MarkdownDeep PreferredExecutionTarget="MonoDevelop.Default" />
+  <MultiItemStartupConfigurations />
 </Properties>
