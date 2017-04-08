@@ -5,8 +5,8 @@
     <target-gtk-version>2.12</target-gtk-version>
   </configuration>
   <import>
-    <widget-library name="../bin/Debug/MDGui.Gtk2.exe" internal="true" />
     <widget-library name="webkitgtk-sharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=e1f0fd21e79c8b0f" />
+    <widget-library name="../bin/Release/MDGui.Gtk2.exe" internal="true" />
   </import>
   <widget class="Gtk.Bin" id="MDGui.Gtk2.Widget" design-size="300 239">
     <action-group name="Default" />
