@@ -13,26 +13,10 @@
     <releaseNotes>Xaml support yet is minimal, but does the POC</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>Markdown Texti GUI Gtk</tags>
-    <dependencies>
-      <dependency id="MarkdownDeep.Renderers" version="$version$" />
-      <dependency id="MarkdownDeep-av.NET" version="$version$" />
-      <dependency id="Eto.Platform.Gtk3" version="2.2.0" />
-      <dependency id="Eto.Forms" version="2.2.0" />
-      <dependency id="Eto.Serialization.Xaml" version="2.2.0" />
-      <dependency id="Portable.Xaml"  version="0.15.0" />
-    </dependencies>
   </metadata>
-
-
 	<files>
-		<file src="bin/Release/Eto.dll" target="lib/net451" />
-		<file src="bin/Release/Eto.Gtk3.dll" target="lib/net451" />
-		<file src="bin/Release/Eto.Serialization.Xaml.dll" target="lib/net451" />
-		<file src="bin/Release/MarkdownDeep.dll" target="lib/net451" />
-		<file src="bin/Release/MarkdownRenderers.dll" target="lib/net451" />
-		<file src="bin/Release/Portable.Xaml.dll" target="lib/net451" />
-		<file src="bin/Release/MDGui.Gtk3.exe" target="lib/net451" />
-		<file src="bin/Release/MDGui.dll" target="lib/net451" />
+		<file src="bin/Release/*.exe" target="tools" />
+		<file src="bin/Release/*.dll" target="tools" />
 	</files>
 
 </package>
