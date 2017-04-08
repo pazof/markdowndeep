@@ -14,3 +14,5 @@ Debug
 *.nupkg
 /packages/*
 .nuget/
+/MarkdownDeep.userprefs
+
