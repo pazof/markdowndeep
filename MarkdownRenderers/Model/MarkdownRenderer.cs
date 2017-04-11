@@ -37,19 +37,26 @@ namespace MarkdownDeep.Rendering.Markdown
 			return new T { Children = parts.Cast<IMDNode>().ToArray(), IsBlock = true };
 		}
 
+		public T Link(T inner, string href, string title)
+		{
+			inner.Source = href;
+			inner.Value = title;
+			return inner;
+		}
+
 		public T Image(string href, string alt, string title)
 		{
-			return new T { Source = href, SourceType = MediaType.Image, Value = title };
+			return new T { Source = href, SourceType = MediaType.Image, Value = alt };
 		}
 
 		public T Audio(string href, string alt, string title)
 		{
-			return new T { Source = href, SourceType = MediaType.Audio, Value = title };
+			return new T { Source = href, SourceType = MediaType.Audio, Value = alt };
         }
 
 		public T Video (string href, string alt, string title)
 		{
-			return new T { Source = href, SourceType = MediaType.Video, Value = title };
+			return new T { Source = href, SourceType = MediaType.Video, Value = alt };
 		}
 
 		public T Code(string source)
@@ -73,12 +80,6 @@ namespace MarkdownDeep.Rendering.Markdown
 			return inner;
         }
 
-		public T Link(T inner, string href, string title)
-        {
-			inner.Source = href;
-			inner.Meta = title;
-			return inner;
-		}
 
 		public T ListItem(T inner)
         {

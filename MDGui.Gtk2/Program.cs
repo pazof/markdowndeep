@@ -14,7 +14,7 @@ namespace MDGui.Gtk2
 			var platform = Eto.Platform.Detect;
 
 			// To register new controls :
-			// platform.Add<MyDynamicControl> (() => new MyDynamicControl(null));
+			platform.Add<GuiControl.IGuiControl> (() => new GuiControlHandler());
 
 			new Application (generator).Run (new MainForm ());
 		}

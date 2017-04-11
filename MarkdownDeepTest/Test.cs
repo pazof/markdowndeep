@@ -13,7 +13,7 @@ namespace MarkdownDeepTest
 			var m = new Markdown ();
 			var xr = new XamlRenderer ();
 			var str = Resources.ResourceManager.GetString ("LegacyTestSource");
-			m.Render(str, xr);
+			string xaml = m.Render (str, xr).ToXaml ();
 		}
 
 		[Fact ()]
@@ -30,6 +30,8 @@ namespace MarkdownDeepTest
 			var m = new Markdown ();
 			m.Transform (Resources.ResourceManager.GetString("LegacyTestSource"));
 		}
+
+
 
 	}
 }

@@ -12,7 +12,7 @@
     <description>Parses and renders Markdown to Html and Xaml</description>
     <releaseNotes>Xaml support yet is minimal, but does the POC</releaseNotes>
     <copyright>Copyright 2017</copyright>
-    <tags>Markdown Texti GUI Gtk</tags>
+    <tags>Markdown Text GUI Gtk</tags>
   </metadata>
 	<files>
 		<file src="bin/Release/*.exe" target="tools" />

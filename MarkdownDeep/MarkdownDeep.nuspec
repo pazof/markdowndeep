@@ -21,6 +21,7 @@
 	<files>
 		<file src="bin/Release/MarkdownDeep.dll" target="lib/net451" />
 		<file src="bin/Release/MarkdownDeep.dll" target="lib/dnxcore50" />
-		<file src="bin/Release/MarkdownDeep.dll" target="lib/MonoAndroid10" />
+		<file src="bin/Release/MarkdownDeep.dll" target="lib/portable-net45+win8+wpa81+wp8
+" />
 	</files>
 </package>

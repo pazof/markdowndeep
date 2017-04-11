@@ -1,0 +1,7 @@
+#!/bin/sh
+
+. scripts/build
+nuget push -source https://api.nuget.org/v3/index.json MarkdownDeep.Gui.Gtk3.${VERSION}.nupkg
+nuget push -source https://api.nuget.org/v3/index.json MarkdownDeep-av.NET.${VERSION}.nupkg
+
+

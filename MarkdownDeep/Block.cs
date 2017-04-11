@@ -97,14 +97,6 @@ namespace MarkdownDeep
 			}
 		}
 
-		public int LineStart
-		{
-			get
-			{
-				return lineStart == 0 ? contentStart : lineStart;
-			}
-		}
-
 		internal void RenderChildren(Markdown m, StringBuilder b)
 		{
 			foreach (var block in children)
@@ -165,10 +157,10 @@ namespace MarkdownDeep
 
 			case BlockType.p:
 			case BlockType.div:
-				var inner = m.SpanFormatter.RenderToAny<T> (b, buf.Substring (contentStart, contentLen));
+				var inner = m.SpanFormatter.RenderToAny<T> (b, buf, contentStart, contentLen);
 				return b.Paragraph (inner);
 			case BlockType.span:
-				return m.SpanFormatter.RenderToAny<T>(b, buf.Substring(contentStart, contentLen)) ;
+				return m.SpanFormatter.RenderToAny<T>(b, buf, contentStart, contentLen) ;
 
 			case BlockType.h1: return b.Header (m.RenderInternal (Content, b), HeaderLevel.H1);
 			case BlockType.h2: return b.Header (m.RenderInternal (Content, b), HeaderLevel.H2);
@@ -185,14 +177,14 @@ namespace MarkdownDeep
 
 			case BlockType.ol_li:
 			case BlockType.ul_li:
-				return b.ListItem(m.SpanFormatter.RenderToAny<T>(b,Content));
+				return b.ListItem(m.SpanFormatter.RenderToAny<T>(b, buf, contentStart, contentLen));
 
 			case BlockType.dd:
 				if (children != null) {
 					return RenderChildren(m, b);
 				}
 				else {
-					return b.DD(m.SpanFormatter.RenderToAny<T>(b,Content));
+					return b.DD(m.SpanFormatter.RenderToAny<T>(b, buf, contentStart, contentLen));
 				}
 
 			case BlockType.dt:
@@ -200,7 +192,7 @@ namespace MarkdownDeep
 					return RenderChildren(m,b);
 				}
 				else {
-					return b.DD(m.SpanFormatter.RenderToAny<T>(b,Content));
+					return b.DD(m.SpanFormatter.RenderToAny<T>(b, buf, contentStart, contentLen));
 				}
 
 			case BlockType.dl: return RenderChildren(m, b);
@@ -211,10 +203,7 @@ namespace MarkdownDeep
 
 			case BlockType.codeblock: 
 				{
-					
 					var lines = children.Select (line => line.buf.Substring (line.contentStart, line.contentLen));
-
-
 					return b.CodeBlock (lines.ToArray(),null);
 				}
 
@@ -264,12 +253,12 @@ namespace MarkdownDeep
 			case BlockType.p_footnote:
 				if (contentLen > 0)
 				{
-					return b.FootNote( m.SpanFormatter.RenderToAny<T>(b,buf.Substring(contentStart, contentLen)) , "");
+					return b.FootNote( m.SpanFormatter.RenderToAny<T>(b, buf, contentStart, contentLen ), (string) data);
 				}
 				return b.FootNote(default(T),(string) data);
 
 			default:
-				return m.SpanFormatter.RenderToAny<T>(b,buf.Substring(contentStart, contentLen));
+				return m.SpanFormatter.RenderToAny<T>(b,buf,contentStart, contentLen);
 			}
 		}
 

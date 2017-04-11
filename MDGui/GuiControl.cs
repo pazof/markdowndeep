@@ -11,7 +11,7 @@ namespace MDGui
 		IGuiControl Handler { get { return (IGuiControl)base.Handler; } }
 
 		// interface to the platform implementations
-		public new interface IGuiControl : Control.IHandler
+		public interface IGuiControl : Control.IHandler
 		{
 			void OnStart(MainForm f);
 			void OnBufferChanged();

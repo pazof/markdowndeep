@@ -1161,11 +1161,12 @@ namespace MarkdownDeep
 		}
 
 		// Render a list of tokens to a destination object
-		// using str as source;
-		public T RenderToAny <T> (IMarkdownRenderer <T> renderer, string str) 
+		// using str as source,
+		// parsing str starting at start and during len;
+		public T RenderToAny <T> (IMarkdownRenderer <T> renderer, string str, int start, int len) 
 		{
 			// Parse the string into a list of tokens
-			Tokenize (str, 0, str.Length);
+			Tokenize (str, start, len);
 			Stack<Grouping<T>> groups = new Stack<Grouping<T>> ();
 			List<T> result = new List<T>();
 			LinkInfo li;
@@ -1230,7 +1231,7 @@ namespace MarkdownDeep
 				case TokenType.link:
 					li = (LinkInfo)t.data;
 					item = renderer.Link (
-						RenderToAny (renderer, li.link_text),
+						RenderToAny (renderer, li.link_text, 0, li.link_text.Length),
 						li.def.url, li.def.title);
 					break;
 				

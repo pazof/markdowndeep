@@ -88,6 +88,7 @@
     <Compile Include="gtk-gui\generated.cs" />
     <Compile Include="Widget.cs" />
     <Compile Include="gtk-gui\MDGui.Gtk2.Widget.cs" />
+    <Compile Include="GuiControlHandler.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -98,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="MDGui.Gtk2.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">

@@ -57,5 +57,29 @@ namespace MarkdownDeepTest {
                 return ResourceManager.GetString("LegacyTestSourceResult", resourceCulture);
             }
         }
+        
+        internal static string LinkTestSource {
+            get {
+                return ResourceManager.GetString("LinkTestSource", resourceCulture);
+            }
+        }
+        
+        internal static string ImageTestSource {
+            get {
+                return ResourceManager.GetString("ImageTestSource", resourceCulture);
+            }
+        }
+        
+        internal static string AudioTestSource {
+            get {
+                return ResourceManager.GetString("AudioTestSource", resourceCulture);
+            }
+        }
+        
+        internal static string VideoTestSource {
+            get {
+                return ResourceManager.GetString("VideoTestSource", resourceCulture);
+            }
+        }
     }
 }

@@ -22,6 +22,7 @@ namespace MarkdownDeep.Rendering.Xaml
 		public HeaderLevel IsHeader { get; set; }
 		public int Depth { get; set; }
 		public ListStyle IsList { get; set; }
+
 		public string ToXaml ()
 		{
 			// TODO smarter ...
@@ -56,17 +57,19 @@ namespace MarkdownDeep.Rendering.Xaml
 			}
 
 			// les cas terminaux
+
+			// Les liens
 			if (Source != null) {
-				string txt = this.Value ?? this.Children? [0].Value ?? null;
-				string metaInfo = string.IsNullOrWhiteSpace (Meta) ? null : $" ({Meta})";
-				return $"<LinkButton Command=\"{{Binding open{SourceType}}}\" CommandParameter=\"{Source}\">{txt}{metaInfo}</LinkButton>";
+				string linktext="";
+				if (Children != null && Children.Count() > 0)
+					// TODO RichText
+					linktext = string.Join (" ", Children.Select (c => Trim (((MdToXamlNode)c).ToText())));
+				linktext = $"{Value}{linktext}";
+				return $"<LinkButton Command=\"{{Binding open{SourceType}}}\" CommandParameter=\"{Source}\">{linktext}</LinkButton>";
 			}
 			if (Value != null) {
-				// strip spaces
-				var txt = Value.Replace("\n"," ").Split (' ');
-				var tr = string.Join(" ",txt.Where(m=>!string.IsNullOrWhiteSpace(m))
-					.Select(m=>m.Trim ()));
-				return $"<Label Font=\"{font}\">{tr}</Label>";
+				var val = Trim (Value);
+				return $"<Label Font=\"{font}\">{val}</Label>";
 			}
 			if (IsBlock) {
 				if (Children == null)
@@ -81,6 +84,23 @@ namespace MarkdownDeep.Rendering.Xaml
 				return $"<DynamicLayout Padding=\"10,10\">\n{items}\n</DynamicLayout>\n";
 			}
 			return null;
+		}
+
+		static string Trim(string str)
+		{
+			if (str == null)
+				return null;
+			var txt = str.Replace("\n"," ").Split (' ');
+			return string.Join(" ",txt.Where(m=>!string.IsNullOrWhiteSpace(m))
+				.Select(m=>m.Trim ()));
+		}
+
+		public string ToText()
+		{
+			if (Value != null)
+				return Trim (Value);
+			else
+				return string.Join (" ", Children.Select (c => ((MdToXamlNode)c).ToText ()));
 		}
 	}
 

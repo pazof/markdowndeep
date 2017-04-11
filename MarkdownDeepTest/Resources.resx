@@ -40,4 +40,8 @@ Test spans **emhasysis**
 ![audio:test](test.avi)
 </value></data>
 	<data name="LegacyTestSourceResult"><value>sqcsqc</value></data>
+	<data name="LinkTestSource"><value>[a link](http://www.company.com)</value></data>
+	<data name="ImageTestSource"><value>![an image](http://www.company.com/image.png)</value></data>
+	<data name="AudioTestSource"><value>![audio:an audio](http://www.company.com/audio.mp3)</value></data>
+	<data name="VideoTestSource"><value>![video:a video](http://www.company.com/video.ogg)</value></data>
 </root>

@@ -46,18 +46,12 @@ namespace MDGui
 		{
 			markdown = new Markdown ();
 			Logs = new Log ();
-			MyInitialize ();
-		}
-
-		/// <summary>
-		/// Mies the initialize.
-		/// </summary>
-		public  void MyInitialize () {
 			base.Initialize ();
 			XamlReader.Load (this);
 			sourceCode.TextChanged += OnSourceChanged; 
 			SyncFromSource ();
 		}
+
 
 		private void SyncFromSource() {
 			
@@ -104,9 +98,9 @@ namespace MDGui
 		{	
 			SyncFromSource ();
 		}
-		protected void HandleClickMe (object sender, EventArgs e)
+		protected void HandleRefresh (object sender, EventArgs e)
 		{
-			MessageBox.Show ("I was clicked!");
+			SyncFromSource ();
 		}
 
 		protected void HandleQuit (object sender, EventArgs e)
