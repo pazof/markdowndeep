@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>MarkdownDeep.Gui.Gtk2</id>
+    <version>$version$</version>
+    <title>MarkdownDeep-Av GUI</title>
+    <authors>Paul Schneider</authors>
+    <owners>Paul Schneider</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <projectUrl>https://github.com/pazof/markdowndeep</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Parses and renders Markdown to Html and Xaml</description>
+    <releaseNotes>Xaml support yet is minimal, but does the POC</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>Markdown Text GUI Gtk</tags>
+  </metadata>
+	<files>
+		<file src="bin/Release/*.exe" target="tools" />
+		<file src="bin/Release/*.dll" target="tools" />
+	</files>
+
+</package>
+
