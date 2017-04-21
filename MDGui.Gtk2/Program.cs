@@ -9,14 +9,9 @@ namespace MDGui.Gtk2
 		[STAThread]
 		public static void Main (string[] args)
 		{
-			var generator = new Eto.GtkSharp.Platform();
-
-			var platform = Eto.Platform.Detect;
-
-			// To register new controls :
-			platform.Add<GuiControl.IGuiControl> (() => new GuiControlHandler());
-
-			new Application (generator).Run (new MainForm ());
+			Platform.Get(Platforms.Gtk2)
+				.Add<GuiControl.IGuiControl> (() => new GuiControlHandler ());
+			new Application (Platforms.Gtk2).Run (new MainForm ());
 		}
 	}
 }

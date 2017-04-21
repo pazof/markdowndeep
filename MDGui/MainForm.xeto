@@ -35,7 +35,8 @@ http://dev.pschneider.fr/api/haircutquery
 				</TabPage>
 				<TabPage Text="Xaml code">
 					<TextArea Font="Fixed+10pt" Enabled="True" ReadOnly="True" x:Name="xamlCode">Xaml code</TextArea>
-				</TabPage><!---FIXME
+				</TabPage>
+				<!-- FIXME
 				<TabPage Text="hey">
 				<local:GuiControl></local:GuiControl>
 				</TabPage> -->

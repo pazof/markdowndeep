@@ -22,7 +22,6 @@ namespace MDGui.Gtk3
 			};
 
 			Log.Messages.Subscribe (new ConsoleLogger ());
-
 			new Application (generator).Run (new MainForm ());
 		}
 	}

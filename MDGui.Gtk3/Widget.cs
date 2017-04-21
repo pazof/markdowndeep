@@ -7,9 +7,8 @@ namespace MDGui.Gtk3
 	{
 		public Widget ()
 		{
-			
+			this.Build ();
 		}
-
 	}
 }
 

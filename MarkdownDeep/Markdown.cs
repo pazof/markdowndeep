@@ -488,53 +488,13 @@ namespace MarkdownDeep
 					return true;
 				}
 			}
-
-			width = 0;
-			height = 0;
-
-			if (Utils.IsUrlFullyQualified(url))
-				return false;
-
-			// Work out base location
-			string str = url.StartsWith("/") ? DocumentRoot : DocumentLocation;
-			if (String.IsNullOrEmpty(str))
-				return false;
-
-			// Work out file location
-			if (str.EndsWith("/") || str.EndsWith("\\"))
-			{
-				str=str.Substring(0, str.Length-1);
-			}
-
-			if (url.StartsWith("/"))
-			{
-				url=url.Substring(1);
-			}
-
-			str=str + "\\" + url.Replace("/", "\\");
-
-
-			// 
-
-			//Create an image object from the uploaded file
-			try
-			{
-				var img = System.Drawing.Image.FromFile(str);
-				width=img.Width;
-				height=img.Height;
-
-				if (MaxImageWidth != 0 && width>MaxImageWidth)
-				{
-					height=(int)((double)height * (double)MaxImageWidth / (double)width);
-					width=MaxImageWidth;
-				}
-
-				return true;
-			}
-			catch (Exception)
-			{
-				return false;
-			}
+			width = -1;
+			height = -1;
+			// Do not try and Create an image object from the uploaded file,
+			// We want a portable library,
+			// So, TODO : find a portable lib providing image meta info
+			// DONO reference to System.Drawing, there's no facade lib for this
+			return false;
 		}
 
 

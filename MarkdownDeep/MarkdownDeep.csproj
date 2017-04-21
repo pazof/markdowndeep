@@ -67,7 +67,6 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abbreviation.cs" />
@@ -124,20 +123,10 @@
            Targets="Build" />
 </Target>
   -->
- <Target Name="Pack">
-    <MSBuild
-        Condition="'%(ProjectReference.Identity)' == '{$(SolutionDir)MarkdownDepp\MarkdownDepp.csproj}'"
-        Projects="@(ProjectReference)"
-        Targets="{Pack}"
-        BuildInParallel="True"
-        ToolsVersion="4.0"
-        Properties="BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)"
-        SkipNonexistentProjects="%(ProjectReference.SkipNonexistentProjects)" />
+  <Target Name="Pack">
+    <MSBuild Condition="'%(ProjectReference.Identity)' == '{$(SolutionDir)MarkdownDepp\MarkdownDepp.csproj}'" Projects="@(ProjectReference)" Targets="{Pack}" BuildInParallel="True" ToolsVersion="4.0" Properties="BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" SkipNonexistentProjects="%(ProjectReference.SkipNonexistentProjects)" />
   </Target>
-<Target Name="CopyPackage" AfterTargets="Pack">
-    <Copy
-        SourceFiles="$(OutputPath)\$(PackageId).$(PackageVersion).nupkg"
-        DestinationFolder="\\myshare\packageshare\"
-        />
-</Target>
+  <Target Name="CopyPackage" AfterTargets="Pack">
+    <Copy SourceFiles="$(OutputPath)\$(PackageId).$(PackageVersion).nupkg" DestinationFolder="\\myshare\packageshare\" />
+  </Target>
 </Project>

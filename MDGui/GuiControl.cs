@@ -8,7 +8,9 @@ namespace MDGui
 	[Handler(typeof(IGuiControl))]
 	public class GuiControl : Control
 	{
-		IGuiControl Handler { get { return (IGuiControl)base.Handler; } }
+		new IGuiControl Handler { get { return (IGuiControl)base.Handler; } }
+
+
 
 		// interface to the platform implementations
 		public interface IGuiControl : Control.IHandler
