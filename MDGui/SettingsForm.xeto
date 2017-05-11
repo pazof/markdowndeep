@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Dialog xmlns="http://schema.picoe.ca/eto.forms" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+Title="Paramètres" MinimumSize="200,200" Size="350,250"
+>
+<StackLayout HorizontalContentAlignment="Stretch">
+<StackLayoutItem Expand="True">
+  <TabControl >
+	<TabPage Text="Sortie">
+	<StackLayout>
+		<CheckBox x:Name="chkViewHtml" Checked="{Binding ViewHtml}">Vue Html</CheckBox>
+		<CheckBox x:Name="chkViewXaml" Checked="{Binding ViewXaml}">Vue Xaml</CheckBox>
+	    <CheckBox x:Name="chkViewHtmlCode" Checked="{Binding ViewHtmlCode}">Montrer le code Html</CheckBox>
+		<CheckBox x:Name="chkViewXamlCode" Checked="{Binding ViewXamlCode}">Montrer le code Xaml</CheckBox>
+	  </StackLayout>
+    </TabPage>
+  </TabControl>
+  </StackLayoutItem><StackLayoutItem >
+<StackLayout Orientation="Horizontal">
+  <StackLayoutItem Expand="True" ><Button x:Name="DefaultButton" >Appliquer</Button></StackLayoutItem>
+  <StackLayoutItem Expand="True" ><Button x:Name="AbortButton" >Annuler</Button></StackLayoutItem>
+  </StackLayout></StackLayoutItem>
+  </StackLayout>
+</Dialog>

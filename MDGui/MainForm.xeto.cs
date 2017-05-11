@@ -50,6 +50,7 @@ namespace MDGui
 			XamlReader.Load (this);
 			sourceCode.TextChanged += OnSourceChanged; 
 			SyncFromSource ();
+			DataContext = Settings;
 		}
 
 
@@ -120,16 +121,21 @@ namespace MDGui
 			};
 			DialogResult fileToLoad = dialog.ShowDialog (this.Content);
 			if (fileToLoad.HasFlag (DialogResult.Ok)) {
-				var fi = new FileInfo(dialog.FileName);
-				using (FileStream stream = fi.OpenRead ()) {
-					using (var rdr = new StreamReader (stream)) {
-						sourceCode.Text = rdr.ReadToEnd ();
-					}
-				}
+				LoadMarkdownFile (dialog.FileName);
 			}
 		}
 
-
+		public void LoadMarkdownFile (string fileName) {
+			var fi = new FileInfo(fileName);
+			using (FileStream stream = fi.OpenRead ()) {
+				using (var rdr = new StreamReader (stream)) {
+					Source = rdr.ReadToEnd ();
+				}
+			}
+		}
+		public string Source { get { return sourceCode.Text;
+			} set { sourceCode.Text = value;
+			} }
 		protected void HandleSave (object sender, EventArgs e)
 		{
 			var dialog = new SaveFileDialog { 
@@ -157,13 +163,19 @@ namespace MDGui
 		}
 		LogMessagesDialog log = new LogMessagesDialog ();
 
+		protected void HandleSettings(object sender, EventArgs e)
+		{
+			var diag = new SettingsForm (Settings);
+			diag.ShowModal ();
+		}
+
 		protected void HandleCredits (object sender, EventArgs e)
 		{
 			new Credits ().ShowModal ();
+
 		}
-
 		internal static Log Logs { get; private set; }
-
+		internal Settings Settings { get; set; } = new Settings { ViewHtml = true } ;
 	}
 }
 

@@ -2,9 +2,9 @@
 <Form xmlns="http://schema.picoe.ca/eto.forms"
   xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml" 
   xmlns:local = "clr-namespace:MDGui;assembly=MDGui"
-  Title="My Eto Form" x:Name="form" Width="640" Height="540">
-	<Splitter Orientation="Horizontal" Position="150">
-		<Splitter.Panel1>
+  Title="My Eto Form" x:Name="form" Width="640" Height="540" Padding="5">
+	<Splitter Orientation="Horizontal" Position="150"  >
+		<Splitter.Panel1 >
 
 	
 <RichTextArea x:Name="sourceCode" Wrap="True" SpellCheck="True" AcceptsReturn="True" AcceptsTab="True">
@@ -24,16 +24,16 @@ http://dev.pschneider.fr/api/haircutquery
 		</Splitter.Panel1>
 		<Splitter.Panel2>
 			<TabControl>
-				<TabPage Text="Html View">
+				<TabPage Text="Html View" Visible="{Binding ViewHtml}" >
 						<WebView x:Name="htmlView" BrowserContextMenuEnabled="True" />
 				</TabPage>
-				<TabPage Text="Html code">
+				<TabPage Text="Html code" Visible="{Binding ViewHtmlCode}">
 					<TextArea Font="Fixed+10pt" x:Name="htmlCode" Enabled="True" ReadOnly="True">&lt;html/&gt;</TextArea>
 				</TabPage>
-				<TabPage Text="Xaml view" x:Name="xamlViewTab">
+				<TabPage Text="Xaml view" x:Name="xamlViewTab" Visible="{Binding ViewXaml}">
 				   <Label>Some content</Label>
 				</TabPage>
-				<TabPage Text="Xaml code">
+				<TabPage Text="Xaml code" Visible="{Binding ViewXamlCode}">
 					<TextArea Font="Fixed+10pt" Enabled="True" ReadOnly="True" x:Name="xamlCode">Xaml code</TextArea>
 				</TabPage>
 				<!-- FIXME
@@ -53,7 +53,7 @@ http://dev.pschneider.fr/api/haircutquery
 				<ButtonMenuItem Text="Refresh" Shortcut="CommonModifier+R" Click="HandleRefresh" />
 			</ButtonMenuItem>
 			<MenuBar.ApplicationItems>
-				<ButtonMenuItem Text="Preferences.." Shortcut="{On Control+O, Mac=Application+Comma}" />
+				<ButtonMenuItem Text="Preferences.." Click="HandleSettings" Shortcut="{On Control+O, Mac=Application+Comma}" />
 				<ButtonMenuItem Text="À propos">
 					<ButtonMenuItem Text="Logs" Shortcut="CommonModifier+L" 
 					Click="HandleLog" />
