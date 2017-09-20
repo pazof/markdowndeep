@@ -3,8 +3,9 @@ using MarkdownDeep;
 using System.Linq;
 using System.Text;
 using System.Collections.Generic;
+using MarkdownDeep.Model;
 
-namespace MarkdownDeep.Rendering.Markdown
+namespace MarkdownDeep.Rendering
 {
 	
 	/// <summary>

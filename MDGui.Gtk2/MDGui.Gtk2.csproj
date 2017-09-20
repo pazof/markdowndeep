@@ -35,30 +35,6 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\..\.config\NuGet\packages\OpenWebKitSharp.1.0.7\lib\net40\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
-    <Reference Include="JSCore">
-      <HintPath>..\..\..\.config\NuGet\packages\OpenWebKitSharp.1.0.7\lib\net40\JSCore.dll</HintPath>
-    </Reference>
-    <Reference Include="MyDownloader.App">
-      <HintPath>..\..\..\.config\NuGet\packages\OpenWebKitSharp.1.0.7\lib\net40\MyDownloader.App.dll</HintPath>
-    </Reference>
-    <Reference Include="MyDownloader.Core">
-      <HintPath>..\..\..\.config\NuGet\packages\OpenWebKitSharp.1.0.7\lib\net40\MyDownloader.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="MyDownloader.Extension">
-      <HintPath>..\..\..\.config\NuGet\packages\OpenWebKitSharp.1.0.7\lib\net40\MyDownloader.Extension.dll</HintPath>
-    </Reference>
-    <Reference Include="OpenWebKitSharp">
-      <HintPath>..\..\..\.config\NuGet\packages\OpenWebKitSharp.1.0.7\lib\net40\OpenWebKitSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="TabStrip">
-      <HintPath>..\..\..\.config\NuGet\packages\OpenWebKitSharp.1.0.7\lib\net40\TabStrip.dll</HintPath>
-    </Reference>
-    <Reference Include="WebKit">
-      <HintPath>..\..\..\.config\NuGet\packages\OpenWebKitSharp.1.0.7\lib\net40\WebKit.dll</HintPath>
-    </Reference>
-    <Reference Include="WebKit.Interop">
-      <HintPath>..\..\..\.config\NuGet\packages\OpenWebKitSharp.1.0.7\lib\net40\WebKit.Interop.dll</HintPath>
-    </Reference>
     <Reference Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <Package>gtk-sharp-2.0</Package>
     </Reference>
@@ -72,14 +48,14 @@
       <Package>gtk-sharp-2.0</Package>
     </Reference>
     <Reference Include="Mono.Posix" />
-    <Reference Include="Eto">
-      <HintPath>..\..\..\.config\NuGet\packages\Eto.Forms.2.3.0\lib\net45\Eto.dll</HintPath>
-    </Reference>
-    <Reference Include="Eto.Gtk2">
-      <HintPath>..\..\..\.config\NuGet\packages\Eto.Platform.Gtk.2.3.0\lib\net45\Eto.Gtk2.dll</HintPath>
-    </Reference>
     <Reference Include="webkitgtk-sharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=e1f0fd21e79c8b0f">
       <Package>webkitgtk-sharp-3.0</Package>
+    </Reference>
+    <Reference Include="Eto.Gtk2">
+      <HintPath>..\packages\Eto.Platform.Gtk.2.3.0\lib\net45\Eto.Gtk2.dll</HintPath>
+    </Reference>
+    <Reference Include="Eto">
+      <HintPath>..\packages\Eto.Forms.2.3.0\lib\net45\Eto.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

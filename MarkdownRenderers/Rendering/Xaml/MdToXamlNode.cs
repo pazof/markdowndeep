@@ -1,8 +1,9 @@
 ﻿using System;
-using MarkdownDeep;
 using System.Linq;
 using System.Text;
 using System.Collections.Generic;
+
+using MarkdownDeep;
 using MarkdownDeep.Rendering.Markdown;
 
 namespace MarkdownDeep.Rendering.Xaml
@@ -51,9 +52,9 @@ namespace MarkdownDeep.Rendering.Xaml
 			// rendre reccursivement la taille de l'entête:
 			if (IsHeader > 0) {
 				if (Children!=null)
-				foreach (var i in Children) {
-					i.IsHeader = IsHeader;
-				}
+					foreach (var i in Children) {
+						i.IsHeader = IsHeader;
+					}
 			}
 
 			// les cas terminaux
@@ -104,12 +105,5 @@ namespace MarkdownDeep.Rendering.Xaml
 		}
 	}
 
-	/// <summary>
-	///  markdown renderer to Xaml
-	/// </summary>
-	public class XamlRenderer : MarkdownRenderer<MdToXamlNode> 
-	{
-		
-    }
 }
 

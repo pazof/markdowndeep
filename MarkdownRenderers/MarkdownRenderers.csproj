@@ -34,17 +34,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ToXaml\XamlRenderer.cs" />
     <Compile Include="TextRenderer.cs" />
     <Compile Include="MDText.cs" />
     <Compile Include="Model\IMDNode.cs" />
-    <Compile Include="Model\MarkdownRenderer.cs" />
+    <Compile Include="Rendering\MarkdownRenderer.cs" />
+    <Compile Include="Rendering\Xaml\MdToXamlNode.cs" />
+    <Compile Include="Rendering\Xaml\XamlRenderer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Folder Include="ToXaml\" />
     <Folder Include="Model\" />
-    <Folder Include="ToDom\" />
+    <Folder Include="Rendering\" />
+    <Folder Include="Rendering\Xaml\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MarkdownDeep\MarkdownDeep.csproj">

@@ -19,6 +19,10 @@ namespace MDGui
 			set { viewHtml=value; OnPropertyChanged (); } } 
 		public bool ViewXaml { get { return viewXaml; }
 			set { viewXaml=value; OnPropertyChanged (); } } 
+
+		private int recentListLength;
+		public int RecentListLength { get { return recentListLength; }
+			set { recentListLength=value; OnPropertyChanged (); }  }
 		
 		void OnPropertyChanged([CallerMemberName] string memberName = null)
 		{
@@ -35,6 +39,7 @@ namespace MDGui
 			ViewXaml = settings.ViewXaml;
 			ViewHtmlCode = settings.ViewHtmlCode;
 			ViewXamlCode = settings.ViewXamlCode;
+			RecentListLength = settings.RecentListLength;
 		}
 		public event PropertyChangedEventHandler PropertyChanged;
 	}

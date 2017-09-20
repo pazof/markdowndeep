@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MarkdownDeep.Rendering.Markdown
+namespace MarkdownDeep.Model
 {
 	public enum MediaType { 
 		Text,

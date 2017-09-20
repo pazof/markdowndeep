@@ -23,16 +23,10 @@ namespace Stetic
 		public static BinContainer Attach (Gtk.Bin bin)
 		{
 			BinContainer bc = new BinContainer ();
-			bin.SizeAllocated += new Gtk.SizeAllocatedHandler (bc.OnSizeAllocated);
 			bin.Added += new Gtk.AddedHandler (bc.OnAdded);
 			return bc;
 		}
 
-		private void OnSizeAllocated (object sender, Gtk.SizeAllocatedArgs args)
-		{
-			if ((this.child != null)) {
-			}
-		}
 
 		private void OnAdded (object sender, Gtk.AddedArgs args)
 		{

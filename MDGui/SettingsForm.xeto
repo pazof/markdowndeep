@@ -1,17 +1,23 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Dialog xmlns="http://schema.picoe.ca/eto.forms" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-Title="Paramètres" MinimumSize="200,200" Size="350,250"
+Title="Paramètres" MinimumSize="200,200" Size="350,250" Padding="10"
 >
-<StackLayout HorizontalContentAlignment="Stretch">
-<StackLayoutItem Expand="True">
+<StackLayout HorizontalContentAlignment="Stretch" >
+<StackLayoutItem Expand="True" Spacing="10">
   <TabControl >
-	<TabPage Text="Sortie">
-	<StackLayout>
+	<TabPage Text="Sortie" Padding="10">
+	<StackLayout Spacing="10">
 		<CheckBox x:Name="chkViewHtml" Checked="{Binding ViewHtml}">Vue Html</CheckBox>
 		<CheckBox x:Name="chkViewXaml" Checked="{Binding ViewXaml}">Vue Xaml</CheckBox>
 	    <CheckBox x:Name="chkViewHtmlCode" Checked="{Binding ViewHtmlCode}">Montrer le code Html</CheckBox>
 		<CheckBox x:Name="chkViewXamlCode" Checked="{Binding ViewXamlCode}">Montrer le code Xaml</CheckBox>
 	  </StackLayout>
+    </TabPage>
+    <TabPage Text="Interface" Padding="10" >
+<StackLayout Orientation="Horizontal" Spacing="10" >
+        <Label>Longueur de la liste des fichiers récents : </Label> 
+        <NumericUpDown MinValue="3" MaxValue="41" Value="{Binding RecentListLength}"/>
+         </StackLayout>
     </TabPage>
   </TabControl>
   </StackLayoutItem><StackLayoutItem >

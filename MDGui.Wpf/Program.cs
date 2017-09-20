@@ -1,6 +1,6 @@
 ﻿using System;
-using Eto;
 using Eto.Forms;
+using Eto;
 
 namespace MDGui.Wpf
 {

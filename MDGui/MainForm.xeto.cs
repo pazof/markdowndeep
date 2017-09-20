@@ -35,6 +35,7 @@ namespace MDGui
 
 		private XamlRenderer xamlRenderer = new XamlRenderer();
 
+		private ButtonMenuItem btnSave;
 		// private MyDynamicControl xamlContainer;
 
 		private TextArea xamlCode;
@@ -50,21 +51,18 @@ namespace MDGui
 			XamlReader.Load (this);
 			sourceCode.TextChanged += OnSourceChanged; 
 			SyncFromSource ();
-			DataContext = Settings;
+			DataContext = this;
 		}
-
 
 		private void SyncFromSource() {
 			
 			var html = markdown.Transform(sourceCode.Text);
 			htmlCode.Text = html;
 			htmlView.LoadHtml(html);
+			//FIXME Generate a valide Xaml header
 			var node = markdown.Render (sourceCode.Text, xamlRenderer);
 			string source = node?.ToXaml();
 			xamlCode.Text = source;
-
-			//FIXME Generate valide Xaml
-			//source = "<Label>Pas encore implémenté</Label>";
 
 			string wholeSource = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
 				"<TabPage xmlns=\"http://schema.picoe.ca/eto.forms\"\n" +
@@ -81,7 +79,6 @@ namespace MDGui
 				}
 				catch (Portable.Xaml.XamlObjectWriterException ex) {
 					// FIXME handle?
-
 					Log.LogError($"Xaml({ex.LineNumber},{ex.LinePosition})", ex.Message);
 				}
 				catch (System.Xml.XmlException ex) {
@@ -97,6 +94,7 @@ namespace MDGui
 
 		private void OnSourceChanged(object sender, EventArgs e) 
 		{	
+			Dirty = true;
 			SyncFromSource ();
 		}
 		protected void HandleRefresh (object sender, EventArgs e)
@@ -136,7 +134,42 @@ namespace MDGui
 		public string Source { get { return sourceCode.Text;
 			} set { sourceCode.Text = value;
 			} }
+		
+		public string SourcePath { get; set; }  = null;
+
 		protected void HandleSave (object sender, EventArgs e)
+		{
+			FileInfo fi = null;
+			if (SourcePath == null) {
+				fi = AskForAFile () ;
+					SourcePath = fi.FullName;
+
+			} else {
+				fi = new FileInfo (SourcePath);
+			}
+			WriteTo (fi);
+		}
+
+		private void WriteTo(FileInfo fi)
+		{
+			using (var stream = fi.OpenWrite ()) {
+				var wr = Encoding.UTF8.GetBytes (sourceCode.Text);
+				stream.Write (wr, 0, wr.Length);
+				stream.Close ();
+			}
+			Dirty = false;
+		}
+
+		public bool Dirty { 
+			get { 
+				return btnSave.Enabled;
+			}
+			set { 
+				btnSave.Enabled = value;
+			}
+		}
+
+		private FileInfo AskForAFile()
 		{
 			var dialog = new SaveFileDialog { 
 				Filters = { 
@@ -149,18 +182,23 @@ namespace MDGui
 			DialogResult fileToSave = dialog.ShowDialog (this.Content);
 			if (fileToSave.HasFlag (DialogResult.Ok)) {
 				// If file exists, user should have been warn about.
-				var fi = new FileInfo(dialog.FileName);
-				using (var stream = fi.OpenWrite ()) {
-					var wr = Encoding.UTF8.GetBytes(sourceCode.Text);
-					stream.Write (wr, 0, wr.Length);
-					stream.Close ();
-				}
+				return new FileInfo (dialog.FileName);
 			}
+			return null;
 		}
+
+		protected void HandleSaveAs (object sender, EventArgs e)
+		{
+			var fi = AskForAFile ();
+			if (fi != null)
+				WriteTo (fi);
+		}
+
 		protected void HandleLog (object sender, EventArgs e)
 		{
 			log.Show ();
 		}
+
 		LogMessagesDialog log = new LogMessagesDialog ();
 
 		protected void HandleSettings(object sender, EventArgs e)

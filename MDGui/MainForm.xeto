@@ -2,7 +2,7 @@
 <Form xmlns="http://schema.picoe.ca/eto.forms"
   xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml" 
   xmlns:local = "clr-namespace:MDGui;assembly=MDGui"
-  Title="My Eto Form" x:Name="form" Width="640" Height="540" Padding="5">
+  Title="{Binding SourcePath}" x:Name="form" Width="640" Height="540" Padding="5">
 	<Splitter Orientation="Horizontal" Position="150"  >
 		<Splitter.Panel1 >
 
@@ -24,16 +24,16 @@ http://dev.pschneider.fr/api/haircutquery
 		</Splitter.Panel1>
 		<Splitter.Panel2>
 			<TabControl>
-				<TabPage Text="Html View" Visible="{Binding ViewHtml}" >
+				<TabPage Text="Html View" Visible="{Binding Settings.ViewHtml}" >
 						<WebView x:Name="htmlView" BrowserContextMenuEnabled="True" />
 				</TabPage>
-				<TabPage Text="Html code" Visible="{Binding ViewHtmlCode}">
+				<TabPage Text="Html code" Visible="{Binding Settings.ViewHtmlCode}">
 					<TextArea Font="Fixed+10pt" x:Name="htmlCode" Enabled="True" ReadOnly="True">&lt;html/&gt;</TextArea>
 				</TabPage>
-				<TabPage Text="Xaml view" x:Name="xamlViewTab" Visible="{Binding ViewXaml}">
+				<TabPage Text="Xaml view" x:Name="xamlViewTab" Visible="{Binding Settings.ViewXaml}">
 				   <Label>Some content</Label>
 				</TabPage>
-				<TabPage Text="Xaml code" Visible="{Binding ViewXamlCode}">
+				<TabPage Text="Xaml code" Visible="{Binding Settings.ViewXamlCode}">
 					<TextArea Font="Fixed+10pt" Enabled="True" ReadOnly="True" x:Name="xamlCode">Xaml code</TextArea>
 				</TabPage>
 				<!-- FIXME
@@ -45,9 +45,11 @@ http://dev.pschneider.fr/api/haircutquery
 	</Splitter>
 	<Form.Menu>
 		<MenuBar>
+		    
 			<ButtonMenuItem Text="F&amp;ile">
 			    <ButtonMenuItem Text="Open" Shortcut="CommonModifier+O" Click="HandleOpen" />
-				<ButtonMenuItem Text="Save" Shortcut="CommonModifier+S" Click="HandleSave" />
+				<ButtonMenuItem x:Name="btnSave" Text="Save" Shortcut="CommonModifier+S" Click="HandleSave" />
+				<ButtonMenuItem Text="SaveAs" Shortcut="CommonModifier+W" Click="HandleSaveAs" />
 			</ButtonMenuItem>
 			<ButtonMenuItem Text="View">
 				<ButtonMenuItem Text="Refresh" Shortcut="CommonModifier+R" Click="HandleRefresh" />
