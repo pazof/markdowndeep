@@ -4,7 +4,7 @@ using System.Text;
 using System.Collections.Generic;
 
 using MarkdownDeep;
-using MarkdownDeep.Rendering.Markdown;
+using MarkdownDeep.Model;
 
 namespace MarkdownDeep.Rendering.Xaml
 {
