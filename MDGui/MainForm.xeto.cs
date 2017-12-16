@@ -40,6 +40,8 @@ namespace MDGui
 
 		private TextArea xamlCode;
 
+		private TabControl viewTabs;
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MDGui.MainForm"/> class.
 		/// </summary>
@@ -50,8 +52,13 @@ namespace MDGui
 			base.Initialize ();
 			XamlReader.Load (this);
 			sourceCode.TextChanged += OnSourceChanged; 
-			SyncFromSource ();
 			DataContext = this;
+		}
+
+		protected override void OnLoad (EventArgs e)
+		{
+			base.OnLoad (e);
+			SyncFromSource ();
 		}
 
 		private void SyncFromSource() {
@@ -97,6 +104,7 @@ namespace MDGui
 			Dirty = true;
 			SyncFromSource ();
 		}
+
 		protected void HandleRefresh (object sender, EventArgs e)
 		{
 			SyncFromSource ();
@@ -106,6 +114,7 @@ namespace MDGui
 		{
 			Application.Instance.Quit ();
 		}
+
 		protected void HandleOpen (object sender, EventArgs e)
 		{
 			var dialog = new OpenFileDialog {
@@ -213,7 +222,8 @@ namespace MDGui
 
 		}
 		internal static Log Logs { get; private set; }
-		internal Settings Settings { get; set; } = new Settings { ViewHtml = true } ;
+
+		public Settings Settings { get; set; } = new Settings { ViewHtml = true } ;
 	}
 }
 

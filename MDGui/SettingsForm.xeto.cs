@@ -15,10 +15,6 @@ namespace MDGui
 			XamlReader.Load (this);
 			this.DataContext = target;
 			old = target.CreateBackup ();
-			/*
-			old = new Settings { ViewXaml = target.ViewXaml, 
-				ViewHtml = target.ViewHtml,
-				ViewHtmlCode = target.V; */
 			
 			this.DefaultButton.Click += CloseButton_Click;
 			this.AbortButton.Click += AbortButton_Click;
@@ -26,13 +22,16 @@ namespace MDGui
 
 		void CloseButton_Click (object sender, EventArgs e)
 		{
+			
 			this.Close ();
 		}
+
 		void AbortButton_Click (object sender, EventArgs e)
 		{
 			((Settings)this.DataContext).Restore (old);
 			this.Close ();
 		}
+
 	}
 }
 

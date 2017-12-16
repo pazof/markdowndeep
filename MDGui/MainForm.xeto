@@ -23,17 +23,17 @@ http://dev.pschneider.fr/api/haircutquery
 </RichTextArea>
 		</Splitter.Panel1>
 		<Splitter.Panel2>
-			<TabControl>
-				<TabPage Text="Html View" Visible="{Binding Settings.ViewHtml}" >
+			<TabControl x:Name="viewTabs">
+				<TabPage Text="Html View" DataContext="{Binding Settings}" Visible="{Binding ViewHtml}" >
 						<WebView x:Name="htmlView" BrowserContextMenuEnabled="True" />
 				</TabPage>
-				<TabPage Text="Html code" Visible="{Binding Settings.ViewHtmlCode}">
+				<TabPage Text="Html code" DataContext="{Binding Settings}" Visible="{Binding ViewHtmlCode}">
 					<TextArea Font="Fixed+10pt" x:Name="htmlCode" Enabled="True" ReadOnly="True">&lt;html/&gt;</TextArea>
 				</TabPage>
-				<TabPage Text="Xaml view" x:Name="xamlViewTab" Visible="{Binding Settings.ViewXaml}">
+				<TabPage Text="Xaml view" x:Name="xamlViewTab" DataContext="{Binding Settings}" Visible="{Binding ViewXaml}">
 				   <Label>Some content</Label>
 				</TabPage>
-				<TabPage Text="Xaml code" Visible="{Binding Settings.ViewXamlCode}">
+				<TabPage Text="Xaml code" DataContext="{Binding Settings}" Visible="{Binding ViewXamlCode}">
 					<TextArea Font="Fixed+10pt" Enabled="True" ReadOnly="True" x:Name="xamlCode">Xaml code</TextArea>
 				</TabPage>
 				<!-- FIXME
