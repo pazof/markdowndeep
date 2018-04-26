@@ -15,7 +15,7 @@ namespace MarkdownDeep.Rendering.TeX
 	/// </summary>
 	public class TeXRenderer : IMarkdownRenderer<IMDNode> 
 	{
-		public IMDNode Paragraph(IMDNode inner)
+		public IMDNode Paragraph(IMDNode inner, int start, int len)
 		{
 			return new Paragraph (inner);
 		}
@@ -135,10 +135,10 @@ namespace MarkdownDeep.Rendering.TeX
 			};
         }
 
-		public IMDNode Text(string txt)
+		public IMDNode Text(string txt, int start, int len)
         {
 			return  new MDText(txt) {
-					Rendering = x=> x.Text
+				Rendering = x=> x.Text.Substring(start,len)
 				};
         }
 

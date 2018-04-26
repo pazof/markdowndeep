@@ -15,4 +15,5 @@ Debug
 /packages/*
 .nuget/
 /MarkdownDeep.userprefs
+.vs/
 

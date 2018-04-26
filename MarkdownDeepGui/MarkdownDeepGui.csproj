@@ -61,6 +61,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\.config\NuGet\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Package>monodevelop</Package>
     </Reference>
     <Reference Include="Eto.Serialization.Json">
       <HintPath>..\..\..\.config\NuGet\packages\Eto.Serialization.Json.2.3.0\lib\net45\Eto.Serialization.Json.dll</HintPath>

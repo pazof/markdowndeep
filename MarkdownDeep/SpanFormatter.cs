@@ -1175,7 +1175,7 @@ namespace MarkdownDeep
 				T item = default(T);
 				switch (t.type) {
 				case TokenType.Text:
-					item = renderer.Text (str.Substring (t.startOffset, t.length));
+					item = renderer.Text (str,t.startOffset, t.length);
 					break;
 
 				case TokenType.HtmlTag:
@@ -1221,11 +1221,11 @@ namespace MarkdownDeep
 					break;
 
 				case TokenType.strike:
-					item = renderer.Strike ( renderer.Text (str.Substring (t.startOffset, t.length)) );
+					item = renderer.Strike ( renderer.Text (str,t.startOffset, t.length) );
 					break;
 
 				case TokenType.underline:
-					item = renderer.Underline (renderer.Text ( str.Substring (t.startOffset, t.length)));
+					item = renderer.Underline (renderer.Text ( str,t.startOffset, t.length));
 					break;
 					
 				case TokenType.link:

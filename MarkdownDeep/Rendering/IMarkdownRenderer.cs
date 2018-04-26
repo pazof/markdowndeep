@@ -7,7 +7,7 @@ namespace MarkdownDeep.Rendering
 		/// Paragraph the specified inner.
 		/// </summary>
 		/// <param name="inner">Inner.</param>
-		T Paragraph (T inner);
+		T Paragraph (T inner, int start, int len);
 		/// <summary>
 		/// Aggregates the span.
 		/// </summary>
@@ -27,7 +27,7 @@ namespace MarkdownDeep.Rendering
 		/// Render as text the specified txt.
 		/// </summary>
 		/// <param name="txt">Text.</param>
-		T Text (string txt);
+		T Text (string txt, int start, int len);
 		/// <summary>
 		/// Header the specified inner at level.
 		/// </summary>

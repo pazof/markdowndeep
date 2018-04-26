@@ -16,8 +16,8 @@ namespace MarkdownDeep.Model
 		Unordered
 	}
 	public interface IMDNode  {
-		string Value { get; set; }
-		string Source { get; set; }
+		string Display { get; set; }
+		string Data { get; set; }
 		string Meta {  get; set; }
 		MediaType SourceType { get; set; } 
 		// int col { get; set; } 
@@ -27,6 +27,7 @@ namespace MarkdownDeep.Model
 		bool IsStrikout { get; set; }
 		bool IsUnderline { get; set; }
 		bool IsBlock { get; set; }
+		bool IsFinalBlock { get; set; }
 		bool IsMonospace { get; set; }
 		IMDNode [] Children { get; set; }
 		HeaderLevel IsHeader { get; set; }

@@ -37,17 +37,19 @@
     <Compile Include="Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Credits.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="LogMessagesDialog.xeto.cs">
       <DependentUpon>LogMessagesDialog.xeto</DependentUpon>
     </Compile>
     <Compile Include="LogWindow.cs" />
-    <Compile Include="GuiControl.cs" />
     <Compile Include="SettingsForm.xeto.cs">
       <DependentUpon>SettingsForm.xeto</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <Compile Include="Services\IGuiControlHandler.cs" />
+    <Compile Include="Services\GuiControlHandler.cs" />
+    <Compile Include="Services\BufferChangedEventArgs.cs" />
+    <Compile Include="Dialogs\Credits.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainForm.xeto" />
@@ -85,5 +87,9 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="TODO.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
+    <Folder Include="Dialogs\" />
   </ItemGroup>
 </Project>

@@ -10,8 +10,8 @@ xmlns:local = "clr-namespace:MDGui;assembly=MDGui" ShowInTaskbar="False" Topmost
 		<Label>Message</Label>
 		</DynamicRow>
 		<DynamicRow>
-		<Label>jmjk </Label>
-		<Label>asfd </Label>
+		<Label>Test KO</Label>
+		<Button Text="Do ko" Click="OnDoKo"></Button>
 		<Label>esqdf </Label>
 		</DynamicRow>
 		</DynamicLayout>

@@ -9,8 +9,8 @@ using MarkdownDeep.Model;
 namespace MarkdownDeep.Rendering.Xaml
 {
 	public class MdToXamlNode : IMDNode {
-		public string Value { get; set; } 
-		public string Source { get; set; }
+		public string Display { get; set; } 
+		public string Data { get; set; }
 		public string Meta {  get; set; }
 		public MediaType SourceType { get; set; } 
 		public bool IsEmphasys { get; set; }
@@ -18,6 +18,7 @@ namespace MarkdownDeep.Rendering.Xaml
 		public bool IsStrikout { get; set; }
 		public bool IsUnderline { get; set; }
 		public bool IsBlock { get; set; }
+		public bool IsFinalBlock { get; set; }
 		public bool IsMonospace { get; set; }
 		public IMDNode [] Children { get; set; }
 		public HeaderLevel IsHeader { get; set; }
@@ -60,16 +61,16 @@ namespace MarkdownDeep.Rendering.Xaml
 			// les cas terminaux
 
 			// Les liens
-			if (Source != null) {
+			if (Data != null) {
 				string linktext="";
 				if (Children != null && Children.Count() > 0)
 					// TODO RichText
 					linktext = string.Join (" ", Children.Select (c => Trim (((MdToXamlNode)c).ToText())));
-				linktext = $"{Value}{linktext}";
-				return $"<LinkButton Command=\"{{Binding open{SourceType}}}\" CommandParameter=\"{Source}\">{linktext}</LinkButton>";
+				linktext = $"{Display}{linktext}";
+				return $"<LinkButton Command=\"{{Binding open{SourceType}}}\" CommandParameter=\"{Data}\">{linktext}</LinkButton>";
 			}
-			if (Value != null) {
-				var val = Trim (Value);
+			if (Display != null) {
+				var val = Trim (Display);
 				return $"<Label Font=\"{font}\">{val}</Label>";
 			}
 			if (IsBlock) {
@@ -98,8 +99,8 @@ namespace MarkdownDeep.Rendering.Xaml
 
 		public string ToText()
 		{
-			if (Value != null)
-				return Trim (Value);
+			if (Display != null)
+				return Trim (Display);
 			else
 				return string.Join (" ", Children.Select (c => ((MdToXamlNode)c).ToText ()));
 		}

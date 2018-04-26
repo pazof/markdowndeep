@@ -6,6 +6,7 @@
   </configuration>
   <import>
     <widget-library name="webkitgtk-sharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=e1f0fd21e79c8b0f" />
+    <widget-library name="../../packages/Eto.Platform.Gtk.2.3.0/lib/net45/Eto.Gtk2.dll" />
     <widget-library name="../bin/Debug/MDGui.Gtk2.exe" internal="true" />
   </import>
   <widget class="Gtk.Bin" id="MDGui.Gtk2.Widget" design-size="779 239">

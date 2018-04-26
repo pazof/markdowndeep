@@ -17,7 +17,7 @@ namespace MarkdownDeep.Rendering
 	public class MarkdownRenderer<T> : IMarkdownRenderer<T>
 		where T : IMDNode, new()
 	{
-		public T Paragraph(T inner)
+		public T Paragraph(T inner, int start, int len)
 		{
 			inner.IsBlock = true;
 			return inner;
@@ -35,39 +35,37 @@ namespace MarkdownDeep.Rendering
 
 		public T AggregateFinalBlock(T [] parts)
 		{
-			return new T { Children = parts.Cast<IMDNode>().ToArray(), IsBlock = true };
+			return new T { Children = parts.Cast<IMDNode>().ToArray(), IsBlock = true, IsFinalBlock = true };
 		}
 
 		public T Link(T inner, string href, string title)
 		{
-			inner.Source = href;
-			inner.Value = title;
-			return inner;
+			return new T { Data = href, Display = title, Children =  new IMDNode[] { inner } };
 		}
 
 		public T Image(string href, string alt, string title)
 		{
-			return new T { Source = href, SourceType = MediaType.Image, Value = alt };
+			return new T { Data = href, SourceType = MediaType.Image, Display = alt };
 		}
 
 		public T Audio(string href, string alt, string title)
 		{
-			return new T { Source = href, SourceType = MediaType.Audio, Value = alt };
+			return new T { Data = href, SourceType = MediaType.Audio, Display = alt };
         }
 
 		public T Video (string href, string alt, string title)
 		{
-			return new T { Source = href, SourceType = MediaType.Video, Value = alt };
+			return new T { Data = href, SourceType = MediaType.Video, Display = alt };
 		}
 
 		public T Code(string source)
         {
-			return new T { Value = source, IsMonospace = true };
+			return new T { Display = source, IsMonospace = true };
         }
 			
 		public T CodeBlock (string[] lines, string lang)
 		{
-			return new T { Value = string.Join("\n",lines), IsMonospace = true, IsBlock = true, Meta = lang };
+            return new T { Display = string.Join("\n",lines), IsMonospace = true, IsBlock = true, Meta = $"lan:{lang}" };
 		}
 
 		public T Emphasis(T [] inner)
@@ -114,9 +112,9 @@ namespace MarkdownDeep.Rendering
 			return new T { Children = inner.Cast<IMDNode>().ToArray(), IsStrong = true };
         }
 
-		public T Text(string txt)
+		public T Text(string txt, int start, int len)
         {
-			return new T { Value = txt };
+			return new T { Display = txt.Substring(start, len) };
         }
 
 		public T Underline(T existent)
@@ -157,7 +155,7 @@ namespace MarkdownDeep.Rendering
 
 		public T Blank()
 		{
-			return new T { Value = " " };
+			return new T { Display = " " };
 		}
 
 		public T TableRow(T[] cells)

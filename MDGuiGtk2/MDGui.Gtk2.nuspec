@@ -15,8 +15,9 @@
     <tags>Markdown Text GUI Gtk</tags>
   </metadata>
 	<files>
-		<file src="bin/Release/*.exe" target="tools" />
-		<file src="bin/Release/*.dll" target="tools" />
+		<file src="bin/Release/*.exe" target="bin" />
+		<file src="bin/Release/*.dll" target="lib" />
+        <file src="bin/Release/*.mdb" target="lib" />
 	</files>
 
 </package>

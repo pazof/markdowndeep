@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ItemType>PackagingProject</ItemType>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{965DB9D1-12E8-4EBD-966E-5625AA58B295}</ProjectGuid>
+    <Packages>
+      <Packages>
+        <Package>
+          <Builder>
+            <ChildEntries>
+              <SolutionItemReference>
+                <path>..\MDGui.Gtk3\MDGui.Gtk3.csproj</path>
+              </SolutionItemReference>
+            </ChildEntries>
+            <RootEntry>
+              <path>..\MarkdownDeep.sln</path>
+              <id>:root:</id>
+            </RootEntry>
+            <targetFile>..\MarkdownDeep.tar.gz</targetFile>
+            <platform>Linux</platform>
+            <configuration>Debug</configuration>
+            <ctype>BinariesZipPackageBuilder</ctype>
+          </Builder>
+          <name>Linux Binaires</name>
+        </Package>
+      </Packages>
+    </Packages>
+  </PropertyGroup>
+</Project>

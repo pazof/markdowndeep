@@ -158,7 +158,7 @@ namespace MarkdownDeep
 			case BlockType.p:
 			case BlockType.div:
 				var inner = m.SpanFormatter.RenderToAny<T> (b, buf, contentStart, contentLen);
-				return b.Paragraph (inner);
+				return b.Paragraph (inner, contentStart, contentLen);
 			case BlockType.span:
 				return m.SpanFormatter.RenderToAny<T>(b, buf, contentStart, contentLen) ;
 
@@ -199,7 +199,7 @@ namespace MarkdownDeep
 
 			case BlockType.html:
 			case BlockType.unsafe_html:
-				return b.Text (Content);
+				return b.Text (Content,0,Content.Length);
 
 			case BlockType.codeblock: 
 				{

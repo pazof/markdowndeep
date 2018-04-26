@@ -15,7 +15,7 @@ namespace MarkdownDeep.Rendering.Markdown
 	/// </summary>
 	public class TextRenderer : IMarkdownRenderer<string> 
 	{
-		public string Paragraph(string inner)
+		public string Paragraph(string inner, int start, int len)
 		{
 			return $"{inner}";
 		}
@@ -122,9 +122,9 @@ namespace MarkdownDeep.Rendering.Markdown
 			return "**"+string.Join("\n",inner)+"**";
         }
 
-		public string Text(string txt)
+		public string Text(string txt, int start, int len)
         {
-			return txt;
+			return txt.Substring(start,len);
         }
 
 		public string Underline(string existent)

@@ -54,7 +54,9 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <CustomCommands>
       <CustomCommands>
-        <Command type="AfterBuild" />
+        <Command>
+          <type>AfterBuild</type>
+        </Command>
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>

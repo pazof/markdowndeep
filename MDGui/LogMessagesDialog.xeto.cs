@@ -12,7 +12,7 @@ namespace MDGui
 
 		protected override void OnClosing (System.ComponentModel.CancelEventArgs e)
 		{
-			e.Cancel = true;
+			e.Cancel = true; // FIXME frankly why?
 			this.Visible = false;
 		}
 
@@ -40,6 +40,12 @@ namespace MDGui
 		public void OnCompleted()
 		{
 		}
+
+        public void OnDoKo(object sender, EventArgs args)
+        {
+            throw new Exception("OkkO");
+        }
+
 		protected override void Dispose (bool disposing)
 		{
 			base.Dispose (disposing);
