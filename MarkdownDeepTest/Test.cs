@@ -1,7 +1,7 @@
 ﻿using System;
 using Xunit;
 using MarkdownDeep;
-using MarkdownDeep.Rendering.Xaml;
+using MarkdownAVToXaml.Rendering.Text.Xaml;
 
 namespace MarkdownDeepTest
 {
@@ -13,7 +13,7 @@ namespace MarkdownDeepTest
 			var m = new Markdown ();
 			var xr = new XamlRenderer ();
 			var str = Resources.ResourceManager.GetString ("LegacyTestSource");
-			string xaml = m.Render (str, xr).ToXaml ();
+            string xaml = m.Render (str, xr) ;
 		}
 
 		[Fact ()]

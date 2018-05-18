@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MarkdownDeep.Rendering;
+using MarkdownDeep.Rendering.Abstract;
 
 namespace MarkdownDeep
 {
@@ -24,7 +25,7 @@ namespace MarkdownDeep
 	// are only used during rendering and some are used during both
 	internal enum BlockType
 	{
-		Blank,			// blank line (parse only)
+		None,			// none content (parse only)
 		h1,				// headings (render and parse)
 		h2, 
 		h3, 
@@ -105,16 +106,17 @@ namespace MarkdownDeep
 			}
 		}
 
-		internal T RenderChildren<T>(Markdown m, IMarkdownRenderer<T> b)
+		V RenderChildren<T,U,V>(Markdown m, IMarkdownBlockRenderer<T,U,V> b)
+            where U: ISpan<T> where V:IBlock<T>, IRenderer<T>
 		{
-			var list = new List<T> ();
+			var list = new List<V> ();
 			if (children == null)
-				return default(T);
+				return default(V);
 			foreach (var child in children)
 			{
 				list.Add( child.Render(m,b));
 			}
-			return b.AggregateBlock (list.ToArray ());
+            return b.Aggregate (list.ToArray());
 		}
 
 		internal void RenderChildrenPlain(Markdown m, StringBuilder b)
@@ -148,43 +150,54 @@ namespace MarkdownDeep
 			return id;
 		}
 
-		internal T Render<T>(Markdown m, IMarkdownRenderer<T> b) 
+		internal V Render<T,U,V>(Markdown m, IMarkdownBlockRenderer<T,U,V> b)
+            where U: ISpan<T> where V:IBlock<T>
 		{
+
 			switch (blockType)
 			{
-			case BlockType.Blank:
-				return b.Blank ();
-
+			case BlockType.None:
+                    // FIXME Dispose of this None value
+                    // None value is dedicated to parsing time
+                    // marking the start of a block level
+                    // and this default object shoud be disposed
+                    // and not be taken for a line break or what ever separator
+                 return default(V);
 			case BlockType.p:
 			case BlockType.div:
-				var inner = m.SpanFormatter.RenderToAny<T> (b, buf, contentStart, contentLen);
-				return b.Paragraph (inner, contentStart, contentLen);
+				var inner = m.SpanFormatter.RenderToAny<T,U,V> (b, buf, contentStart, contentLen);
+				return b.Paragraph (inner);
 			case BlockType.span:
-				return m.SpanFormatter.RenderToAny<T>(b, buf, contentStart, contentLen) ;
+                    var span = m.SpanFormatter.RenderToAny<T,U,V>(b, buf, contentStart, contentLen) ;
+                    var block = default(V);
+                    block.FromSpan(span);
+                    return block;
 
-			case BlockType.h1: return b.Header (m.RenderInternal (Content, b), HeaderLevel.H1);
+			case BlockType.h1: return b.Header (m.RenderInternal<T,U,V> (Content, b), HeaderLevel.H1);
 			case BlockType.h2: return b.Header (m.RenderInternal (Content, b), HeaderLevel.H2);
 			case BlockType.h3: return b.Header (m.RenderInternal (Content, b), HeaderLevel.H3);
 			case BlockType.h4: return b.Header (m.RenderInternal (Content, b), HeaderLevel.H4);
 			case BlockType.h5: return b.Header (m.RenderInternal (Content, b), HeaderLevel.H5);
 			case BlockType.h6: return b.Header (m.RenderInternal (Content, b), HeaderLevel.H6);
 
-			case BlockType.hr:
-				return b.NewLine ();
-
-			case BlockType.user_break:
-				return b.NewLine ();
+                case BlockType.user_break:
+                    span = default(U);
+                    block = default(V);
+                    block.FromSpan(span);
+                    return block;
+                case BlockType.hr:
+                    return b.Separator();
 
 			case BlockType.ol_li:
 			case BlockType.ul_li:
-				return b.ListItem(m.SpanFormatter.RenderToAny<T>(b, buf, contentStart, contentLen));
+				return b.ListItem(m.SpanFormatter.RenderToAny(b, buf, contentStart, contentLen));
 
 			case BlockType.dd:
 				if (children != null) {
 					return RenderChildren(m, b);
 				}
 				else {
-					return b.DD(m.SpanFormatter.RenderToAny<T>(b, buf, contentStart, contentLen));
+                        return b.DD(m.SpanFormatter.RenderToAny(b, buf, contentStart, contentLen));
 				}
 
 			case BlockType.dt:
@@ -192,14 +205,17 @@ namespace MarkdownDeep
 					return RenderChildren(m,b);
 				}
 				else {
-					return b.DD(m.SpanFormatter.RenderToAny<T>(b, buf, contentStart, contentLen));
+                        return b.DD(m.SpanFormatter.RenderToAny(b, buf, contentStart, contentLen));
 				}
 
 			case BlockType.dl: return RenderChildren(m, b);
 
 			case BlockType.html:
 			case BlockType.unsafe_html:
-				return b.Text (Content,0,Content.Length);
+				span = b.Text (Content,0,Content.Length);
+                block = default(V);
+                block.FromSpan(span);
+                return block;
 
 			case BlockType.codeblock: 
 				{
@@ -213,18 +229,18 @@ namespace MarkdownDeep
 
 			case BlockType.ol:
 				{
-					List<T> items = new List<T> ();
-					foreach (var block in children) {
-						items.Add (block.Render (m, b));
+					List<V> items = new List<V> ();
+					foreach (var item in children) {
+						items.Add (item.Render (m, b));
 					}
 					return b.OrderedList (items.ToArray());
 				}
 
 			case BlockType.ul: 
 				{
-					List<T> items = new List<T> ();
-					foreach (var block in children) {
-						items.Add (block.Render (m, b));
+					List<V> items = new List<V> ();
+					foreach (var item in children) {
+						items.Add (item.Render (m, b));
 					}
 					return b.UnorderedList (items.ToArray());
 				}
@@ -253,12 +269,14 @@ namespace MarkdownDeep
 			case BlockType.p_footnote:
 				if (contentLen > 0)
 				{
-					return b.FootNote( m.SpanFormatter.RenderToAny<T>(b, buf, contentStart, contentLen ), (string) data);
+					return b.FootNote( m.SpanFormatter.RenderToAny(b, buf, contentStart, contentLen ), (string) data);
 				}
-				return b.FootNote(default(T),(string) data);
+				return b.FootNote(default(U),(string) data);
 
 			default:
-				return m.SpanFormatter.RenderToAny<T>(b,buf,contentStart, contentLen);
+                    block = default(V);
+                    block.FromSpan(m.SpanFormatter.RenderToAny(b, buf, contentStart, contentLen));
+				return block;
 			}
 		}
 
@@ -266,7 +284,7 @@ namespace MarkdownDeep
 		{
 			switch (blockType)
 			{
-				case BlockType.Blank:
+				case BlockType.None:
 					return;
 
 				case BlockType.p:
@@ -468,7 +486,7 @@ namespace MarkdownDeep
 		{
 			switch (blockType)
 			{
-				case BlockType.Blank:
+				case BlockType.None:
 					return;
 
 				case BlockType.p:

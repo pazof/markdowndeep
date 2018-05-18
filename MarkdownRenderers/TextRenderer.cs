@@ -3,6 +3,7 @@ using MarkdownDeep;
 using System.Linq;
 using System.Text;
 using System.Collections.Generic;
+using MarkdownDeep.Model;
 
 namespace MarkdownDeep.Rendering.Markdown
 {
@@ -13,9 +14,9 @@ namespace MarkdownDeep.Rendering.Markdown
 	/// Note: the first rendering produces an string.
 	/// This string allows the latest rendering, to Markdown, as a string
 	/// </summary>
-	public class TextRenderer : IMarkdownRenderer<string> 
+    public class TextRenderer : GenericMarkdownRenderer<string,IMDNode,IBlock<string>>
 	{
-		public string Paragraph(string inner, int start, int len)
+		public string Paragraph(string inner)
 		{
 			return $"{inner}";
 		}

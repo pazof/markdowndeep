@@ -7,13 +7,13 @@ using System.Text;
 using System.Xml;
 using Eto.Serialization.Xaml;
 using System.Collections.ObjectModel;
-using MarkdownDeep.Rendering.Xaml;
 using System.Resources;
 using System.Windows.Input;
 
 namespace MDGui
 {
-	using MarkdownDeep;
+    using MarkdownAVToXaml.Rendering.Text.Xaml;
+    using MarkdownDeep;
 
 	public partial class MainForm : Form
 	{
@@ -67,8 +67,7 @@ namespace MDGui
 			htmlCode.Text = html;
 			htmlView.LoadHtml(html);
 			//FIXME Generate a valide Xaml header
-			var node = markdown.Render (sourceCode.Text, xamlRenderer);
-			string source = node?.ToXaml();
+            var source = markdown.Render (sourceCode.Text, xamlRenderer);
 			xamlCode.Text = source;
 
 			string wholeSource = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
@@ -85,7 +84,6 @@ namespace MDGui
 					XamlReader.Load (reader, xamlViewTab);
 				}
 				catch (Portable.Xaml.XamlObjectWriterException ex) {
-					// FIXME handle?
 					Log.LogError($"Xaml({ex.LineNumber},{ex.LinePosition})", ex.Message);
 				}
 				catch (System.Xml.XmlException ex) {

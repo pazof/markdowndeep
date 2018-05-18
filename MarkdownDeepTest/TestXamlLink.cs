@@ -1,7 +1,7 @@
 ﻿using System;
 using Xunit;
 using MarkdownDeep;
-using MarkdownDeep.Rendering.Xaml;
+using MarkdownAVToXaml.Rendering.Text.Xaml;
 
 namespace MarkdownDeepTest
 {
@@ -40,8 +40,7 @@ namespace MarkdownDeepTest
 		{
 			var m = new Markdown ();
 			var xr = new XamlRenderer ();
-			var node = m.Render (source, xr);
-			var xaml = node.ToXaml();
+            var xaml = m.Render (source, xr);
 			Assert.Equal (expxaml,xaml);
 		}
 

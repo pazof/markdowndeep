@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MarkdownDeep.Rendering;
+using MarkdownDeep.Rendering.Abstract;
 
 namespace MarkdownDeep
 {
@@ -1141,20 +1142,21 @@ namespace MarkdownDeep
 		internal bool DisableLinks;
 		List<Token> m_Tokens = new List<Token> ();
 
-		abstract class Grouping<T> : List<T> {
-			internal abstract T Render (IMarkdownRenderer<T> renderer) ;
+        abstract class Grouping<T,U,V> : List<U> where U: ISpan<T> where V:IBlock<T>
+        {
+            internal abstract U Render(IMarkdownRenderer<T, U, V> renderer);
 		}
 
-		class EmGroup <T>  : Grouping <T>  {
-			internal override T Render (IMarkdownRenderer <T> renderer)
+        class EmGroup <T,U,V>  : Grouping <T,U,V> where U : ISpan<T> where V : IBlock<T> {
+            internal override U Render (IMarkdownRenderer<T, U, V> renderer)
 			{
 				return renderer.Emphasis(this.ToArray());
-			}	
+			}
 		}
 
-		class StrongGroup <T> : Grouping <T> {
+        class StrongGroup <T, U, V> : Grouping <T, U, V> where U : ISpan<T> where V : IBlock<T> {
 			
-			internal override T Render (IMarkdownRenderer <T> renderer)
+            internal override U Render (IMarkdownRenderer <T,U,V> renderer)
 			{
 				return renderer.Strong (this.ToArray());
 			}
@@ -1163,19 +1165,20 @@ namespace MarkdownDeep
 		// Render a list of tokens to a destination object
 		// using str as source,
 		// parsing str starting at start and during len;
-		public T RenderToAny <T> (IMarkdownRenderer <T> renderer, string str, int start, int len) 
+		public U RenderToAny <T,U,V> (IMarkdownRenderer <T,U,V> renderer, string str, int start, int len)
+            where U:ISpan<T> where V : IBlock<T>
 		{
 			// Parse the string into a list of tokens
 			Tokenize (str, start, len);
-			Stack<Grouping<T>> groups = new Stack<Grouping<T>> ();
-			List<T> result = new List<T>();
+            Stack<Grouping<T,U,V>> groups = new Stack<Grouping<T, U, V>> ();
+            List<U> result = new List<U>();
 			LinkInfo li;
 			var items = m_Tokens.ToArray ();
 			foreach (Token t in items) {
-				T item = default(T);
+                U span=default(U);
 				switch (t.type) {
 				case TokenType.Text:
-					item = renderer.Text (str,t.startOffset, t.length);
+					span = renderer.Text (str,t.startOffset, t.length);
 					break;
 
 				case TokenType.HtmlTag:
@@ -1188,22 +1191,23 @@ namespace MarkdownDeep
 					break;
 
 				case TokenType.br:
-					item = renderer.NewLine ();
+                        span = renderer.Text(str, t.startOffset, t.length);
+                        renderer.AddNewLineTo (span);
 					break;
 
 				case TokenType.open_em:
-					groups.Push (new EmGroup <T> ());
+                        groups.Push (new EmGroup <T, U, V> ());
 					break;
 				case TokenType.close_em:
 					var emgroup = groups.Pop ();
-					item = emgroup.Render (renderer);
+					span = emgroup.Render (renderer);
 					break;
 				case TokenType.open_strong:
-					groups.Push (new StrongGroup <T> ());
+                        groups.Push (new StrongGroup <T, U, V> ());
 					break;
 				case TokenType.close_strong:
 					var bgroup = groups.Pop ();
-					item = bgroup.Render (renderer);
+					span = bgroup.Render (renderer);
 					break;
 
 				case TokenType.code_span:
@@ -1212,26 +1216,25 @@ namespace MarkdownDeep
 						string code = str.Substring (t.startOffset, t.length);
 						// allows a code span to be rendered
 					if (t.data == null && !str.Contains ('\n')) {
-						item = renderer.Code (str);
+						span = renderer.Code (str);
 						} else {
-							item = renderer.CodeBlock (
+							var block = renderer.CodeBlock (
 							code.Split ('\n'), str);
 						}
 					}
 					break;
 
 				case TokenType.strike:
-					item = renderer.Strike ( renderer.Text (str,t.startOffset, t.length) );
+					span = renderer.Strike ( renderer.Text (str,t.startOffset, t.length) );
 					break;
 
 				case TokenType.underline:
-					item = renderer.Underline (renderer.Text ( str,t.startOffset, t.length));
+                        span = renderer.Underline (renderer.Text ( str,t.startOffset, t.length));
 					break;
 					
 				case TokenType.link:
 					li = (LinkInfo)t.data;
-					item = renderer.Link (
-						RenderToAny (renderer, li.link_text, 0, li.link_text.Length),
+                        renderer.Link(li.link_text, 
 						li.def.url, li.def.title);
 					break;
 				
@@ -1242,29 +1245,29 @@ namespace MarkdownDeep
 						li.link_text [5] == ':') {
 						var link_text = li.link_text.Substring (6).Trim ();
 						if (li.link_text.StartsWith ("audio:"))
-							item = renderer.Audio (li.def.url, link_text, li.def.title);
+                                span = renderer.Audio (li.def.url, link_text, li.def.title);
 						else if (li.link_text.StartsWith ("video:"))
-							item = renderer.Video (li.def.url, link_text, li.def.title);
+                                span = renderer.Video (li.def.url, link_text, li.def.title);
 						else if (li.link_text.StartsWith ("image:"))
-							item = renderer.Image (li.def.url, link_text, li.def.title);
+                                span = renderer.Image (li.def.url, link_text, li.def.title);
 						else
-							item = renderer.Image (li.def.url, link_text, li.def.title);
+                                span = renderer.Image (li.def.url, link_text, li.def.title);
 					} else
-						item = renderer.Image (li.def.url, li.link_text, li.def.title); 
+                            span = renderer.Image (li.def.url, li.link_text, li.def.title); 
 					break;
 				case TokenType.footnote:
 				case TokenType.abbreviation:
 					throw new NotImplementedException ();
 				}
-				if (item != null) if (!item.Equals(default(T))) 
-				{
-					if (groups.Count > 0)
-						groups.Last ().Add (item);
-					else
-						result.Add (item);
-				}
+
+				if (groups.Count > 0)
+					groups.Last ().Add (span);
+				else
+                    result.Add (span);
+				
 				FreeToken (t);
 			}
+
 			return renderer.AggregateSpan( result.ToArray() );
 		}
 

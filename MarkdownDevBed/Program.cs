@@ -6,7 +6,6 @@ using MarkdownDeep;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
-using MarkdownDeep.Rendering.Markdown;
 
 namespace MarkdownDevBed
 {

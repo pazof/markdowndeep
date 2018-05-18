@@ -34,18 +34,36 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TextRenderer.cs" />
-    <Compile Include="MDText.cs" />
     <Compile Include="Model\IMDNode.cs" />
-    <Compile Include="Rendering\MarkdownRenderer.cs" />
-    <Compile Include="Rendering\Xaml\MdToXamlNode.cs" />
-    <Compile Include="Rendering\Xaml\XamlRenderer.cs" />
+    <Compile Include="Model\MediaType.cs" />
+    <Compile Include="Rendering\Text\Xaml\MdToXamlBlock.cs" />
+    <Compile Include="Rendering\Text\Xaml\MdToXamlNode.cs" />
+    <Compile Include="Rendering\Text\Xaml\UnorderedList.cs" />
+    <Compile Include="Rendering\Text\Xaml\XamlRenderer.cs" />
+    <Compile Include="Rendering\Text\DD.cs" />
+    <Compile Include="Rendering\Text\DT.cs" />
+    <Compile Include="Rendering\Text\GenericMarkdownRenderer.cs" />
+    <Compile Include="Rendering\Text\ListItem.cs" />
+    <Compile Include="Rendering\Text\MarkdownRenderer.cs" />
+    <Compile Include="Rendering\Text\MDBlock.cs" />
+    <Compile Include="Rendering\Text\MDCodeBlock.cs" />
+    <Compile Include="Rendering\Text\MDEmphasis.cs" />
+    <Compile Include="Rendering\Text\MDText.cs" />
+    <Compile Include="Rendering\Text\OrderedList.cs" />
+    <Compile Include="Rendering\Text\Paragraph.cs" />
+    <Compile Include="Rendering\Text\Quote.cs" />
+    <Compile Include="Rendering\Text\Table.cs" />
+    <Compile Include="Rendering\Text\MDSpan.cs" />
+    <Compile Include="Rendering\Text\MDImage.cs" />
+    <Compile Include="Rendering\Text\MDHeader.cs" />
+    <Compile Include="Rendering\Text\MDLink.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Model\" />
     <Folder Include="Rendering\" />
-    <Folder Include="Rendering\Xaml\" />
+    <Folder Include="Rendering\Text\" />
+    <Folder Include="Rendering\Text\Xaml\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MarkdownDeep\MarkdownDeep.csproj">

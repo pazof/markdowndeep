@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MarkdownDeep.Rendering;
+using MarkdownDeep.Rendering.Abstract;
 
 namespace MarkdownDeep
 {
@@ -115,13 +116,28 @@ namespace MarkdownDeep
 				b.Append(">\n");
 			}
 		}
-		internal T Render<T> (Markdown m, IMarkdownRenderer<T> b) where T : IEquatable<T>
+        internal V Render<T,U,V> 
+        (Markdown m, 
+         IMarkdownDocumentRenderer<T,U,V> b) 
+            where T : IEquatable<T>, ITable 
+            where V: IBlock<T> 
+            where U : ISpan<T>
 		{
-			var head = b.TableHeader(Headers.ToArray());
-			T body = default(T);
+            var head = b.TableHeader(Headers.ToArray());
+            List<V> rows = new List<V>();
+
 			foreach (var row in Rows) {
-				throw new NotImplementedException ();
-			}
+                List<V> cols = new List<V>();
+
+                foreach (var col in row)
+                {
+                    var cell = m.RenderInternal<T,U,V>(col, b);
+                    cols.Add(cell);
+                }
+                var renderedRow = b.TableRow(cols.ToArray());
+                rows.Add(renderedRow);
+            }
+            var body = b.TableBody(rows.ToArray());
 			return b.Table (head,body);
 		}
 

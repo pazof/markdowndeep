@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -12,10 +11,8 @@
     <AssemblyName>MarkdownDeep</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <FileUpgradeFlags></FileUpgradeFlags>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -84,10 +81,27 @@
     <Compile Include="TableSpec.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="Utils.cs" />
-    <Compile Include="Rendering\IMarkdownRenderer.cs" />
     <Compile Include="ImageInfo.cs" />
     <Compile Include="Markdown.cs" />
-    <Compile Include="Rendering\HeaderLevel.cs" />
+    <Compile Include="Rendering\Abstract\ITextRenderer.cs" />
+    <Compile Include="Rendering\Abstract\ISimpleTextReference.cs" />
+    <Compile Include="Rendering\Abstract\IBaseTextChunk.cs" />
+    <Compile Include="Rendering\Abstract\IListedTextChunk.cs" />
+    <Compile Include="Rendering\Abstract\ITabledTextChunk.cs" />
+    <Compile Include="Rendering\Abstract\IMarkdownDocumentRenderer.cs" />
+    <Compile Include="Rendering\Abstract\IText.cs" />
+    <Compile Include="Rendering\Abstract\IMarkdownBlockRenderer.cs" />
+    <Compile Include="Rendering\Abstract\HeaderLevel.cs" />
+    <Compile Include="Rendering\Abstract\IBaseLink.cs" />
+    <Compile Include="Rendering\Abstract\IBlock.cs" />
+    <Compile Include="Rendering\Abstract\IList.cs" />
+    <Compile Include="Rendering\Abstract\IMarkdownRenderer.cs" />
+    <Compile Include="Rendering\Abstract\IRenderer.cs" />
+    <Compile Include="Rendering\Abstract\ISpan.cs" />
+    <Compile Include="Rendering\Abstract\ITable.cs" />
+    <Compile Include="Rendering\Abstract\ITableRenderer.cs" />
+    <Compile Include="Rendering\Abstract\ListStyle.cs" />
+    <Compile Include="Rendering\Abstract\TextStyle.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MarkdownDeep.nuspec" />
@@ -108,6 +122,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Rendering\Abstract\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

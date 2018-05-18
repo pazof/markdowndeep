@@ -48,21 +48,6 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ToMarkdown\DD.cs" />
-    <Compile Include="ToMarkdown\DT.cs" />
-    <Compile Include="ToMarkdown\IMDBlock.cs" />
-    <Compile Include="ToMarkdown\IMDNode.cs" />
-    <Compile Include="ToMarkdown\ListItem.cs" />
-    <Compile Include="ToMarkdown\MarkdownRenderer.cs" />
-    <Compile Include="ToMarkdown\MDBlock.cs" />
-    <Compile Include="ToMarkdown\MDCodeBlock.cs" />
-    <Compile Include="ToMarkdown\MDEmphasis.cs" />
-    <Compile Include="ToMarkdown\MDText.cs" />
-    <Compile Include="ToMarkdown\OrderedList.cs" />
-    <Compile Include="ToMarkdown\Paragraph.cs" />
-    <Compile Include="ToMarkdown\Quote.cs" />
-    <Compile Include="ToMarkdown\Table.cs" />
-    <Compile Include="ToMarkdown\UnorderedList.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MarkdownDeep\MarkdownDeep.csproj">
@@ -89,7 +74,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <Folder Include="ToMarkdown\" />
-  </ItemGroup>
 </Project>

@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using MarkdownDeep.Rendering;
+using MarkdownDeep.Rendering.Abstract;
 
 namespace MarkdownDeep
 {
@@ -60,13 +61,14 @@ namespace MarkdownDeep
 
 		// Renders markdown using a client renderer,
 		// thanks to its IMarkdownRenderer implementation
-		public T Render<T>(string str, IMarkdownRenderer<T> renderer) 
+        public T Render<T, U, V>(string str, IMarkdownDocumentRenderer<T,U,V> renderer)
+            where U:ISpan<T> where V:IBlock<T>
 		{
 			if (renderer == null)
 				throw new InvalidOperationException (
 					"No renderer were specified");
-			var items = Render<T>(str, out definitions, renderer);
-			return renderer.AggregateFinalBlock(items.ToArray()); 
+            var items = Render<T, U, V>(str, out definitions, renderer);
+            return renderer.AggregateFinalBlock(items.ToArray()).Render(); 
 		}
 
 		// Transform a string
@@ -209,7 +211,11 @@ namespace MarkdownDeep
 
 		// Renders markdown using a client renderer,
 		// thanks to its IMarkdownRenderer implementation
-		public IEnumerable<T> Render<T>(string str, out Dictionary<string, LinkDefinition> definitions, IMarkdownRenderer<T> renderer)
+		public IEnumerable<V> Render<T,U,V>
+        (string str, out Dictionary<string, 
+         LinkDefinition> definitions, 
+         IMarkdownBlockRenderer<T,U,V> renderer)
+            where U : ISpan<T> where V: IBlock<T>
 		{
 			if (renderer == null)
 				throw new InvalidOperationException();
@@ -283,13 +289,14 @@ namespace MarkdownDeep
 		}
 
 		// RenderInternal
-		public T RenderInternal<T>(string str, IMarkdownRenderer<T> renderer) 
+        public V RenderInternal<T, U , V>(string str, IMarkdownBlockRenderer<T,U, V> renderer)
+            where U: ISpan<T> where V:IBlock<T>
 		{
 			if (renderer == null)
 				throw new InvalidOperationException (
 					"No renderer were specified");
-			var result = Render<T>(str, out definitions, renderer);
-			return renderer.AggregateBlock (result.ToArray());
+			var result = Render<T,U,V>(str, out definitions, renderer);
+            return renderer.Aggregate (result.ToArray());
 		}
 
 		public int SummaryLength
