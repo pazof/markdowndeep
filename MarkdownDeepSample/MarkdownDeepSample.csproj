@@ -33,15 +33,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MarkdownDeep">
-      <HintPath>..\MarkdownDeep\bin\Debug\MarkdownDeep.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
-    <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -68,15 +64,8 @@
   <ItemGroup>
     <Content Include="Content\MarkdownDeep_ToptenLogo.png" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\MarkdownDeep License.txt" />
-    <Content Include="Scripts\MarkdownDeep Quick Reference.txt" />
     <Content Include="Scripts\MarkdownDeepLib.min.js" />
-    <Content Include="Scripts\mdd_ajax_loader.gif" />
-    <Content Include="Scripts\mdd_gripper.png" />
-    <Content Include="Scripts\mdd_help.htm" />
-    <Content Include="Scripts\mdd_modal_background.png" />
     <Content Include="Scripts\mdd_styles.css" />
-    <Content Include="Scripts\mdd_toolbar.png" />
     <Content Include="Views\MarkdownDeep\MultipleEdit.aspx" />
     <Content Include="Views\MarkdownDeep\Multiple.aspx" />
     <Content Include="Views\MarkdownDeep\Edit.aspx" />
@@ -112,7 +101,10 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <ProjectReference Include="..\MarkdownDeep\MarkdownDeep.csproj">
+      <Project>{1569ED47-C7C9-4261-B6F4-7445BD0F2C95}</Project>
+      <Name>MarkdownDeep</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

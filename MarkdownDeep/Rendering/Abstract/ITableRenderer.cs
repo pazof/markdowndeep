@@ -7,6 +7,6 @@ namespace MarkdownDeep.Rendering
 {
     public interface  ITableRenderer<T>
     {
-        T RenderTable(ITable t);
+        T RenderTable(ITable<T> t);
     }
 }

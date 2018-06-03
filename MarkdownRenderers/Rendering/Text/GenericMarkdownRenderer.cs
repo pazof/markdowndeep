@@ -29,20 +29,11 @@ namespace MarkdownAVToXaml.Rendering.Text
 
         public abstract U Aggregate<T>(IRenderer<T>[] children);
 
-        public V Aggregate(V[] children)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract V Aggregate(V[] children);
 
-        public V AggregateFinalBlock(params V[] children)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract V AggregateFinalBlock(params V[] children);
 
-        public U AggregateSpan(U[] children)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract U AggregateSpan(U[] children);
 
         public abstract U Audio(string href, string alt, string title);
 

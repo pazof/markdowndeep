@@ -1,18 +1,22 @@
 ﻿
+using System.Collections.Generic;
 using MarkdownDeep;
 using MarkdownDeep.Rendering;
 using MarkdownDeep.Rendering.Abstract;
 
 namespace MarkdownAVToXaml.Rendering.Text.Xaml
 {
-	/// <summary>
-	///  markdown renderer to Xaml
-	/// </summary>
+    /// <summary>
+    ///  markdown renderer to Xaml
+    /// </summary>
 
-    public class XamlRenderer : MarkdownRendererToString<MdToXamlNode, MdToXamlBlock>
+    public class XamlRenderer : MarkdownRendererToString<MdToXamlNode, MdToXamlBlock> 
     {
+        DefaultMap _map;
+
         public XamlRenderer()
         {
+            _map = new DefaultMap();
         }
 
         public override void AddBlankTo(MdToXamlNode span)
@@ -27,7 +31,23 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
 
         public override MdToXamlNode Aggregate<T>(IRenderer<T>[] children)
         {
+            
             throw new System.NotImplementedException();
+        }
+
+        public override MdToXamlBlock Aggregate(MdToXamlBlock[] children)
+        {
+            return new BlockList(children);
+        }
+
+        public override MdToXamlBlock AggregateFinalBlock(params MdToXamlBlock[] children)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override MdToXamlNode AggregateSpan(MdToXamlNode[] children)
+        {
+            return new Line(children);
         }
 
         public override MdToXamlNode Audio(string href, string alt, string title)
@@ -67,7 +87,7 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
 
         public override MdToXamlBlock Header(MdToXamlBlock inner, HeaderLevel level)
         {
-            throw new System.NotImplementedException();
+            return new XamlHeader(inner, level, _map);
         }
 
         public override MdToXamlNode Image(string href, string alt, string title)
@@ -87,7 +107,7 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
 
         public override MdToXamlBlock ListItem(MdToXamlNode inner)
         {
-            throw new System.NotImplementedException();
+            return new ListItem(inner, _map);
         }
 
         public override MdToXamlBlock OrderedList(MdToXamlBlock[] list)
@@ -97,7 +117,7 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
 
         public override MdToXamlBlock Paragraph(MdToXamlNode inner)
         {
-            throw new System.NotImplementedException();
+            return new Paragraph(inner);
         }
 
         public override MdToXamlBlock Quote(MdToXamlBlock inner)
@@ -117,7 +137,15 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
 
         public override MdToXamlNode Strong(MdToXamlNode[] inner)
         {
-            throw new System.NotImplementedException();
+            
+                foreach (var child in inner)
+                {
+                    if (typeof(ITextStyleOwner).IsAssignableFrom(child.GetType()))
+                    {
+                        ((ITextStyleOwner)child).Style |= TextStyle.Emphasys;
+                    }
+                }
+            return new Line(inner);
         }
 
         public override MdToXamlBlock Table(MdToXamlBlock head, MdToXamlBlock body)
@@ -142,12 +170,17 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
 
         public override MdToXamlNode Text(string txt, int start, int len)
         {
-            throw new System.NotImplementedException();
+            return new XamlText(txt, start, len);
         }
 
         public override MdToXamlNode Underline(MdToXamlNode inner)
         {
-            throw new System.NotImplementedException();
+            
+            if (typeof(ITextStyleOwner).IsAssignableFrom(inner.GetType()))
+            {
+                ((ITextStyleOwner)inner).Style |= TextStyle.Underline;
+            }
+            return inner;
         }
 
         public override MdToXamlBlock UnorderedList(MdToXamlBlock[] list)

@@ -3,10 +3,10 @@
 Title="Paramètres" MinimumSize="200,200" Size="350,250" Padding="10"
 >
 <StackLayout HorizontalContentAlignment="Stretch" >
-<StackLayoutItem Expand="True" Spacing="10">
+<StackLayoutItem Expand="True" >
   <TabControl >
 	<TabPage Text="Sortie" Padding="10">
-	<StackLayout Spacing="10">
+	<StackLayout Spacing="10" >
 		<CheckBox x:Name="chkViewHtml" Checked="{Binding ViewHtml}">Vue Html</CheckBox>
 		<CheckBox x:Name="chkViewXaml" Checked="{Binding ViewXaml}">Vue Xaml</CheckBox>
 	    <CheckBox x:Name="chkViewHtmlCode" Checked="{Binding ViewHtmlCode}">Montrer le code Html</CheckBox>
@@ -19,6 +19,15 @@ Title="Paramètres" MinimumSize="200,200" Size="350,250" Padding="10"
         <NumericUpDown MinValue="3" MaxValue="41" Value="{Binding RecentListLength}"/>
          </StackLayout>
     </TabPage>
+                <TabPage Text="Xaml" >
+                        <StackLayout Orientation="Horizontal" > 
+                        <Label Text="Normal " ></Label>
+                        <Label Font="bold" Text="Bold " ></Label>
+                        <Label Font="italic" Text="italic "></Label>
+                        <Label Font="underline" Text="underline "></Label>
+                        <Label Font="strikethrough" Text="strikethrough "></Label>
+                      </StackLayout>
+                </TabPage>
   </TabControl>
   </StackLayoutItem><StackLayoutItem >
 <StackLayout Orientation="Horizontal">

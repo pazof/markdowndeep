@@ -36,10 +36,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Windows" />
     <Reference Include="Eto">
-      <HintPath>..\packages\Eto.Forms.2.2.0\lib\net45\Eto.dll</HintPath>
+      <HintPath>..\packages\Eto.Forms.2.3.0\lib\net45\Eto.dll</HintPath>
     </Reference>
     <Reference Include="Eto.Wpf">
-      <HintPath>..\packages\Eto.Platform.Wpf.2.2.0\lib\net45\Eto.Wpf.dll</HintPath>
+      <HintPath>..\packages\Eto.Platform.Wpf.2.3.0\lib\net45\Eto.Wpf.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

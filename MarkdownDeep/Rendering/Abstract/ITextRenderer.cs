@@ -9,6 +9,6 @@ namespace MarkdownDeep.Rendering.Abstract
     // not used ...
     public interface ITextRenderer<T> 
     {
-        T RenderText(IText text);
+        T RenderText(ISimpleTextReference text);
     }
 }

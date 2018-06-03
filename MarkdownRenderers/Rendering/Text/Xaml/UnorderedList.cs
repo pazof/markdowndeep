@@ -8,14 +8,14 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
 
         public UnorderedList( ISpan<string> [] items )
 		{
-			this.Items = items;
+            Spans = items;
 		}
 
-		public override string Render()
+        public override string Render()
 		{
 			StringBuilder sb = new StringBuilder();
 
-            foreach (ISpan<string> item in Items) {
+            foreach (ISpan<string> item in Spans) {
 				sb.AppendLine(item.Render());
 			}
 			return sb.ToString();

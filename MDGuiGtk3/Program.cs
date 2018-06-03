@@ -1,6 +1,8 @@
 ﻿using System;
 using Eto;
 using Eto.Forms;
+using Eto.GtkSharp.Forms.Controls;
+using Eto.Markdown;
 
 namespace MDGui.Gtk3
 {
@@ -9,9 +11,8 @@ namespace MDGui.Gtk3
 		[STAThread]
 		public static void Main (string[] args)
 		{
-			var generator = new Eto.GtkSharp.Platform();
-
-			// var platform = Eto.Platform.Detect;
+            var generator = Platform.Detect;
+            generator.Add<MarkdownArea>(() => new MarkdownArea());
 
 			// To register new controls :
 			// platform.Add<MyDynamicControl> (() => new MyDynamicControl(null));

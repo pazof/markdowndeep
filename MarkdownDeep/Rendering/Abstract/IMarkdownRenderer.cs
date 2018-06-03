@@ -34,6 +34,11 @@ namespace MarkdownDeep.Rendering.Abstract
 		/// <returns>The item.</returns>
 		/// <param name="inner">Inner.</param>
         TBlock ListItem (TBlock inner);
+        /// <summary>
+        /// Lists the span item.
+        /// </summary>
+        /// <returns>The item.</returns>
+        /// <param name="inner">Inner.</param>
         TBlock ListItem(TSpan inner);
 		/// <summary>
 		/// Unorders the list.

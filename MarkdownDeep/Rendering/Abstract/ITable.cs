@@ -2,8 +2,14 @@
 
 namespace MarkdownDeep.Rendering
 {
-    public interface ITable : ITabledTextChunk
+    /// <summary>
+    /// Table.
+    /// </summary>
+    public interface ITable<T> : IRenderer<T>, ISimpleTextReference
     {
+        string GetInnerText(int row, int col);
+        int RowCount { get; }
+        int ColumnCount { get; }
     }
 
 }

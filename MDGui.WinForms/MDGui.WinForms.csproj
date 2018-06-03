@@ -37,7 +37,7 @@
       <HintPath>..\packages\Eto.Forms.2.3.0\lib\net45\Eto.dll</HintPath>
     </Reference>
     <Reference Include="Eto.WinForms">
-      <HintPath>..\packages\Eto.Platform.Windows.2.2.0\lib\net45\Eto.WinForms.dll</HintPath>
+      <HintPath>..\packages\Eto.Platform.Windows.2.3.0\lib\net45\Eto.WinForms.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

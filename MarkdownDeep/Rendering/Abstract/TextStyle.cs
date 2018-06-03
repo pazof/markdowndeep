@@ -5,13 +5,17 @@
 using System;
 namespace MarkdownDeep.Rendering.Abstract
 {
-    public enum TextStyle
+    /// <summary>
+    /// Text style.
+    /// </summary>
+    [Flags]
+    public enum TextStyle: int
     {
         Normal,     // normal body text style
         Emphasys,   // **emphasys**
         Underline,  // _underline_ 
         Italic,     // *italic*
         Strike,     // ~~strike~~
-        Fixed       // `code`
+        Fixed  // `code`
     }
 }

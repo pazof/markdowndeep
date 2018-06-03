@@ -20,6 +20,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <LangVersion>Latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -28,31 +29,28 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <LangVersion>Latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Mono.Posix" />
-    <Reference Include="gtk-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
-      <Package>gtk-sharp-3.0</Package>
-    </Reference>
     <Reference Include="atk-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <Package>gtk-sharp-3.0</Package>
     </Reference>
-    <Reference Include="gdk-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
-      <Package>gdk-sharp-3.0</Package>
-    </Reference>
-    <Reference Include="glib-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
-      <Package>glib-sharp-3.0</Package>
-    </Reference>
-    <Reference Include="webkitgtk-sharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=e1f0fd21e79c8b0f">
-      <Package>webkitgtk-sharp-3.0</Package>
-    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="Eto">
       <HintPath>..\packages\Eto.Forms.2.3.0\lib\net45\Eto.dll</HintPath>
     </Reference>
     <Reference Include="Eto.Gtk3">
       <HintPath>..\packages\Eto.Platform.Gtk3.2.3.0\lib\net45\Eto.Gtk3.dll</HintPath>
+    </Reference>
+    <Reference Include="glib-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Package>glib-sharp-3.0</Package>
+    </Reference>
+    <Reference Include="Portable.Xaml">
+      <HintPath>..\packages\Portable.Xaml.0.14.0\lib\dotnet\Portable.Xaml.dll</HintPath>
     </Reference>
     <Reference Include="Eto.Serialization.Xaml">
       <HintPath>..\packages\Eto.Serialization.Xaml.2.3.0\lib\net45\Eto.Serialization.Xaml.dll</HintPath>
@@ -62,15 +60,20 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ConsoleLogger.cs" />
-    <Compile Include="Widget.cs" />
-    <Compile Include="gtk-gui\MDGui.Gtk3.Widget.cs" />
-    <Compile Include="gtk-gui\generated.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\MDGui\MDGui.csproj">
       <Project>{7BD577B8-112E-467F-8E08-01072BF93FAF}</Project>
       <Name>MDGui</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Eto.Markdown\Eto.Markdown.csproj">
+      <Project>{193ABC6A-27AE-49B7-A453-DFF4C263FBE8}</Project>
+      <Name>Eto.Markdown</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Eto.Mardown.Gtk3\Eto.Mardown.Gtk3.csproj">
+      <Project>{72F83BB5-34B5-4B38-897D-10FE29A3B9CF}</Project>
+      <Name>Eto.Mardown.Gtk3</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -79,12 +82,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="MDGui.Gtk3.nuspec" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="gtk-gui\gui.stetic">
-      <LogicalName>gui.stetic</LogicalName>
-    </EmbeddedResource>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

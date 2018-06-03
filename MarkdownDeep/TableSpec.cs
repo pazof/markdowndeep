@@ -119,7 +119,7 @@ namespace MarkdownDeep
         internal V Render<T,U,V> 
         (Markdown m, 
          IMarkdownDocumentRenderer<T,U,V> b) 
-            where T : IEquatable<T>, ITable 
+            where T : IEquatable<T>, ITable<T> 
             where V: IBlock<T> 
             where U : ISpan<T>
 		{

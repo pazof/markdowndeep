@@ -5,19 +5,30 @@ using Eto.Drawing;
 using System.IO;
 using System.Text;
 using System.Xml;
-using Eto.Serialization.Xaml;
 using System.Collections.ObjectModel;
 using System.Resources;
 using System.Windows.Input;
 
 namespace MDGui
 {
+    using Eto.Markdown;
+    using Eto.Serialization.Xaml;
+    using MarkdownAVToXaml.Rendering.Text;
     using MarkdownAVToXaml.Rendering.Text.Xaml;
     using MarkdownDeep;
 
 	public partial class MainForm : Form
-	{
-		private TabPage xamlViewTab;
+    {
+        #pragma warning disable CS0649
+        private TabPage xamlViewTab;
+        private WebView htmlView;
+        private TextArea htmlCode;
+        private RichTextArea sourceCode;
+        private ButtonMenuItem btnSave;
+        private TextArea xamlCode;
+        MarkdownArea mdArea;
+        #pragma warning disable CS0649
+
 		/// <summary>
 		/// Gets the xaml view tab.
 		/// </summary>
@@ -25,22 +36,12 @@ namespace MDGui
 		public TabPage XamlViewTab {
 			get { return xamlViewTab; }
 		}
-		private WebView htmlView;
-
-		private RichTextArea sourceCode;
-
 		private Markdown markdown;
-
-		private TextArea htmlCode;
 
 		private XamlRenderer xamlRenderer = new XamlRenderer();
 
-		private ButtonMenuItem btnSave;
 		// private MyDynamicControl xamlContainer;
 
-		private TextArea xamlCode;
-
-		private TabControl viewTabs;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MDGui.MainForm"/> class.
@@ -49,7 +50,7 @@ namespace MDGui
 		{
 			markdown = new Markdown ();
 			Logs = new Log ();
-			base.Initialize ();
+            base.Initialize ();
 			XamlReader.Load (this);
 			sourceCode.TextChanged += OnSourceChanged; 
 			DataContext = this;
@@ -83,10 +84,7 @@ namespace MDGui
 				try { 
 					XamlReader.Load (reader, xamlViewTab);
 				}
-				catch (Portable.Xaml.XamlObjectWriterException ex) {
-					Log.LogError($"Xaml({ex.LineNumber},{ex.LinePosition})", ex.Message);
-				}
-				catch (System.Xml.XmlException ex) {
+				catch (XmlException ex) {
 					Log.LogError($"Xml({ex.LineNumber},{ex.LinePosition})", ex.Message);
 				}
 				finally {

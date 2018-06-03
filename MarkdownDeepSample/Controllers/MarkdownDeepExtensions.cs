@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using MarkdownDeep;
 
 namespace System.Web.Mvc
 {
@@ -11,7 +12,7 @@ namespace System.Web.Mvc
 			var text = File.ReadAllText(helper.ViewContext.HttpContext.Server.MapPath(filename));
 
 			// Setup processor
-		    var md = new MarkdownDeep.Markdown
+		    var md = new Markdown
 		                 {
 		                     SafeMode = false, 
                              ExtraMode = true, 

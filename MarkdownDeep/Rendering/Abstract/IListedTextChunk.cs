@@ -1,7 +1,7 @@
 ﻿namespace MarkdownDeep.Rendering.Abstract
 {
     // a text piece, providing a list
-    public interface IListedTextChunk : ISimpleTextReference, IText
+    public interface IListedTextChunk : ISimpleTextReference
     {
         /// <summary>
         /// Gets the inner text, 

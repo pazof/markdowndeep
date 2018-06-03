@@ -8,12 +8,15 @@ using MarkdownDeep.Rendering.Abstract;
 
 namespace MarkdownAVToXaml.Rendering.Text.Xaml
 {
-    public class MdToXamlBlock : MDBlock
+    public abstract class MdToXamlBlock : IBlock<string>
     {
-        public MdToXamlBlock(params MDSpan[] nodes) : base(nodes)
+        public ISpan<string>[] Spans { get; protected set; }
+
+        virtual public void FromSpan(ISpan<string> span)
         {
-            
+            Spans = new ISpan<string>[] { span };
         }
 
+        public abstract string Render();
     }
 }

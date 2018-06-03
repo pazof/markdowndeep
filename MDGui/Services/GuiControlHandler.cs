@@ -12,6 +12,7 @@ namespace MDGui
     {
         public GuiControl() {
             XamlReader.Load(this);
+
         }
 
     }
