@@ -23,7 +23,7 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
 
         public override string Render()
         {
-            _renderer.Parameters["Font"]= _map.HeaderFonts[Level];
+            _renderer.Parameters["Font"]= _map.HeaderFont[Level];
             return _renderer.Render();
         }
     }

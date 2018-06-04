@@ -7,11 +7,11 @@ using System.Collections.Generic;
 using MarkdownDeep.Rendering.Abstract;
 namespace MarkdownAVToXaml.Rendering.Text.Xaml
 {
-    public class Button : XamlText
+    public class Button : MdToXamlNode
     {
         XmlRenderer xmlRenderer = new XmlRenderer("LinkButton");
 
-        public Button(string action, string txt, int start, int len) : base(txt, start, len)
+        public Button(string action, string txt) 
         {
             xmlRenderer.Parameters.Add("CommandParameter", action);
             xmlRenderer.Parameters.Add("Text", txt);

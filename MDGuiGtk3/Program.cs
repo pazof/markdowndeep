@@ -3,6 +3,7 @@ using Eto;
 using Eto.Forms;
 using Eto.GtkSharp.Forms.Controls;
 using Eto.Markdown;
+using GLib;
 
 namespace MDGui.Gtk3
 {
@@ -19,7 +20,7 @@ namespace MDGui.Gtk3
 			// generator.Add<MDGuiFileDialog> (() => {var dialog = new MDGuiFileDialog(); return dialog; });
 
 			GLib.ExceptionManager.UnhandledException +=  delegate(GLib.UnhandledExceptionArgs exargs) {
-				Log.LogError("Glib unhandled",exargs.ExceptionObject.ToString());
+                Log.LogError("Glib unhandled",exargs.ExceptionObject.ToString());
 			};
 
 			string targetFileName = null;

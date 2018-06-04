@@ -1,4 +1,5 @@
 ﻿<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.props" Condition="Exists('..\packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -28,9 +29,19 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <PackageId>MarkdownDeep-av</PackageId>
+    <PackageId>MarkdownDeep-av.NET</PackageId>
     <PackageVersion>$(ApplicationVersion)</PackageVersion>
     <IncludeBuildOutput>true</IncludeBuildOutput>
+    <Authors>Paul Schneider &lt;paul@pschneider.fr&gt;</Authors>
+    <Description>MarkdownDeep is a high performance .NET Markdown processor.
+</Description>
+    <PackageLicenseUrl>http://www.toptensoftware.com/markdowndeep/license</PackageLicenseUrl>
+    <PackageIconUrl>http://www.toptensoftware.com/markdowndeep/nuget_icon.png</PackageIconUrl>
+    <Owners>Topten Software</Owners>
+    <Title>MarkdownDeep Av</Title>
+    <PackageProjectUrl>https://github.com/pazof/markdowndeep</PackageProjectUrl>
+    <PackageReleaseNotes>This package add mechanism to implement rendering to any format</PackageReleaseNotes>
+    <PackageTags>Markdown MarkdownExtra MarkdownDeep Audio Video</PackageTags>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -83,7 +94,6 @@
     <Compile Include="Utils.cs" />
     <Compile Include="ImageInfo.cs" />
     <Compile Include="Markdown.cs" />
-    <Compile Include="Rendering\Abstract\ITextRenderer.cs" />
     <Compile Include="Rendering\Abstract\ISimpleTextReference.cs" />
     <Compile Include="Rendering\Abstract\IBaseTextChunk.cs" />
     <Compile Include="Rendering\Abstract\IListedTextChunk.cs" />
@@ -103,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="MarkdownDeep.nuspec" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -146,4 +157,5 @@
   <Target Name="CopyPackage" AfterTargets="Pack">
     <Copy SourceFiles="$(OutputPath)\$(PackageId).$(PackageVersion).nupkg" DestinationFolder="\\myshare\packageshare\" />
   </Target>
+  <Import Project="..\packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.targets" Condition="Exists('..\packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.targets')" />
 </Project>

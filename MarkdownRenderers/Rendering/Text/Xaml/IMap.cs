@@ -5,7 +5,8 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
 {
     public interface IMap
     {
-        Dictionary<HeaderLevel, string> HeaderFonts { get; }
+        Dictionary<HeaderLevel, string> HeaderFont { get; }
+        Dictionary<TextStyle, string> TextFont { get; }
 
         string GetBullet(int headerLevel);
 

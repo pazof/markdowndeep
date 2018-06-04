@@ -4,6 +4,7 @@
 // */
 using System;
 using System.IO.MemoryMappedFiles;
+using MarkdownDeep.Rendering.Abstract;
 namespace MarkdownAVToXaml.Rendering.Text.Xaml
 {
     /// <summary>
@@ -13,14 +14,14 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
     {
         int ListLevel { get; set; }
         IMap _map;
-        MdToXamlNode _innerNode; 
+        IRenderer<string> _innerNode; 
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:MarkdownAVToXaml.Rendering.Text.Xaml.ListItem"/> class.
         /// </summary>
         /// <param name="inner">Inner.</param>
         /// <param name="map">Map.</param>
-        public ListItem(MdToXamlNode inner, IMap map)
+        public ListItem(IRenderer<string> inner, IMap map)
         {
             _map = map;
             _innerNode = inner;

@@ -24,11 +24,18 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
         public BlockList(IBlock<string>[] blocks)
         {
             Blocks = new List<IBlock<string>>(blocks);
+            renderer = new XmlRenderer("StackLayout");
+            renderer.Parameters["Margin"] = "15,18,12,12";
         }
 
         public override string Render()
-        {   
-             return renderer.Render(Blocks);
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (var block in Blocks)
+            {
+                sb.Append(block.Render());
+            }
+             return renderer.Render(sb.ToString());
         }
     }
 }

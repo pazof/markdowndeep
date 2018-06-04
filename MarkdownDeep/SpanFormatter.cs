@@ -1176,9 +1176,11 @@ namespace MarkdownDeep
 			var items = m_Tokens.ToArray ();
 			foreach (Token t in items) {
                 U span=default(U);
+                bool aSpan = false;
 				switch (t.type) {
 				case TokenType.Text:
-					span = renderer.Text (str,t.startOffset, t.length);
+                        span = renderer.Text(str, t.startOffset, t.length);
+                        aSpan = true;
 					break;
 
 				case TokenType.HtmlTag:
@@ -1191,8 +1193,8 @@ namespace MarkdownDeep
 					break;
 
 				case TokenType.br:
-                        span = renderer.Text(str, t.startOffset, t.length);
-                        renderer.AddNewLineTo (span);
+                    span = renderer.Text(str, t.startOffset, t.length);
+                        aSpan = true;
 					break;
 
 				case TokenType.open_em:
@@ -1200,7 +1202,7 @@ namespace MarkdownDeep
 					break;
 				case TokenType.close_em:
 					var emgroup = groups.Pop ();
-					span = emgroup.Render (renderer);
+                        aSpan = true;
 					break;
 				case TokenType.open_strong:
                         groups.Push (new StrongGroup <T, U, V> ());
@@ -1208,6 +1210,7 @@ namespace MarkdownDeep
 				case TokenType.close_strong:
 					var bgroup = groups.Pop ();
 					span = bgroup.Render (renderer);
+                        aSpan = true;
 					break;
 
 				case TokenType.code_span:
@@ -1221,21 +1224,25 @@ namespace MarkdownDeep
 							var block = renderer.CodeBlock (
 							code.Split ('\n'), str);
 						}
+                            aSpan = true;
 					}
 					break;
 
 				case TokenType.strike:
 					span = renderer.Strike ( renderer.Text (str,t.startOffset, t.length) );
+                        aSpan = true;
 					break;
 
 				case TokenType.underline:
                         span = renderer.Underline (renderer.Text ( str,t.startOffset, t.length));
+                        aSpan = true;
 					break;
 					
 				case TokenType.link:
 					li = (LinkInfo)t.data;
-                        renderer.Link(li.link_text, 
-						li.def.url, li.def.title);
+                     span = renderer.Link(li.link_text, 
+                                          li.def.url, li.def.title);
+                        aSpan = true;
 					break;
 				
 				case TokenType.img:
@@ -1254,17 +1261,18 @@ namespace MarkdownDeep
                                 span = renderer.Image (li.def.url, link_text, li.def.title);
 					} else
                             span = renderer.Image (li.def.url, li.link_text, li.def.title); 
+                        aSpan = true;
 					break;
 				case TokenType.footnote:
 				case TokenType.abbreviation:
 					throw new NotImplementedException ();
 				}
-
-				if (groups.Count > 0)
-					groups.Last ().Add (span);
-				else
-                    result.Add (span);
-				
+                if (aSpan) {
+                    if (groups.Count > 0)
+                        groups.Last().Add(span);
+                    else
+                        result.Add(span);
+                }
 				FreeToken (t);
 			}
 

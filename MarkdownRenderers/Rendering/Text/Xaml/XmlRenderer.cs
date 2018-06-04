@@ -20,24 +20,29 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
             Parameters = new Dictionary<string, string>();
         }
 
+        public string Render(string rawContent)
+        {
+            return $"<{MainClass} {Parameters}>{rawContent}</{MainClass}>";
+        }
+
         public string Render(params IRenderer<string>[] children)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append($"<{MainClass} {Parameters}>");
+            sb.Append("<");
+            sb.Append(MainClass);
+            foreach (var parameter in Parameters)
+            {
+                sb.Append(" ");
+                sb.Append(parameter.Key);
+                sb.Append("=");
+                sb.Append(parameter.Value);
+            }
+            sb.Append(">");             
             foreach (var child in children)
                 sb.Append(child.Render());
             sb.Append($"</{MainClass}>");
             return sb.ToString();
         }
 
-        internal string Render(List<IBlock<string>> blocks)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append($"<{MainClass} {Parameters}>");
-            foreach (var child in blocks)
-                sb.Append(child.Render());
-            sb.Append($"</{MainClass}>");
-            return sb.ToString();
-        }
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.props" Condition="Exists('..\packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -63,10 +64,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\MDGui\MDGui.csproj">
-      <Project>{7BD577B8-112E-467F-8E08-01072BF93FAF}</Project>
-      <Name>MDGui</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Eto.Markdown\Eto.Markdown.csproj">
       <Project>{193ABC6A-27AE-49B7-A453-DFF4C263FBE8}</Project>
       <Name>Eto.Markdown</Name>
@@ -74,6 +71,14 @@
     <ProjectReference Include="..\Eto.Mardown.Gtk3\Eto.Mardown.Gtk3.csproj">
       <Project>{72F83BB5-34B5-4B38-897D-10FE29A3B9CF}</Project>
       <Name>Eto.Mardown.Gtk3</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MarkdownRenderers\MarkdownRenderers.csproj">
+      <Project>{B855AE85-C96A-4C28-944F-D1C3F332E0D6}</Project>
+      <Name>MarkdownRenderers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MDGui\MDGui.csproj">
+      <Project>{7BD577B8-112E-467F-8E08-01072BF93FAF}</Project>
+      <Name>MDGui</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -85,4 +90,5 @@
     <None Include="MDGui.Gtk3.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
+  <Import Project="..\packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.targets" Condition="Exists('..\packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.targets')" />
 </Project>

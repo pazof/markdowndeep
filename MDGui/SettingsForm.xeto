@@ -20,13 +20,18 @@ Title="Paramètres" MinimumSize="200,200" Size="350,250" Padding="10"
          </StackLayout>
     </TabPage>
                 <TabPage Text="Xaml" >
+                     <StackLayout>
                         <StackLayout Orientation="Horizontal" > 
                         <Label Text="Normal " ></Label>
                         <Label Font="bold" Text="Bold " ></Label>
                         <Label Font="italic" Text="italic "></Label>
                         <Label Font="underline" Text="underline "></Label>
                         <Label Font="strikethrough" Text="strikethrough "></Label>
+                        <Label Font="bold+italic+underline+strikethrough+14pt" Text="all "></Label>
                       </StackLayout>
+                        <StackLayout Height="6"/>
+                        <Label Text="séparé"/>
+                        </StackLayout>
                 </TabPage>
   </TabControl>
   </StackLayoutItem><StackLayoutItem >

@@ -15,18 +15,24 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
         {
             BulletSize = BaseTextSize = 10;
             TabSize = 16;
-            HeaderFonts = new Dictionary<HeaderLevel, string>();
+            HeaderFont = new Dictionary<HeaderLevel, string>();
             int hsize = BaseTextSize;
             for (HeaderLevel level = HeaderLevel.Max; level >= 0; level--)
             {
-                HeaderFonts.Add(level, $"{FirstFontName}+{SecondFontName}+{hsize}pt");
+                HeaderFont.Add(level, $"{FirstFontName}+{SecondFontName}+{hsize}pt");
                 hsize += 2;
             }
+
+            TextFont = new Dictionary<TextStyle, string>();
+            TextFont.Add(TextStyle.Emphasys, "Bold");
+            TextFont.Add(TextStyle.Underline, "Underline");
+            TextFont.Add(TextStyle.Italic, "Italic");
+            TextFont.Add(TextStyle.Strike, "Strikeout");
         }
         public string FirstFontName { get; set; } = "Serif" ;
         public string SecondFontName { get; set; } = "Regular";
 
-        public Dictionary<HeaderLevel, string> HeaderFonts { get; }
+        public Dictionary<HeaderLevel, string> HeaderFont { get; }
 
         public string GetBullet(int headerLevel)
         {
@@ -37,6 +43,8 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
 
         public int BulletSize { get; set; }
 
-        public int BaseTextSize { get; set; } 
+        public int BaseTextSize { get; set; }
+
+        public Dictionary<TextStyle, string> TextFont { get; set; }
     }
 }
