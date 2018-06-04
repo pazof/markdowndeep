@@ -35,14 +35,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eto.Markdown", "Eto.Markdow
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eto.Mardown.Gtk3", "Eto.Mardown.Gtk3\Eto.Mardown.Gtk3.csproj", "{72F83BB5-34B5-4B38-897D-10FE29A3B9CF}"
 EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "MDGui", "MDGui\MDGui.csproj", "{C0D0FDC0-CF28-4F99-BB18-35E58E485134}"
-EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "MDGui", "MDGui\MDGui.csproj", "{7144B299-BC31-4781-A96C-937807BAE93D}"
-EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "MDGui", "MDGui\MDGui.csproj", "{C0CDD8A3-AD8D-4FD1-B901-F0839FFA6C6F}"
-EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "MDGui", "MDGui\MDGui.csproj", "{E09CFAC7-CF24-4767-BFAE-BB827C6189D4}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
