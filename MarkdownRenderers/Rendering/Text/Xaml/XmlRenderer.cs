@@ -22,25 +22,39 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
 
         public string Render(string rawContent)
         {
-            return $"<{MainClass} {Parameters}>{rawContent}</{MainClass}>";
-        }
-
-        public string Render(params IRenderer<string>[] children)
-        {
             StringBuilder sb = new StringBuilder();
+            RenderOpeningTag(sb);
+            sb.Append(rawContent);
+            RenderClosingTag(sb);
+            return sb.ToString();
+        }
+        void RenderOpeningTag(StringBuilder sb)
+        {
             sb.Append("<");
             sb.Append(MainClass);
             foreach (var parameter in Parameters)
             {
                 sb.Append(" ");
                 sb.Append(parameter.Key);
-                sb.Append("=");
+                sb.Append("=\"");
                 sb.Append(parameter.Value);
+                sb.Append("\"");
             }
-            sb.Append(">");             
+            sb.Append(">"); 
+        }
+
+        void RenderClosingTag(StringBuilder sb)
+        {
+            sb.Append($"</{MainClass}>");
+        }
+
+        public string Render(params IRenderer<string>[] children)
+        {
+            StringBuilder sb = new StringBuilder();
+            RenderOpeningTag(sb);    
             foreach (var child in children)
                 sb.Append(child.Render());
-            sb.Append($"</{MainClass}>");
+            RenderClosingTag(sb);
             return sb.ToString();
         }
 

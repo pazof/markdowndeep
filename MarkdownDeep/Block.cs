@@ -190,7 +190,7 @@ namespace MarkdownDeep
 
 			case BlockType.ol_li:
 			case BlockType.ul_li:
-				return b.ListItem(m.SpanFormatter.RenderToAny(b, buf, contentStart, contentLen));
+                    return b.ListItem(m.RenderInternal(Content, b));
 
 			case BlockType.dd:
 				if (children != null) {

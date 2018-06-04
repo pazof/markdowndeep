@@ -24,10 +24,10 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
             }
 
             TextFont = new Dictionary<TextStyle, string>();
-            TextFont.Add(TextStyle.Emphasys, "Bold");
-            TextFont.Add(TextStyle.Underline, "Underline");
-            TextFont.Add(TextStyle.Italic, "Italic");
-            TextFont.Add(TextStyle.Strike, "Strikeout");
+            TextFont.Add(TextStyle.Emphasys, "bold");
+            TextFont.Add(TextStyle.Underline, "underline");
+            TextFont.Add(TextStyle.Italic, "italic");
+            TextFont.Add(TextStyle.Strike, "strikethrough");
         }
         public string FirstFontName { get; set; } = "Serif" ;
         public string SecondFontName { get; set; } = "Regular";
@@ -36,7 +36,7 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
 
         public string GetBullet(int headerLevel)
         {
-            return "bullet"+headerLevel.ToString();
+            return "bullet"+headerLevel.ToString()+".png";
         }
 
         public int TabSize { get; set; } 

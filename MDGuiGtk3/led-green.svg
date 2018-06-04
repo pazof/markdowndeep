@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg7041"
+   sodipodi:docname="led-green.svg"
+   viewBox="0 0 39.212597 39.212597"
+   version="1.1"
+   inkscape:version="0.92.1 r15371"
+   width="1cm"
+   height="1cm"
+   inkscape:export-filename="/home/paul/workspace/yavsc-client/yagui/Resources/led-dark-red.png"
+   inkscape:export-xdpi="87.965843"
+   inkscape:export-ydpi="87.965843">
+  <defs
+     id="defs7043">
+    <radialGradient
+       id="radialGradient6993"
+       gradientUnits="userSpaceOnUse"
+       cy="21.5"
+       cx="47.5"
+       r="2.5"
+       inkscape:collect="always"
+       gradientTransform="matrix(6.0845132,0,0,6.0387071,170.18457,507.62587)"
+       xlink:href="#radialGradient7039">
+      <stop
+         id="stop6245"
+         style="stop-color:#ffffff"
+         offset="0" />
+      <stop
+         id="stop6247"
+         style="stop-color:#eece0d;stop-opacity:0"
+         offset="1" />
+    </radialGradient>
+    <radialGradient
+       id="radialGradient7039"
+       cx="-87.5"
+       gradientUnits="userSpaceOnUse"
+       cy="62.5"
+       r="2.5"
+       inkscape:collect="always"
+       gradientTransform="matrix(7.3014158,0,0,7.2464487,1095.6392,186.97054)">
+      <stop
+         id="stop6193-9"
+         style="stop-color:#000000"
+         offset="0" />
+      <stop
+         id="stop6203-9"
+         style="stop-color:#000000"
+         offset="0.46" />
+      <stop
+         id="stop6199-8"
+         style="stop-color:#a6a6a6"
+         offset="0.76" />
+      <stop
+         id="stop6201-0"
+         style="stop-color:#353535"
+         offset="0.9" />
+      <stop
+         id="stop6195-0"
+         style="stop-color:#000000"
+         offset="1" />
+    </radialGradient>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     bordercolor="#666666"
+     inkscape:pageshadow="2"
+     inkscape:window-y="27"
+     pagecolor="#ffffff"
+     inkscape:window-height="1016"
+     inkscape:window-maximized="0"
+     inkscape:zoom="15.099773"
+     inkscape:window-x="25"
+     showgrid="false"
+     borderopacity="1.0"
+     inkscape:current-layer="layer1"
+     inkscape:cx="7.7810491"
+     inkscape:cy="20.931543"
+     inkscape:window-width="1432"
+     inkscape:pageopacity="0.0"
+     inkscape:document-units="px"
+     units="cm"
+     scale-x="1.0375" />
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     transform="translate(-437,-620.37741)">
+    <ellipse
+       id="path6189-3"
+       style="fill:url(#radialGradient7039);stroke-width:7.27388"
+       cx="456.76517"
+       cy="639.8736"
+       rx="18.253542"
+       ry="18.116121" />
+    <ellipse
+       id="path6983"
+       style="fill:#c3a600;stroke-width:6.06156683"
+       cx="456.76517"
+       cy="639.8736"
+       rx="15.211284"
+       ry="15.096767" />
+    <ellipse
+       id="path6995"
+       style="fill:#550000;fill-opacity:1;stroke-width:6.06156683"
+       cx="456.76517"
+       cy="639.8736"
+       rx="15.211284"
+       ry="15.096767" />
+    <ellipse
+       id="path6985"
+       style="fill:url(#radialGradient6993);stroke-width:6.06156683;fill-opacity:1.0"
+       cx="459.19897"
+       cy="637.45801"
+       rx="15.211284"
+       ry="15.096767" />
+  </g>
+  <metadata
+     id="metadata3815">
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <cc:license
+           rdf:resource="http://creativecommons.org/publicdomain/zero/1.0/" />
+        <dc:publisher>
+          <cc:Agent
+             rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title></dc:title>
+        <dc:date>2010-10-02T04:04:05</dc:date>
+        <dc:description>An amber colored LED with a black surround.</dc:description>
+        <dc:source>https://openclipart.org/detail/88105/led-amber-by-bnielsen</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>bnielsen</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>amber</rdf:li>
+            <rdf:li>led</rdf:li>
+            <rdf:li>light</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/publicdomain/zero/1.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>

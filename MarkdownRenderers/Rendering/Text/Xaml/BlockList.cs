@@ -25,7 +25,7 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
         {
             Blocks = new List<IBlock<string>>(blocks);
             renderer = new XmlRenderer("StackLayout");
-            renderer.Parameters["Margin"] = "15,18,12,12";
+            renderer.Parameters["Padding"] = "15,18,12,12";
         }
 
         public override string Render()
@@ -35,7 +35,7 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
             {
                 sb.Append(block.Render());
             }
-             return renderer.Render(sb.ToString());
+            return renderer.Render(sb.ToString());
         }
     }
 }

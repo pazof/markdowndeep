@@ -89,7 +89,7 @@ namespace MarkdownDeep.Rendering.Abstract
 		/// Code the specified source.
 		/// </summary>
 		/// <param name="source">Source.</param>
-        TSpan Code (string source);
+        TSpan Code (string [] source, string lang);
 
         TBlock CodeBlock (string[] lines, string lang);
 		/// <summary>

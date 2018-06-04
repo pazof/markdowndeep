@@ -61,6 +61,9 @@
     <Compile Include="Services\GuiControlHandler.cs" />
     <Compile Include="Services\BufferChangedEventArgs.cs" />
     <Compile Include="Dialogs\Credits.cs" />
+    <Compile Include="MyForm.xeto.cs">
+      <DependentUpon>MyForm.xeto</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainForm.xeto" />
@@ -70,6 +73,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LogMessagesDialog.xeto" />
     <EmbeddedResource Include="SettingsForm.xeto" />
+    <EmbeddedResource Include="MyForm.xeto" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

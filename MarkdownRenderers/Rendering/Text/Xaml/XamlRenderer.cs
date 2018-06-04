@@ -57,7 +57,21 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
 
         public override MdToXamlNode Code(string source)
         {
-            throw new System.NotImplementedException();
+            return new XamlText
+            {
+                Text = source,
+                Style = TextStyle.Fixed
+            };
+        }
+
+        public override MdToXamlNode Code(string[] source, string lang)
+        {
+            return new CodeNode(source, lang);
+        }
+
+        public override MdToXamlNode Code(string[] sourcelines)
+        {
+            return new CodeNode(sourcelines, null);
         }
 
         public override MdToXamlBlock CodeBlock(string[] lines, string lang)

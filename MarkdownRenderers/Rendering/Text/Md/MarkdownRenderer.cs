@@ -90,12 +90,6 @@ namespace MarkdownAVToXaml.Rendering.Text.Md
         }
 
 
-        public override ISpan<string> Code(string source)
-        {
-            throw new NotImplementedException();
-        }
-
-
         public override MDBlock DD(ISpan<string> inner)
         {
             throw new NotImplementedException();
@@ -182,6 +176,21 @@ namespace MarkdownAVToXaml.Rendering.Text.Md
         }
 
         public override MDBlock AggregateFinalBlock(params MDBlock[] children)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ISpan<string> Code(string[] source, string lang)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ISpan<string> Code(string[] sourcelines)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ISpan<string> Code(string source)
         {
             throw new NotImplementedException();
         }

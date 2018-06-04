@@ -39,6 +39,10 @@ namespace MarkdownAVToXaml.Rendering.Text
 
         public abstract U Code(string source);
 
+        public abstract U Code(string[] source, string lang);
+
+        public abstract U Code(string[] sourcelines);
+
         public abstract V CodeBlock(string[] lines, string lang);
 
         public abstract V DD(U inner);

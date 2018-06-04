@@ -8,17 +8,20 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
 {
     public class Paragraph : MdToXamlBlock
     {
-        XmlRenderer xmlRenderer;
+        XmlRenderer _xmlRenderer;
+        IRenderer<string> _inner;
+
         public Paragraph(IRenderer<string> inner)
         {
-            xmlRenderer = new XmlRenderer("StackLayout");
-            xmlRenderer.Parameters.Add("Orientation", "Horizontal");
-            xmlRenderer.Parameters.Add("Padding", "5");
+            _inner = inner;
+            _xmlRenderer = new XmlRenderer("StackLayout");
+            _xmlRenderer.Parameters.Add("Orientation", "Horizontal");
+            _xmlRenderer.Parameters.Add("Padding", "5");
         }
 
         public override string Render()
         {
-            return xmlRenderer.Render();
+            return _xmlRenderer.Render(_inner.Render());
         }
     }
 }

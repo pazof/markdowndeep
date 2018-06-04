@@ -89,6 +89,9 @@
   <ItemGroup>
     <None Include="MDGui.Gtk3.nuspec" />
     <None Include="packages.config" />
+    <None Include="bullet0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="..\packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.targets" Condition="Exists('..\packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.targets')" />
 </Project>

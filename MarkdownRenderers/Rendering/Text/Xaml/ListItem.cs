@@ -14,7 +14,8 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
     {
         int ListLevel { get; set; }
         IMap _map;
-        IRenderer<string> _innerNode; 
+        IRenderer<string> _innerNode;
+        XmlRenderer renderer;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:MarkdownAVToXaml.Rendering.Text.Xaml.ListItem"/> class.
@@ -25,6 +26,7 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
         {
             _map = map;
             _innerNode = inner;
+            renderer = new XmlRenderer("StackLayout");
         }
 
         /// <summary>
@@ -34,10 +36,10 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
         public override string Render()
         {
             string innerTxt = _innerNode.Render();
-            var bullet = _map.GetBullet(ListLevel);
+          // FIXME  var bullet = _map.GetBullet(ListLevel);
             var marginLeft = _map.TabSize - _map.BulletSize;
-            return $"<StackLayout Maring=\"{marginLeft},0,0,0\"><ImageView Image=\"{bullet}\" Width=\"{_map.BulletSize}\">{innerTxt}</StackLayout>";
-
+            renderer.Parameters["Padding"] = $"{marginLeft},0,0,0";
+            return renderer.Render(innerTxt);
         }
     }
 }

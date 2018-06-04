@@ -18,6 +18,7 @@ using System.Linq;
 using System.Text;
 using MarkdownDeep.Rendering;
 using MarkdownDeep.Rendering.Abstract;
+using System.Diagnostics;
 
 namespace MarkdownDeep
 {
@@ -1202,6 +1203,7 @@ namespace MarkdownDeep
 					break;
 				case TokenType.close_em:
 					var emgroup = groups.Pop ();
+                        span = emgroup.Render(renderer);
                         aSpan = true;
 					break;
 				case TokenType.open_strong:
@@ -1218,12 +1220,7 @@ namespace MarkdownDeep
 					 {
 						string code = str.Substring (t.startOffset, t.length);
 						// allows a code span to be rendered
-					if (t.data == null && !str.Contains ('\n')) {
-						span = renderer.Code (str);
-						} else {
-							var block = renderer.CodeBlock (
-							code.Split ('\n'), str);
-						}
+					    span = renderer.Code (code.Split ('\n'), t.data?.ToString());
                             aSpan = true;
 					}
 					break;
@@ -1243,6 +1240,10 @@ namespace MarkdownDeep
                      span = renderer.Link(li.link_text, 
                                           li.def.url, li.def.title);
                         aSpan = true;
+                        if (span == null)
+                        {
+                            // rahhhh
+                        }
 					break;
 				
 				case TokenType.img:
@@ -1260,8 +1261,12 @@ namespace MarkdownDeep
 						else
                                 span = renderer.Image (li.def.url, link_text, li.def.title);
 					} else
-                            span = renderer.Image (li.def.url, li.link_text, li.def.title); 
+                        span = renderer.Image (li.def.url, li.link_text, li.def.title); 
                         aSpan = true;
+                        if (span == null)
+                        {
+                            // rahhhh
+                        }
 					break;
 				case TokenType.footnote:
 				case TokenType.abbreviation:
@@ -1270,8 +1275,12 @@ namespace MarkdownDeep
                 if (aSpan) {
                     if (groups.Count > 0)
                         groups.Last().Add(span);
-                    else
+                    else {
+                        Debug.Assert(span != null);
+
                         result.Add(span);
+                    }
+                        
                 }
 				FreeToken (t);
 			}

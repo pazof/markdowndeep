@@ -16,7 +16,15 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
 
         IMap _map;
 
-        public string Text { get; protected set; }
+        public string Text { get;  set; }
+        public XamlText()
+        {
+            init();
+        }
+        void init()
+        {
+            xmlRenderer = new XmlRenderer("Label");
+        }
 
         public XamlText(string txt, int start, int len, TextStyle style, IMap map)
         {
@@ -25,26 +33,28 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
             Text = txt;
             _map = map;
             Style = style;
-            xmlRenderer = new XmlRenderer("Label");
+            init();
 
+        }
+
+        public override string Render()
+        {
             List<string> variants = new List<string>();
             foreach (var styleFlag in new TextStyle[]{TextStyle.Emphasys, TextStyle.Fixed,
                 TextStyle.Italic, TextStyle.Underline, TextStyle.Strike
             })
             {
-                if ((styleFlag&style)>0) {
+                if ((styleFlag & Style) > 0)
+                {
                     variants.Add(_map.TextFont[styleFlag]);
                 }
             }
-            if (variants.Count>0)
-                xmlRenderer.Parameters.Add("Font", string.Join("+",variants) );
-           
-                
-        }
-
-        public override string Render()
-        {
-            return xmlRenderer.Render(Text.Substring(Start, Length));
+            if (variants.Count > 0)
+                xmlRenderer.Parameters["Font"] = string.Join("+", variants);
+            else if (xmlRenderer.Parameters.ContainsKey("Font"))
+                xmlRenderer.Parameters.Remove("Font");
+            
+            return xmlRenderer.Render(Text);
         }
     }
 }
