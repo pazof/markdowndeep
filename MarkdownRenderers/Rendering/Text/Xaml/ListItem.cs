@@ -5,6 +5,10 @@
 using System;
 using System.IO.MemoryMappedFiles;
 using MarkdownDeep.Rendering.Abstract;
+using System.Text;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace MarkdownAVToXaml.Rendering.Text.Xaml
 {
     /// <summary>
@@ -14,7 +18,6 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
     {
         int ListLevel { get; set; }
         IMap _map;
-        IRenderer<string> _innerNode;
         XmlRenderer renderer;
 
         /// <summary>
@@ -22,11 +25,13 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
         /// </summary>
         /// <param name="inner">Inner.</param>
         /// <param name="map">Map.</param>
-        public ListItem(IRenderer<string> inner, IMap map)
+        public ListItem(IEnumerable<IRenderer<string>> inner, IMap map)
         {
             _map = map;
-            _innerNode = inner;
+            Spans = inner.ToArray();
+
             renderer = new XmlRenderer("StackLayout");
+            renderer.Parameters["HorizontalContentAlignment"] = "Stretch";
         }
 
         /// <summary>
@@ -35,11 +40,14 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
         /// <returns>The render.</returns>
         public override string Render()
         {
-            string innerTxt = _innerNode.Render();
+            StringBuilder innerTxtBuilder = new StringBuilder();
+            foreach (var s in Spans)
+                innerTxtBuilder.AppendLine(s.Render());
+            
           // FIXME  var bullet = _map.GetBullet(ListLevel);
             var marginLeft = _map.TabSize - _map.BulletSize;
-            renderer.Parameters["Padding"] = $"{marginLeft},0,0,0";
-            return renderer.Render(innerTxt);
+            renderer.Parameters["Padding"] = $"0,0,{marginLeft},0";
+            return renderer.RenderRaw(innerTxtBuilder.ToString());
         }
     }
 }

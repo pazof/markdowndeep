@@ -106,17 +106,20 @@ namespace MarkdownDeep
 			}
 		}
 
-		V RenderChildren<T,U,V>(Markdown m, IMarkdownBlockRenderer<T,U,V> b)
+        IEnumerable<IRenderer<T>> RenderChildren<T,U,V>(Markdown m, IMarkdownBlockRenderer<T,U,V> b)
             where U: ISpan<T> where V:IBlock<T>, IRenderer<T>
 		{
-			var list = new List<V> ();
-			if (children == null)
-				return default(V);
+            var list = new List<IRenderer<T>> ();
+            if (children == null)
+                return null;
 			foreach (var child in children)
 			{
-				list.Add( child.Render(m,b));
+                var rendered = child.Render(m, b);
+                // don't bother about null blocks
+                if (rendered!=null)
+                    list.Add(rendered);
 			}
-            return b.Aggregate (list.ToArray());
+            return list;
 		}
 
 		internal void RenderChildrenPlain(Markdown m, StringBuilder b)
@@ -150,7 +153,16 @@ namespace MarkdownDeep
 			return id;
 		}
 
-		internal V Render<T,U,V>(Markdown m, IMarkdownBlockRenderer<T,U,V> b)
+        /// <summary>
+        /// Renders a block
+        /// </summary>
+        /// <returns>The render.</returns>
+        /// <param name="m">M.</param>
+        /// <param name="b">The blue component.</param>
+        /// <typeparam name="T">The 1st type parameter.</typeparam>
+        /// <typeparam name="U">The 2nd type parameter.</typeparam>
+        /// <typeparam name="V">The 3rd type parameter.</typeparam>
+        internal IRenderer<T> Render<T,U,V>(Markdown m, IMarkdownBlockRenderer<T,U,V> b)
             where U: ISpan<T> where V:IBlock<T>
 		{
 
@@ -162,16 +174,12 @@ namespace MarkdownDeep
                     // marking the start of a block level
                     // and this default object shoud be disposed
                     // and not be taken for a line break or what ever separator
-                 return default(V);
+                    return null;
 			case BlockType.p:
-			case BlockType.div:
-				var inner = m.SpanFormatter.RenderToAny<T,U,V> (b, buf, contentStart, contentLen);
-				return b.Paragraph (inner);
-			case BlockType.span:
-                    var span = m.SpanFormatter.RenderToAny<T,U,V>(b, buf, contentStart, contentLen) ;
-                    var block = default(V);
-                    block.FromSpan(span);
-                    return block;
+                case BlockType.div:
+                    return b.Aggregate(m.SpanFormatter.RenderToAny<T, U, V>(b, buf, contentStart, contentLen));
+                case BlockType.span:
+                    return b.AggregateSpan(m.SpanFormatter.RenderToAny<T, U, V>(b, buf, contentStart, contentLen));
 
 			case BlockType.h1: return b.Header (m.RenderInternal<T,U,V> (Content, b), HeaderLevel.H1);
 			case BlockType.h2: return b.Header (m.RenderInternal (Content, b), HeaderLevel.H2);
@@ -181,10 +189,7 @@ namespace MarkdownDeep
 			case BlockType.h6: return b.Header (m.RenderInternal (Content, b), HeaderLevel.H6);
 
                 case BlockType.user_break:
-                    span = default(U);
-                    block = default(V);
-                    block.FromSpan(span);
-                    return block;
+                    return b.NewLine();
                 case BlockType.hr:
                     return b.Separator();
 
@@ -194,7 +199,7 @@ namespace MarkdownDeep
 
 			case BlockType.dd:
 				if (children != null) {
-					return RenderChildren(m, b);
+                        return b.DD(RenderChildren(m, b));
 				}
 				else {
                         return b.DD(m.SpanFormatter.RenderToAny(b, buf, contentStart, contentLen));
@@ -202,20 +207,17 @@ namespace MarkdownDeep
 
 			case BlockType.dt:
 				if (children != null) {
-					return RenderChildren(m,b);
+                        return b.DT(RenderChildren(m,b));
 				}
 				else {
                         return b.DD(m.SpanFormatter.RenderToAny(b, buf, contentStart, contentLen));
 				}
 
-			case BlockType.dl: return RenderChildren(m, b);
+                case BlockType.dl: return b.DL(RenderChildren(m, b));
 
 			case BlockType.html:
 			case BlockType.unsafe_html:
-				span = b.Text (Content,0,Content.Length);
-                block = default(V);
-                block.FromSpan(span);
-                return block;
+                    return b.Text(Content, 0, Content.Length);
 
 			case BlockType.codeblock: 
 				{
@@ -229,18 +231,20 @@ namespace MarkdownDeep
 
 			case BlockType.ol:
 				{
-					List<V> items = new List<V> ();
+                    var items = new List<IRenderer<T>> ();
 					foreach (var item in children) {
-						items.Add (item.Render (m, b));
+                            var rendered = item.Render(m, b);
+                            if (rendered!=null) items.Add (rendered);
 					}
 					return b.OrderedList (items.ToArray());
 				}
 
 			case BlockType.ul: 
 				{
-					List<V> items = new List<V> ();
-					foreach (var item in children) {
-						items.Add (item.Render (m, b));
+                        var items = new List<IRenderer<T>> ();
+                        foreach (var item in children) {
+                            var rendered = item.Render(m, b);
+                            if (rendered != null) items.Add(rendered);
 					}
 					return b.UnorderedList (items.ToArray());
 				}
@@ -256,12 +260,12 @@ namespace MarkdownDeep
 					} else if (name == "img") {
 						m.OnPrepareImage (tag, m.RenderingTitledImage);
 					}
-					return RenderChildren (m, b);
+                    return b.Html(RenderChildren (m, b));
 				}
 
 			case BlockType.Composite:
 			case BlockType.footnote:
-				return RenderChildren(m, b);
+                    return b.FootNote(RenderChildren(m, b),(string) data);
 
 			case BlockType.table_spec:
 				throw new NotImplementedException ();
@@ -271,12 +275,12 @@ namespace MarkdownDeep
 				{
 					return b.FootNote( m.SpanFormatter.RenderToAny(b, buf, contentStart, contentLen ), (string) data);
 				}
-				return b.FootNote(default(U),(string) data);
+				return b.FootNote(null,(string) data);
 
 			default:
-                    block = default(V);
-                    block.FromSpan(m.SpanFormatter.RenderToAny(b, buf, contentStart, contentLen));
-				return block;
+                    return b.AggregateSpan(
+                       m.SpanFormatter.RenderToAny(
+                            b, buf, contentStart, contentLen));
 			}
 		}
 

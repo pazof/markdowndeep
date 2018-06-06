@@ -11,6 +11,12 @@ namespace MarkdownAVToXaml.Rendering.Text.Md
 
         public virtual string Prefix { get;  set; } = "";
         public string Separator { get;  set; } = "\n";
+        public TextStyle Style { get ; set; }
+
+        public int Start => throw new NotImplementedException();
+
+        public int Length => throw new NotImplementedException();
+
         public MDBlock()
         {
             Items = new ISpan<string>[0];
@@ -48,6 +54,10 @@ namespace MarkdownAVToXaml.Rendering.Text.Md
             FromSpan(new ISpan<string>[] { span });
         }
 
-	}
+        public void FromSpan(IRenderer<string> span)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
 

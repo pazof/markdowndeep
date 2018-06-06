@@ -11,15 +11,16 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
     {
         XmlRenderer xmlRenderer = new XmlRenderer("LinkButton");
 
-        public Button(string action, string txt) 
+        public Button(string action, string txt, string title) 
         {
             xmlRenderer.Parameters.Add("CommandParameter", action);
             xmlRenderer.Parameters.Add("Text", txt);
+            xmlRenderer.Parameters.Add("ToolTip", title);
         }
 
         public override string Render()
         {
-            return xmlRenderer.Render();
+            return xmlRenderer.RenderEmpty();
         }
 
     }

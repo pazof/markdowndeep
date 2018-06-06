@@ -1,11 +1,12 @@
 
 CONFIG=Debug
+DEFAULTMSBARGS=/p:RunCodeAnalysis=true
 
 all:
-	msbuild
+	msbuild $(DEFAULTMSBARGS)
 
 
-rungui:
+run:
 	mono MDGuiGtk3/bin/$(CONFIG)/MDGui.Gtk3.exe&
 
 runmd:

@@ -4,26 +4,25 @@
       xmlns:local="clr-namespace:MDGui;assembly=MDGui" 
       xmlns:custom="clr-namespace:Eto.Markdown;assembly=Eto.Markdown"
       Title="{Binding SourcePath}" x:Name="form" Width="640" Height="540" Padding="5">
-    <Form.Menu>
-        <MenuBar>
-            <ButtonMenuItem Text="F&amp;ile">
-                <ButtonMenuItem Text="Open" Shortcut="CommonModifier+O" Click="HandleOpen" />
-                <ButtonMenuItem x:Name="btnSave" Text="Save" Shortcut="CommonModifier+S" Click="HandleSave" />
-                <ButtonMenuItem Text="SaveAs" Shortcut="CommonModifier+W" Click="HandleSaveAs" />
-            </ButtonMenuItem>
-            <ButtonMenuItem Text="View">
-                <ButtonMenuItem Text="Refresh" Shortcut="CommonModifier+R" Click="HandleRefresh" />
-            </ButtonMenuItem>
-            <MenuBar.ApplicationItems>
+    <Form.Menu >
+        <MenuBar x:Name="menuBar">
+            <MenuBar.ApplicationItems >
+                <ButtonMenuItem Text="Ouvrir" Shortcut="CommonModifier+O" Click="HandleOpen" />
+                <ButtonMenuItem x:Name="btnSave" Text="Sauver" Shortcut="CommonModifier+S" Click="HandleSave" />
+                <ButtonMenuItem Text="Sauver sous" Shortcut="CommonModifier+W" Click="HandleSaveAs" />
+                <SeparatorMenuItem ></SeparatorMenuItem>
                 <ButtonMenuItem Text="Preferences.." Click="HandleSettings" Shortcut="{On Control+O, Mac=Application+Comma}" />
-                <ButtonMenuItem Text="À propos">
-                    <ButtonMenuItem Text="Logs" Shortcut="CommonModifier+L" Click="HandleLog" />
-                    <ButtonMenuItem Text="Crédits" Click="HandleCredits" />
-                </ButtonMenuItem>
+                <ButtonMenuItem Text="Logs" Shortcut="CommonModifier+L" Click="HandleLog" />
             </MenuBar.ApplicationItems>
+             <ButtonMenuItem Text="Vue">
+                <ButtonMenuItem Text="Rafraichir" Shortcut="CommonModifier+R" Click="HandleRefresh" />
+            </ButtonMenuItem>
             <MenuBar.QuitItem>
                 <ButtonMenuItem Text="Quit!" Shortcut="CommonModifier+Q" Click="HandleQuit" />
             </MenuBar.QuitItem>
+            <MenuBar.AboutItem Text="À propos" >
+                    <ButtonMenuItem Text="Crédits" Click="HandleCredits" />
+            </MenuBar.AboutItem>
         </MenuBar>
     </Form.Menu>
     <Form.ToolBar>

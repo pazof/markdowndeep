@@ -8,7 +8,7 @@ namespace MarkdownDeep.Rendering.Abstract
     /// </summary>
     public interface ISpan<T> : IRenderer<T>, IBaseTextChunk
     {
-        TextStyle Style { get; }
+        TextStyle Style { get; set; }
     }
 
 }

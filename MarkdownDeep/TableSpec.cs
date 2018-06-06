@@ -124,15 +124,15 @@ namespace MarkdownDeep
             where U : ISpan<T>
 		{
             var head = b.TableHeader(Headers.ToArray());
-            List<V> rows = new List<V>();
+            var rows = new List<IRenderer<T>>();
 
 			foreach (var row in Rows) {
-                List<V> cols = new List<V>();
+                var cols = new List<IRenderer<T>>();
 
                 foreach (var col in row)
                 {
                     var cell = m.RenderInternal<T,U,V>(col, b);
-                    cols.Add(cell);
+                    cols.Add(b.TableCell(cell));
                 }
                 var renderedRow = b.TableRow(cols.ToArray());
                 rows.Add(renderedRow);

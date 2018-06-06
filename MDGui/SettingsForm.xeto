@@ -29,8 +29,11 @@ Title="Paramètres" MinimumSize="200,200" Size="350,250" Padding="10"
                         <Label Font="strikethrough" Text="strikethrough "></Label>
                         <Label Font="bold+italic+underline+strikethrough+14pt" Text="all "></Label>
                       </StackLayout>
-                        <StackLayout Height="6"/>
+                        <StackLayoutItem HorizontalAlignment="Stretch">
+                            <StackLayout Height="1" BackgroundColor="Gray" VerticalContentAlignment="Stretch"></StackLayout>
+                            </StackLayoutItem>        
                         <Label Text="séparé"/>
+                        
                         </StackLayout>
                 </TabPage>
   </TabControl>

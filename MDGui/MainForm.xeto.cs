@@ -16,29 +16,23 @@ namespace MDGui
     using MarkdownAVToXaml.Rendering.Text;
     using MarkdownAVToXaml.Rendering.Text.Xaml;
     using MarkdownDeep;
-
 	public partial class MainForm : Form
     {
         #pragma warning disable CS0649
-        private TabPage xamlViewTab;
-        private WebView htmlView;
-        private TextArea htmlCode;
-        private RichTextArea sourceCode;
-        private ButtonMenuItem btnSave;
-        private TextArea xamlCode;
+        TabPage xamlViewTab;
+        WebView htmlView;
+        TextArea htmlCode;
+        RichTextArea sourceCode;
+        ButtonMenuItem btnSave;
+        TextArea xamlCode;
+        MenuBar menuBar;
         MarkdownArea mdArea;
         #pragma warning disable CS0649
 
-		/// <summary>
-		/// Gets the xaml view tab.
-		/// </summary>
-		/// <value>The xaml view tab.</value>
-		public TabPage XamlViewTab {
-			get { return xamlViewTab; }
-		}
+
 		private Markdown markdown;
 
-		private XamlRenderer xamlRenderer = new XamlRenderer();
+		private XamlRenderer xamlRenderer = new XamlRenderer("TabPage");
 
 		// private MyDynamicControl xamlContainer;
 
@@ -48,12 +42,17 @@ namespace MDGui
 		/// </summary>
 		public MainForm ()
 		{
+             
+
 			markdown = new Markdown ();
 			Logs = new Log ();
             base.Initialize ();
 			XamlReader.Load (this);
 			sourceCode.TextChanged += OnSourceChanged; 
 			DataContext = this;
+            // TODO Localization
+            menuBar.ApplicationMenu.Text = "Fichier";
+            menuBar.HelpMenu.Text = "Aide";
 		}
 
 		protected override void OnLoad (EventArgs e)
@@ -67,18 +66,11 @@ namespace MDGui
 			var html = markdown.Transform(sourceCode.Text);
 			htmlCode.Text = html;
 			htmlView.LoadHtml(html);
-			//FIXME Generate a valide Xaml header
+			
             var source = markdown.Render (sourceCode.Text, xamlRenderer);
 			xamlCode.Text = source;
 
-			string wholeSource = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-				"<TabPage xmlns=\"http://schema.picoe.ca/eto.forms\"\n" +
-				" xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\" \n" +
-				" xmlns:local=\"clr-namespace:MDGui;assembly=MDGui\" >" + source +
-				"</TabPage>"
-				;
-			
-			using (var reader = new StringReader (wholeSource)) {
+			using (var reader = new StringReader (source)) {
 
 				xamlViewTab.SuspendLayout();
 				try { 
@@ -90,9 +82,7 @@ namespace MDGui
 				finally {
 					xamlViewTab.ResumeLayout ();
 				}
-
 			}
-
 		}
 
 		private void OnSourceChanged(object sender, EventArgs e) 
@@ -113,13 +103,12 @@ namespace MDGui
 
 		protected void HandleOpen (object sender, EventArgs e)
 		{
+           
 			var dialog = new OpenFileDialog {
-				Filters = { 
-					new FileDialogFilter ("Markdown", 
-						new string[] { "*.md", "*.txt" }),
-					new FileDialogFilter ("Tous", 
-						new string[] { "*" })
-				},
+                Filters =  {
+                    new FileDialogFilter("Markdown", new string[] { "*.md", "*.txt" }),
+                    new FileDialogFilter("Tous", new string[] { "*" })
+                },
 				Title = "Ouvrir un fichier texte"
 			};
 			DialogResult fileToLoad = dialog.ShowDialog (this.Content);
@@ -173,19 +162,20 @@ namespace MDGui
 				btnSave.Enabled = value;
 			}
 		}
-
+        string fileName;
 		private FileInfo AskForAFile()
 		{
 			var dialog = new SaveFileDialog { 
+                Title = "Fichier de destination",
 				Filters = { 
-					new FileDialogFilter ("Markdown", 
-						new string[] { "*.md", "*.txt" }),
-					new FileDialogFilter ("Tous", 
-						new string[] { "*" })
-				}
+					new FileDialogFilter ("Markdown", new string[] { "*.md", "*.txt" }),
+					new FileDialogFilter ("Tous", new string[] { "*" })
+				},
+                FileName = fileName
 			};
-			DialogResult fileToSave = dialog.ShowDialog (this.Content);
+			DialogResult fileToSave = dialog.ShowDialog (this);
 			if (fileToSave.HasFlag (DialogResult.Ok)) {
+                fileName = dialog.FileName;
 				// If file exists, user should have been warn about.
 				return new FileInfo (dialog.FileName);
 			}
@@ -206,7 +196,7 @@ namespace MDGui
 
 		LogMessagesDialog log = new LogMessagesDialog ();
 
-		protected void HandleSettings(object sender, EventArgs e)
+        protected void HandleSettings(object sender, EventArgs e)
 		{
 			var diag = new SettingsForm (Settings);
 			diag.ShowModal ();
@@ -219,7 +209,7 @@ namespace MDGui
 		}
 		internal static Log Logs { get; private set; }
 
-		public Settings Settings { get; set; } = new Settings { ViewHtml = true } ;
+        public Settings Settings { get; set; } = new Settings { ViewXaml = true, ViewXamlCode = true } ;
 	}
 }
 

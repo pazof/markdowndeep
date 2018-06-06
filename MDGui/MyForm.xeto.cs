@@ -13,10 +13,18 @@ namespace MDGui
     public class MyForm : Form
     {
         Drawable bullet;
+        Label label;
+        RichTextArea richText;
         public MyForm()
         {
             XamlReader.Load(this);
-            
+
+            ITextBuffer buffer = richText.Buffer;
+            var range = new Range<int>(0,richText.CaretIndex);
+
+            buffer.SetBackground(range,Colors.Beige);
+
+
         }
     }
 }

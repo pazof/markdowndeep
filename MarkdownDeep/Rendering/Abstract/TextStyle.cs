@@ -8,7 +8,7 @@ namespace MarkdownDeep.Rendering.Abstract
     /// <summary>
     /// Text style.
     /// </summary>
-    [Flags]
+    [Flags][Serializable]
     public enum TextStyle: int
     {
         Normal=0,     // normal body text style

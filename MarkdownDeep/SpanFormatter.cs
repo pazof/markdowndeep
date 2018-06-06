@@ -1145,43 +1145,41 @@ namespace MarkdownDeep
 
         abstract class Grouping<T,U,V> : List<U> where U: ISpan<T> where V:IBlock<T>
         {
-            internal abstract U Render(IMarkdownRenderer<T, U, V> renderer);
+            internal abstract void Render(IMarkdownRenderer<T, U, V> renderer);
 		}
 
-        class EmGroup <T,U,V>  : Grouping <T,U,V> where U : ISpan<T> where V : IBlock<T> {
-            internal override U Render (IMarkdownRenderer<T, U, V> renderer)
+        class EmGroup<T,V> : Grouping <T,ISpan<T>,V> where  V : IBlock<T> {
+            internal override void Render (IMarkdownRenderer<T, ISpan<T>, V> renderer)
 			{
-				return renderer.Emphasis(this.ToArray());
+				 renderer.Emphasis(this.ToArray());
 			}
 		}
 
-        class StrongGroup <T, U, V> : Grouping <T, U, V> where U : ISpan<T> where V : IBlock<T> {
+        class StrongGroup <T, V> : Grouping <T, ISpan<T>, V> where V : IBlock<T> {
 			
-            internal override U Render (IMarkdownRenderer <T,U,V> renderer)
+            internal override void Render (IMarkdownRenderer <T,ISpan<T>,V> renderer)
 			{
-				return renderer.Strong (this.ToArray());
+				 renderer.Strong (this.ToArray());
 			}
 		}
 
 		// Render a list of tokens to a destination object
 		// using str as source,
 		// parsing str starting at start and during len;
-		public U RenderToAny <T,U,V> (IMarkdownRenderer <T,U,V> renderer, string str, int start, int len)
+        public IEnumerable<ISpan<T>> RenderToAny <T,U,V> (IMarkdownRenderer <T,U,V> renderer, string str, int start, int len)
             where U:ISpan<T> where V : IBlock<T>
 		{
 			// Parse the string into a list of tokens
 			Tokenize (str, start, len);
-            Stack<Grouping<T,U,V>> groups = new Stack<Grouping<T, U, V>> ();
-            List<U> result = new List<U>();
+            Stack<List<ISpan<T>>> groups = new Stack<List<ISpan<T>>>() ;
+            List<ISpan<T>> result = new List<ISpan<T>>();
 			LinkInfo li;
 			var items = m_Tokens.ToArray ();
 			foreach (Token t in items) {
-                U span=default(U);
-                bool aSpan = false;
+                ISpan<T> span=null;
 				switch (t.type) {
 				case TokenType.Text:
                         span = renderer.Text(str, t.startOffset, t.length);
-                        aSpan = true;
 					break;
 
 				case TokenType.HtmlTag:
@@ -1195,24 +1193,31 @@ namespace MarkdownDeep
 
 				case TokenType.br:
                     span = renderer.Text(str, t.startOffset, t.length);
-                        aSpan = true;
 					break;
 
 				case TokenType.open_em:
-                        groups.Push (new EmGroup <T, U, V> ());
+                        groups.Push (new EmGroup<T,V>());
 					break;
 				case TokenType.close_em:
-					var emgroup = groups.Pop ();
-                        span = emgroup.Render(renderer);
-                        aSpan = true;
+                        if (groups.Count > 0)
+                        {
+                            var emgroup = groups.Pop();
+                            foreach (var item in emgroup)
+                                item.Style |= TextStyle.Italic;
+                            result.AddRange(emgroup);
+                        }
 					break;
 				case TokenType.open_strong:
-                        groups.Push (new StrongGroup <T, U, V> ());
+                        groups.Push (new StrongGroup <T, V> ());
 					break;
-				case TokenType.close_strong:
-					var bgroup = groups.Pop ();
-					span = bgroup.Render (renderer);
-                        aSpan = true;
+                    case TokenType.close_strong:
+                        if (groups.Count > 0)
+                        {
+                            var bgroup = groups.Pop();
+                            foreach (var item in bgroup)
+                                item.Style |= TextStyle.Emphasys;
+                            result.AddRange(bgroup);
+                        }
 					break;
 
 				case TokenType.code_span:
@@ -1220,30 +1225,22 @@ namespace MarkdownDeep
 					 {
 						string code = str.Substring (t.startOffset, t.length);
 						// allows a code span to be rendered
-					    span = renderer.Code (code.Split ('\n'), t.data?.ToString());
-                            aSpan = true;
+                            span = renderer.Code (code, t.data?.ToString());
 					}
 					break;
 
 				case TokenType.strike:
 					span = renderer.Strike ( renderer.Text (str,t.startOffset, t.length) );
-                        aSpan = true;
 					break;
 
 				case TokenType.underline:
                         span = renderer.Underline (renderer.Text ( str,t.startOffset, t.length));
-                        aSpan = true;
 					break;
 					
 				case TokenType.link:
 					li = (LinkInfo)t.data;
                      span = renderer.Link(li.link_text, 
                                           li.def.url, li.def.title);
-                        aSpan = true;
-                        if (span == null)
-                        {
-                            // rahhhh
-                        }
 					break;
 				
 				case TokenType.img:
@@ -1262,17 +1259,13 @@ namespace MarkdownDeep
                                 span = renderer.Image (li.def.url, link_text, li.def.title);
 					} else
                         span = renderer.Image (li.def.url, li.link_text, li.def.title); 
-                        aSpan = true;
-                        if (span == null)
-                        {
-                            // rahhhh
-                        }
+                      
 					break;
 				case TokenType.footnote:
 				case TokenType.abbreviation:
 					throw new NotImplementedException ();
 				}
-                if (aSpan) {
+                if (span != null) {
                     if (groups.Count > 0)
                         groups.Last().Add(span);
                     else {
@@ -1280,12 +1273,25 @@ namespace MarkdownDeep
 
                         result.Add(span);
                     }
-                        
+                }
+                // close unclosed groups
+                while (groups.Count>0)
+                {
+                    var group = groups.Pop();
+                    if (group is EmGroup<T, V>)
+                        foreach (var item in group)
+                            item.Style |= TextStyle.Emphasys;
+                    else
+                    if (group is StrongGroup<T, V>)
+                        foreach (var item in group)
+                            item.Style |= TextStyle.Emphasys;
+                    else
+                        throw new InvalidProgramException();
+                    result.AddRange(group);
                 }
 				FreeToken (t);
 			}
-
-			return renderer.AggregateSpan( result.ToArray() );
+			return result ;
 		}
 
 	}

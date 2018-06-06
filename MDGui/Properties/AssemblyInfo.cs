@@ -5,13 +5,13 @@ using System.Runtime.CompilerServices;
 // Change them to the values specific to your project.
 
 [assembly: AssemblyTitle ("MDGui")]
-[assembly: AssemblyDescription ("")]
-[assembly: AssemblyConfiguration ("")]
+[assembly: AssemblyDescription ("Markdown Gui")]
+[assembly: AssemblyConfiguration ("Alpha")]
 [assembly: AssemblyCompany ("")]
 [assembly: AssemblyProduct ("")]
 [assembly: AssemblyCopyright ("Paul Schneider")]
 [assembly: AssemblyTrademark ("")]
-[assembly: AssemblyCulture ("")]
+[assembly: AssemblyCulture ("fr-FR")]
 
 // The assembly version has the format "{Major}.{Minor}.{Build}.{Revision}".
 // The form "{Major}.{Minor}.*" will automatically update the build and revision,

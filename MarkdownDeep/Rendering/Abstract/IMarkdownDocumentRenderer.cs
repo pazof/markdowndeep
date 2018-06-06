@@ -3,6 +3,8 @@
 // Paul Schneider paul@pschneider.fr 15/05/2018 15:53 20182018 5 15
 // */
 using System;
+using System.Collections.Generic;
+
 namespace MarkdownDeep.Rendering.Abstract
 {
     public interface IMarkdownDocumentRenderer<T,U,TBlock> : IMarkdownBlockRenderer<T, U, TBlock>
@@ -14,6 +16,6 @@ namespace MarkdownDeep.Rendering.Abstract
         /// </summary>
         /// <returns>The final block.</returns>
         /// <param name="children">Children.</param>
-        TBlock AggregateFinalBlock (params TBlock [] children); 
+        IRenderer<T>  AggregateFinalBlock (IEnumerable<IRenderer<T>> children); 
     }
 }

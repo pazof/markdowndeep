@@ -12,7 +12,9 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
 
         public override string Render()
         {
-            return $"<StackLayout Height=\"{Height}\"/>";
+            string space = $"<StackLayout Height=\"{Height}\" BackgroundColor=\"Gray\"" +
+                " HorizontalContentAlignment=\"Stretch\" ></StackLayout>";
+            return space;
         }
     }
 }

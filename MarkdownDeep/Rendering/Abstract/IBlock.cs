@@ -5,8 +5,8 @@
 using System;
 namespace MarkdownDeep.Rendering.Abstract
 {
-    public interface IBlock<T> : IRenderer<T>
+    public interface IBlock<T> : ISpan<T>
     {
-        void FromSpan(ISpan<T> span);
+        void FromSpan(IRenderer<T> span);
     }
 }

@@ -41,7 +41,6 @@
     <Compile Include="Rendering\Text\Xaml\MdToXamlNode.cs" />
     <Compile Include="Rendering\Text\Xaml\UnorderedList.cs" />
     <Compile Include="Rendering\Text\Xaml\XamlRenderer.cs" />
-    <Compile Include="Rendering\Text\GenericMarkdownRenderer.cs" />
     <Compile Include="Rendering\Text\Xaml\XamlText.cs" />
     <Compile Include="Rendering\Text\Md\MarkdownRenderer.cs" />
     <Compile Include="Rendering\Text\Md\DD.cs" />
@@ -64,13 +63,16 @@
     <Compile Include="Rendering\Text\Xaml\XmlRenderer.cs" />
     <Compile Include="Rendering\Text\Xaml\Maps.cs" />
     <Compile Include="Rendering\Text\Xaml\Line.cs" />
-    <Compile Include="Rendering\Text\Xaml\Paragraph.cs" />
     <Compile Include="Rendering\Text\Xaml\BlockList.cs" />
-    <Compile Include="Rendering\Text\Xaml\Header.cs" />
     <Compile Include="Rendering\Text\Xaml\ListItem.cs" />
     <Compile Include="Rendering\Text\Xaml\IMap.cs" />
     <Compile Include="Rendering\Text\Xaml\CodeBlock.cs" />
     <Compile Include="Rendering\Text\Xaml\BlockSeparator.cs" />
+    <Compile Include="Rendering\Text\Xaml\IHeaderStyleOwner.cs" />
+    <Compile Include="Rendering\Text\IMarkdownRendererToString.cs" />
+    <Compile Include="Rendering\Text\MarkdownRendererToString.cs" />
+    <Compile Include="Rendering\Text\Xaml\IBlockList.cs" />
+    <Compile Include="Rendering\Text\Xaml\Document.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

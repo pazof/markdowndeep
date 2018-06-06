@@ -68,7 +68,7 @@ namespace MarkdownDeep
 				throw new InvalidOperationException (
 					"No renderer were specified");
             var items = Render<T, U, V>(str, out definitions, renderer);
-            return renderer.AggregateFinalBlock(items.ToArray()).Render(); 
+            return renderer.AggregateFinalBlock(items).Render(); 
 		}
 
 		// Transform a string
@@ -211,7 +211,7 @@ namespace MarkdownDeep
 
 		// Renders markdown using a client renderer,
 		// thanks to its IMarkdownRenderer implementation
-		public IEnumerable<V> Render<T,U,V>
+        public IEnumerable<IRenderer<T>> Render<T,U,V>
         (string str, out Dictionary<string, 
          LinkDefinition> definitions, 
          IMarkdownBlockRenderer<T,U,V> renderer)
@@ -238,8 +238,7 @@ namespace MarkdownDeep
 				);
 			}
 
-			return  blocks.Select (b => b.Render (this, renderer));
-				
+            return  blocks.Select (b => b.Render (this, renderer));
 
 			/* 
 			int iSection = -1;
@@ -288,15 +287,23 @@ namespace MarkdownDeep
 			
 		}
 
-		// RenderInternal
-        public V RenderInternal<T, U , V>(string str, IMarkdownBlockRenderer<T,U, V> renderer)
+        /// <summary>
+        /// Renders a line.
+        /// </summary>
+        /// <returns>The internal.</returns>
+        /// <param name="str">String.</param>
+        /// <param name="renderer">Renderer.</param>
+        /// <typeparam name="T">The 1st type parameter.</typeparam>
+        /// <typeparam name="U">The 2nd type parameter.</typeparam>
+        /// <typeparam name="V">The 3rd type parameter.</typeparam>
+        public IEnumerable<IRenderer<T>> RenderInternal<T, U , V>(string str, IMarkdownBlockRenderer<T,U, V> renderer)
             where U: ISpan<T> where V:IBlock<T>
 		{
 			if (renderer == null)
 				throw new InvalidOperationException (
 					"No renderer were specified");
 			var result = Render<T,U,V>(str, out definitions, renderer);
-            return renderer.Aggregate (result.ToArray());
+            return result;
 		}
 
 		public int SummaryLength

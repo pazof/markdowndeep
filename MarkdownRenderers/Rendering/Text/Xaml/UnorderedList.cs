@@ -1,15 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using MarkdownDeep.Rendering.Abstract;
+using System.Linq;
 
 namespace MarkdownAVToXaml.Rendering.Text.Xaml
 {
     public class UnorderedList : MdToXamlBlock {
         private MdToXamlBlock[] list;
         public bool IsBlockList { get; }
-        public UnorderedList( ISpan<string> [] items )
+        public UnorderedList( IEnumerable<IRenderer<string>> items )
 		{
-            Spans = items;
+            Spans = items.ToArray();
             IsBlockList = false;
 		}
 
@@ -33,6 +35,13 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
 			}
 			return sb.ToString();
 		}
-	}
+        public override string ToString()
+        {
+            if (IsBlockList)
+                return $"[Unordered list {Style} Block {list.Length}]";
+            else 
+                return $"[Unordered list {Style} Spans:{Spans.Count()}]";
+        }
+    }
 }
 

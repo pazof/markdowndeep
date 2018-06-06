@@ -5,6 +5,7 @@ using System.Text;
 using System.Collections.Generic;
 using MarkdownDeep.Model;
 using MarkdownDeep.Rendering.Abstract;
+using MarkdownAVToXaml.Rendering.Text.Xaml;
 
 namespace MarkdownAVToXaml.Rendering.Text.Md
 {
@@ -29,17 +30,12 @@ namespace MarkdownAVToXaml.Rendering.Text.Md
             return new MDImage { HRef = href, Alt = alt, Title = title, MimeCat = "video" };
 		}
 
-        override public MDBlock CodeBlock (string[] lines, string lang)
+        override public ISpan<string> CodeBlock (string[] lines, string lang)
 		{
 			return new MDCodeBlock(lines,lang);
 		}
 
-        override public ISpan<string> Emphasis(ISpan<string> [] parts)
-        {
-            return  new MDEmphasis(parts);
-        }
-
-        override public MDBlock Header(MDBlock inner, HeaderLevel level)
+         public MDBlock Header(MDBlock inner, HeaderLevel level)
 		{
             return new MDHeader(level, inner.Items);
         }
@@ -48,12 +44,7 @@ namespace MarkdownAVToXaml.Rendering.Text.Md
             return new MDLink{ HRef = href, Title = title, Text = text  }; 
 		}
 
-        public override MDBlock ListItem(MDBlock inner)
-        {
-			return new ListItem(inner);
-        }
-
-        public override MDBlock Quote(MDBlock inner)
+        public  MDBlock Quote(MDBlock inner)
         {
             return new Quote (inner);
         }
@@ -66,10 +57,10 @@ namespace MarkdownAVToXaml.Rendering.Text.Md
 			};
         }
 
-        public override ISpan<string> Strong(ISpan<string>[] inner)
+        public override void Strong(ISpan<string>[] inner)
 		{
-			// Debug.Assert(inner.Length>0);
-            return new MDEmphasis(inner);
+            // Debug.Assert(inner.Length>0);
+            throw new NotImplementedException();
         }
 
         public override ISpan<string> Underline(ISpan<string> existent)
@@ -84,12 +75,6 @@ namespace MarkdownAVToXaml.Rendering.Text.Md
             throw new NotImplementedException();
         }
 
-        public override void AddNewLineTo(ISpan<string> span)
-        {
-            throw new NotImplementedException();
-        }
-
-
         public override MDBlock DD(ISpan<string> inner)
         {
             throw new NotImplementedException();
@@ -99,30 +84,6 @@ namespace MarkdownAVToXaml.Rendering.Text.Md
         {
             throw new NotImplementedException();
         }
-
-
-        public override MDBlock FootNote(ISpan<string> inner, string id)
-        {
-            throw new NotImplementedException();
-        }
-
-
-
-        public override MDBlock ListItem(ISpan<string> inner)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override MDBlock OrderedList(MDBlock[] list)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override MDBlock Paragraph(ISpan<string> inner)
-        {
-            throw new NotImplementedException();
-        }
-
 
         public override MDBlock Separator()
         {
@@ -155,44 +116,155 @@ namespace MarkdownAVToXaml.Rendering.Text.Md
             throw new NotImplementedException();
         }
 
-        public override MDBlock UnorderedList(MDBlock[] list)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override ISpan<string> Aggregate<T>(IRenderer<T>[] children)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override ISpan<string> AggregateSpan(ISpan<string>[] children)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override MDBlock Aggregate(MDBlock[] children)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override MDBlock AggregateFinalBlock(params MDBlock[] children)
-        {
-            throw new NotImplementedException();
-        }
-
         public override ISpan<string> Code(string[] source, string lang)
         {
             throw new NotImplementedException();
         }
 
-        public override ISpan<string> Code(string[] sourcelines)
+        public override IRenderer<string> AggregateFinalBlock(IEnumerable<IRenderer<string>> children)
         {
             throw new NotImplementedException();
         }
 
-        public override ISpan<string> Code(string source)
+        public override MDBlock OrderedList(IRenderer<string>[] list)
         {
             throw new NotImplementedException();
+        }
+
+        public override IRenderer<string> Paragraph(ISpan<string> inner)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MDBlock UnorderedList(ISpan<string>[] list)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ISpan<string> AggregateSpan(IEnumerable<ISpan<string>> children)
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// Code the specified source and lang.
+        /// </summary>
+        /// <returns>The code.</returns>
+        /// <param name="source">Source.</param>
+        /// <param name="lang">Lang.</param>
+        // FIXME : this is a block ...
+        public override ISpan<string> Code(string source, string lang)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MDBlock DD(IRenderer<string> inner)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MDBlock FootNote(IRenderer<string> inner, string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IRenderer<string> Header(IRenderer<string> inner, HeaderLevel level)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IRenderer<string> OrderedList(IEnumerable<IRenderer<string>> list)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MDBlock TableBody(IEnumerable<IRenderer<string>> rows)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IRenderer<string> TableRow(IEnumerable<IRenderer<string>> cells)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IRenderer<string> UnorderedList(IEnumerable<IRenderer<string>> list)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IRenderer<string> Aggregate(IEnumerable<IRenderer<string>> children)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Emphasis(ISpan<string>[] TSpan)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Strong(IEnumerable<ISpan<string>> inner)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Emphasis(IEnumerable<ISpan<string>> TSpan)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MDBlock NewLine()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MDBlock Quote(IEnumerable<IRenderer<string>> inner)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void AddNewLineTo(ISpan<string> span)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IRenderer<string> Header(IEnumerable<IRenderer<string>> inner, HeaderLevel level)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IRenderer<string> TableCell(IEnumerable<IRenderer<string>> inner)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MDBlock Html(IEnumerable<IRenderer<string>> inner)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MDBlock DT(IEnumerable<IRenderer<string>> inner)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MDBlock DL(IEnumerable<IRenderer<string>> inner)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MDBlock DD(IEnumerable<IRenderer<string>> inner)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MDBlock FootNote(IEnumerable<IRenderer<string>> inner, string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IRenderer<string> ListItem(IEnumerable<IRenderer<string>> inner)
+        {
+            return new ListItem(inner);
         }
     }
 }

@@ -17,7 +17,7 @@
 
         public override string Render()
         {
-            return xmlRenderer.Render(string.Join("\n", lines));
+            return xmlRenderer.RenderRaw(string.Join("\n", lines));
         }
     }
 
@@ -37,7 +37,7 @@
 
         public override string Render()
         {
-            return xmlRenderer.Render(string.Join("\n", lines));
+            return xmlRenderer.RenderRaw(string.Join("\n", lines));
         }
     }
 }

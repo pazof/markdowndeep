@@ -39,7 +39,8 @@ namespace MarkdownDeepTest
 		public void LinkToXamlAreCorrect(string source, string expxaml)
 		{
 			var m = new Markdown ();
-			var xr = new XamlRenderer ();
+            //TODO fix expected
+			var xr = new XamlRenderer ("Page");
             var xaml = m.Render (source, xr);
 			Assert.Equal (expxaml,xaml);
 		}

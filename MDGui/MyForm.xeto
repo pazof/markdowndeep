@@ -1,13 +1,67 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <TabPage xmlns="http://schema.picoe.ca/eto.forms"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
- xmlns:local="clr-namespace:MDGui;assembly=MDGui" >
-<StackLayout Padding="15,18,12,12"><Label Font="Serif+Regular+20pt"></Label>
-        <StackLayout Padding="6,0,0,0" Orientation="Horizontal" HorizontalContentAlignment="Left"> 
-            <Drawable x:Name="bullet"><Label Text="» "/></Drawable>
-       <Label Text="ssqcs"/><StackLayout Orientation="Horizontal"></StackLayout></StackLayout>
-<StackLayout Padding="6,0,0,0"><Label Text="ssqcs"/><ImageView  Width="10"/><StackLayout Orientation="Horizontal"></StackLayout></StackLayout>
-<StackLayout Padding="6,0,0,0"><Label Text="ssqcs"/><ImageView  Width="10"/><StackLayout Orientation="Horizontal"></StackLayout></StackLayout>
-<StackLayout Orientation="Horizontal" Padding="5"></StackLayout><StackLayout Height="4"/><StackLayout Orientation="Horizontal" Padding="5"></StackLayout></StackLayout>
-</TabPage>
+ xmlns:local="clr-namespace:MDGui;assembly=MDGui" Width="300" >
+    
+<StackLayout Padding="7,11,5,5" HorizontalContentAlignment="Stretch">
+<StackLayout Orientation="Horizontal" HorizontalContentAlignment="Stretch">
+<Label>
+Hello Markdown!
+</Label>
 
+
+</StackLayout>
+
+<StackLayout HorizontalContentAlignment="Stretch" Padding="0,0,6,0">
+<StackLayout Orientation="Horizontal" HorizontalContentAlignment="Stretch">
+<Label>
+1 
+</Label>
+
+
+</StackLayout>
+
+</StackLayout>
+
+<StackLayout HorizontalContentAlignment="Stretch" Padding="0,0,6,0">
+<StackLayout Orientation="Horizontal" HorizontalContentAlignment="Stretch">
+<Label>
+Deux 
+</Label>
+
+<Label Font="strikethrough">
+mots
+</Label>
+
+
+</StackLayout>
+
+</StackLayout>
+
+<StackLayout HorizontalContentAlignment="Stretch" Padding="0,0,6,0">
+<StackLayout Orientation="Horizontal" HorizontalContentAlignment="Stretch">
+<Label>
+trois 
+</Label>
+
+<Label Font="underline">
+ici
+</Label>
+
+
+</StackLayout>
+
+</StackLayout>
+
+
+<RichTextArea Tag="urls" x:Name="richText">
+http://dev.pschneider.fr/api/haircutquery
+</RichTextArea>
+
+
+
+<StackLayout Height="4" BackgroundColor="Gray" HorizontalContentAlignment="Stretch" ></StackLayout>
+
+</StackLayout>
+
+</TabPage>

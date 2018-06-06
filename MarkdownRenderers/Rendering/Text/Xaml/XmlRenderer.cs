@@ -11,6 +11,8 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
 {
     public class XmlRenderer
     {
+        public const string XmlHeader = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+
         public string MainClass { get; set; }
         public Dictionary<string, string> Parameters { get; protected set; }
 
@@ -20,14 +22,15 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
             Parameters = new Dictionary<string, string>();
         }
 
-        public string Render(string rawContent)
+        public string RenderRaw(string rawContent)
         {
             StringBuilder sb = new StringBuilder();
             RenderOpeningTag(sb);
-            sb.Append(rawContent);
+            sb.AppendLine(rawContent);
             RenderClosingTag(sb);
             return sb.ToString();
         }
+
         void RenderOpeningTag(StringBuilder sb)
         {
             sb.Append("<");
@@ -40,23 +43,41 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
                 sb.Append(parameter.Value);
                 sb.Append("\"");
             }
-            sb.Append(">"); 
+            sb.AppendLine(">"); 
         }
 
         void RenderClosingTag(StringBuilder sb)
         {
-            sb.Append($"</{MainClass}>");
+            sb.AppendLine($"</{MainClass}>");
         }
 
-        public string Render(params IRenderer<string>[] children)
+        internal string Render(IRenderer<string> block)
         {
             StringBuilder sb = new StringBuilder();
-            RenderOpeningTag(sb);    
-            foreach (var child in children)
-                sb.Append(child.Render());
+            RenderOpeningTag(sb);
+            if (block != null)
+                sb.AppendLine(block.Render());
             RenderClosingTag(sb);
             return sb.ToString();
         }
 
+        internal string RenderEmpty ()
+        {
+            StringBuilder sb = new StringBuilder();
+            RenderOpeningTag(sb);
+            RenderClosingTag(sb);
+            return sb.ToString();
+        }
+
+        internal string Render(List<IRenderer<string>> blocks)
+        {
+            StringBuilder sb = new StringBuilder();
+            RenderOpeningTag(sb);
+            if (blocks!=null)
+            foreach (var child in blocks)
+                sb.AppendLine(child.Render());
+            RenderClosingTag(sb);
+            return sb.ToString();
+        }
     }
 }

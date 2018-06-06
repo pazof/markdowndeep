@@ -7,16 +7,20 @@ namespace MarkdownDeep.Rendering.Abstract
     /// Higher this level is, as int, the less it is important, 
     /// and the less is the positive integer suffixing its name 
     /// </summary>
+    [Serializable]
 	public enum HeaderLevel: int
 	{
+        None=0,
         /// <summary>
-        /// The h6 (minimum).
+        /// The minimum (None).
+        /// </summary>
+        Min = None,
+
+        /// <summary>
+        /// The h6 
         /// </summary>
         H6, 
-        /// <summary>
-        /// The minimum (H6).
-        /// </summary>
-        Min = H6,
+
         /// <summary>
         /// The h5.
         /// </summary>

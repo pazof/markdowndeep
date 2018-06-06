@@ -11,7 +11,7 @@ namespace MarkdownDeepTest
 		public void MarkdownXamlRuns ()
 		{
 			var m = new Markdown ();
-			var xr = new XamlRenderer ();
+			var xr = new XamlRenderer ("Page");
 			var str = Resources.ResourceManager.GetString ("LegacyTestSource");
             string xaml = m.Render (str, xr) ;
 		}
