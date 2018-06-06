@@ -3,141 +3,140 @@ using System.Collections.Generic;
 
 namespace MarkdownDeep.Rendering.Abstract
 {
-    public interface IMarkdownRenderer<TFinal,TSpan,TBlock> 
-        where TSpan : ISpan<TFinal> 
+    public interface IMarkdownRenderer<TFinal,TBlock> 
         where TBlock : IBlock<TFinal>
 	{
 		/// <summary>
 		/// Paragraph the specified inner.
 		/// </summary>
 		/// <param name="inner">Inner.</param>
-        IRenderer<string> Paragraph (ISpan<TFinal> inner);
+        TBlock Paragraph (IEnumerable<TBlock> inner);
 		/// <summary>
 		/// Aggregates the span.
 		/// </summary>
 		/// <returns>The span.</returns>
 		/// <param name="children">Children.</param>
-        ISpan<TFinal> AggregateSpan (IEnumerable<ISpan<TFinal>> children); 
+        TBlock AggregateSpan (IEnumerable<TBlock> children); 
 
 		/// <summary>
 		/// Render as text the specified txt.
 		/// </summary>
 		/// <param name="txt">Text.</param>
-        TSpan Text (string txt, int start, int len);
+        TBlock Text (string txt, int start, int len);
 		/// <summary>
 		/// Header the specified inner at level.
 		/// </summary>
 		/// <param name="inner">Inner.</param>
 		/// <param name="level">Level.</param>
-        IRenderer<TFinal>  Header (IEnumerable<IRenderer<TFinal>> inner, HeaderLevel level);
+        TBlock Header (IEnumerable<TBlock> inner, HeaderLevel level);
 		/// <summary>
 		/// Lists the item.
 		/// </summary>
 		/// <returns>The item.</returns>
 		/// <param name="inner">Inner.</param>
-        IRenderer<TFinal>  ListItem (IEnumerable<IRenderer<TFinal>> inner);
+        TBlock  ListItem (IEnumerable<TBlock> inner);
 
-        IRenderer<TFinal> TableCell(IEnumerable<IRenderer<TFinal>> inner);
+        TBlock TableCell(IEnumerable<TBlock> inner);
 		/// <summary>
 		/// Unorders the list.
 		/// </summary>
 		/// <returns>The list.</returns>
-		/// <param name="lis">Lis.</param>
-        IRenderer<TFinal>  UnorderedList(IEnumerable<IRenderer<TFinal>> list);
+		/// <param name="list">List.</param>
+        TBlock  UnorderedList(IEnumerable<TBlock> list);
 		/// <summary>
 		/// Orders the list.
 		/// </summary>
 		/// <returns>The list.</returns>
-		/// <param name="lis">Lis.</param>
-        IRenderer<TFinal> OrderedList (IEnumerable<IRenderer<TFinal>> list);
+		/// <param name="list">List.</param>
+        TBlock OrderedList (IEnumerable<TBlock> list);
 		/// <summary>
 		/// Strong the specified inner.
 		/// </summary>
 		/// <param name="inner">Inner.</param>
-        void Strong (IEnumerable<TSpan> inner);
+        void Strong (IEnumerable<TBlock> inner);
         /// <summary>
         /// Emphasis the specified inner.
         /// </summary>
         /// <param name="existant">inner.</param>
-        void Emphasis(IEnumerable<TSpan> TSpan);
+        void Emphasis(IEnumerable<TBlock> TSpan);
 		/// <summary>
 		/// Link the specified inner, href and title.
 		/// </summary>
 		/// <param name="inner">Inner.</param>
 		/// <param name="href">Href.</param>
 		/// <param name="title">Title.</param>
-        TSpan Link (string text, string href, string title);
+        TBlock Link (string text, string href, string title);
 		/// <summary>
 		/// Audio the specified href, alt and title.
 		/// </summary>
 		/// <param name="href">Href.</param>
 		/// <param name="alt">Alternate.</param>
 		/// <param name="title">Title.</param>
-        TSpan Audio (string href, string alt, string title);
+        TBlock Audio (string href, string alt, string title);
 		/// <summary>
 		/// Video the specified href, alt and title.
 		/// </summary>
 		/// <param name="href">Href.</param>
 		/// <param name="alt">Alternate.</param>
 		/// <param name="title">Title.</param>
-        TSpan Video (string href, string alt, string title);
+        TBlock Video (string href, string alt, string title);
 		/// <summary>
 		/// Image the specified href, alt and title.
 		/// </summary>
 		/// <param name="href">Href.</param>
 		/// <param name="alt">Alternate.</param>
 		/// <param name="title">Title.</param>
-        TSpan Image (string href, string alt, string title);
+        TBlock Image (string href, string alt, string title);
 		/// <summary>
 		/// Code the specified source.
 		/// </summary>
 		/// <param name="source">Source.</param>
-        ISpan<TFinal> Code (string source, string lang);
+        TBlock Code (string source, string lang);
 
-        ISpan<TFinal> CodeBlock (string[] lines, string lang);
+        TBlock CodeBlock (string[] lines, string lang);
 		/// <summary>
 		/// Quote the specified inner.
 		/// </summary>
 		/// <param name="inner">Inner.</param>
-        TBlock Quote (IEnumerable<IRenderer<TFinal>> inner);
-        TBlock Html(IEnumerable<IRenderer<TFinal>> inner);
+        TBlock Quote (IEnumerable<TBlock> inner);
+        TBlock Html(IEnumerable<TBlock> inner);
 
 		/// <summary>
 		/// Emphasis the specified inner.
 		/// </summary>
 		/// <param name="existant">inner.</param>
-        TSpan Strike (TSpan TSpan);
+        TBlock Strike (TBlock TSpan);
 		/// <summary>
 		/// Emphasis the specified inner.
 		/// </summary>
 		/// <param name="inner">inner.</param>
-        TSpan Underline (TSpan inner);
+        TBlock Underline (TBlock inner);
 
 		/// <summary>
 		/// Blank this instance.
 		/// </summary>
-        void AddBlankTo (TSpan span);
+        void AddBlankTo (TBlock span);
 		/// <summary>
 		/// D the specified inner.
 		/// </summary>
 		/// <param name="inner">Inner.</param>
-        TBlock DT (IEnumerable<IRenderer<TFinal>> inner);
-        TBlock DL(IEnumerable<IRenderer<TFinal>> inner);
+        TBlock DT (IEnumerable<TBlock> inner);
+        TBlock DL(IEnumerable<TBlock> inner);
 		/// <summary>
 		/// D the specified inner.
 		/// </summary>
 		/// <param name="inner">Inner.</param>
-        TBlock DD (IEnumerable<IRenderer<TFinal>> inner);
+        TBlock DD (IEnumerable<TBlock> inner);
 
         TBlock Table (TBlock head, TBlock body);
 
         TBlock TableHeader (string[] headers);
 
-        IRenderer<TFinal> TableRow (IEnumerable<IRenderer<TFinal>> cells);
+        TBlock TableRow (IEnumerable<TBlock> cells);
 
-        TBlock TableBody (IEnumerable<IRenderer<TFinal>>  rows);
+        TBlock TableBody (IEnumerable<TBlock> rows);
 
-        TBlock FootNote (IEnumerable<IRenderer<TFinal>> inner, string id);
+        TBlock FootNote (IEnumerable<TBlock> inner, string id);
 
 	}
 

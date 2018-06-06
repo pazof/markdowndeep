@@ -4,7 +4,7 @@ using MarkdownDeep.Rendering.Abstract;
 
 namespace MarkdownAVToXaml.Rendering.Text.Md
 {
-	public class MDText : IMDNode {
+    public class MDText : MDBlock {
 
 		public string Text { get; set; }
 		public Func<MDText,string> Rendering { get; set; } = r => r.Text;

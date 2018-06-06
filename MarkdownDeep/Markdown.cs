@@ -61,13 +61,15 @@ namespace MarkdownDeep
 
 		// Renders markdown using a client renderer,
 		// thanks to its IMarkdownRenderer implementation
-        public T Render<T, U, V>(string str, IMarkdownDocumentRenderer<T,U,V> renderer)
-            where U:ISpan<T> where V:IBlock<T>
+        public T Render<T, V>(string str, IMarkdownDocumentRenderer<T,V> renderer)
+           where V:class, IBlock<T>
 		{
 			if (renderer == null)
 				throw new InvalidOperationException (
 					"No renderer were specified");
-            var items = Render<T, U, V>(str, out definitions, renderer);
+
+
+            var items = Render<T,  V>(str, out definitions, renderer);
             return renderer.AggregateFinalBlock(items).Render(); 
 		}
 
@@ -211,11 +213,11 @@ namespace MarkdownDeep
 
 		// Renders markdown using a client renderer,
 		// thanks to its IMarkdownRenderer implementation
-        public IEnumerable<IRenderer<T>> Render<T,U,V>
+        public IEnumerable<V> Render<T,V>
         (string str, out Dictionary<string, 
          LinkDefinition> definitions, 
-         IMarkdownBlockRenderer<T,U,V> renderer)
-            where U : ISpan<T> where V: IBlock<T>
+         IMarkdownBlockRenderer<T,V> renderer)
+             where V: class, IBlock<T>
 		{
 			if (renderer == null)
 				throw new InvalidOperationException();
@@ -237,8 +239,7 @@ namespace MarkdownDeep
 					}
 				);
 			}
-
-            return  blocks.Select (b => b.Render (this, renderer));
+            return blocks.Select(b => b.Render(this, renderer));
 
 			/* 
 			int iSection = -1;
@@ -282,9 +283,6 @@ namespace MarkdownDeep
 				}
 			}
 */
-
-
-			
 		}
 
         /// <summary>
@@ -296,13 +294,13 @@ namespace MarkdownDeep
         /// <typeparam name="T">The 1st type parameter.</typeparam>
         /// <typeparam name="U">The 2nd type parameter.</typeparam>
         /// <typeparam name="V">The 3rd type parameter.</typeparam>
-        public IEnumerable<IRenderer<T>> RenderInternal<T, U , V>(string str, IMarkdownBlockRenderer<T,U, V> renderer)
-            where U: ISpan<T> where V:IBlock<T>
+        public IEnumerable<V> RenderInternal<T,  V>(string str, IMarkdownBlockRenderer<T, V> renderer)
+            where V:class, IBlock<T>
 		{
 			if (renderer == null)
 				throw new InvalidOperationException (
 					"No renderer were specified");
-			var result = Render<T,U,V>(str, out definitions, renderer);
+			var result = Render<T,V>(str, out definitions, renderer);
             return result;
 		}
 

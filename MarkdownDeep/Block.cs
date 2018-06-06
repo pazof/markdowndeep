@@ -106,10 +106,10 @@ namespace MarkdownDeep
 			}
 		}
 
-        IEnumerable<IRenderer<T>> RenderChildren<T,U,V>(Markdown m, IMarkdownBlockRenderer<T,U,V> b)
-            where U: ISpan<T> where V:IBlock<T>, IRenderer<T>
+        IEnumerable<V> RenderChildren<T, V>(Markdown m, IMarkdownBlockRenderer<T,V> b)
+            where V:class, IBlock<T>, IRenderer<T>
 		{
-            var list = new List<IRenderer<T>> ();
+            var list = new List<V> ();
             if (children == null)
                 return null;
 			foreach (var child in children)
@@ -162,8 +162,8 @@ namespace MarkdownDeep
         /// <typeparam name="T">The 1st type parameter.</typeparam>
         /// <typeparam name="U">The 2nd type parameter.</typeparam>
         /// <typeparam name="V">The 3rd type parameter.</typeparam>
-        internal IRenderer<T> Render<T,U,V>(Markdown m, IMarkdownBlockRenderer<T,U,V> b)
-            where U: ISpan<T> where V:IBlock<T>
+        internal V Render<T, V>(Markdown m, IMarkdownBlockRenderer<T,V> b)
+            where V:class, IBlock<T>
 		{
 
 			switch (blockType)
@@ -174,14 +174,14 @@ namespace MarkdownDeep
                     // marking the start of a block level
                     // and this default object shoud be disposed
                     // and not be taken for a line break or what ever separator
-                    return null;
+                    return default(V);
 			case BlockType.p:
                 case BlockType.div:
-                    return b.Aggregate(m.SpanFormatter.RenderToAny<T, U, V>(b, buf, contentStart, contentLen));
+                    return b.Paragraph(m.SpanFormatter.RenderToAny<T, V>(b, buf, contentStart, contentLen));
                 case BlockType.span:
-                    return b.AggregateSpan(m.SpanFormatter.RenderToAny<T, U, V>(b, buf, contentStart, contentLen));
+                    return b.NewLine(m.SpanFormatter.RenderToAny<T, V>(b, buf, contentStart, contentLen));
 
-			case BlockType.h1: return b.Header (m.RenderInternal<T,U,V> (Content, b), HeaderLevel.H1);
+			case BlockType.h1: return b.Header (m.RenderInternal (Content, b), HeaderLevel.H1);
 			case BlockType.h2: return b.Header (m.RenderInternal (Content, b), HeaderLevel.H2);
 			case BlockType.h3: return b.Header (m.RenderInternal (Content, b), HeaderLevel.H3);
 			case BlockType.h4: return b.Header (m.RenderInternal (Content, b), HeaderLevel.H4);
@@ -189,7 +189,7 @@ namespace MarkdownDeep
 			case BlockType.h6: return b.Header (m.RenderInternal (Content, b), HeaderLevel.H6);
 
                 case BlockType.user_break:
-                    return b.NewLine();
+                    return b.NewLine(null);
                 case BlockType.hr:
                     return b.Separator();
 
@@ -198,20 +198,11 @@ namespace MarkdownDeep
                     return b.ListItem(m.RenderInternal(Content, b));
 
 			case BlockType.dd:
-				if (children != null) {
-                        return b.DD(RenderChildren(m, b));
-				}
-				else {
-                        return b.DD(m.SpanFormatter.RenderToAny(b, buf, contentStart, contentLen));
-				}
-
+                   return b.DD(m.SpanFormatter.RenderToAny(b, buf, contentStart, contentLen));
+				
 			case BlockType.dt:
-				if (children != null) {
-                        return b.DT(RenderChildren(m,b));
-				}
-				else {
-                        return b.DD(m.SpanFormatter.RenderToAny(b, buf, contentStart, contentLen));
-				}
+                   return b.DD(m.SpanFormatter.RenderToAny(b, buf, contentStart, contentLen));
+				
 
                 case BlockType.dl: return b.DL(RenderChildren(m, b));
 
@@ -225,13 +216,13 @@ namespace MarkdownDeep
 					return b.CodeBlock (lines.ToArray(),null);
 				}
 
-			case BlockType.quote: return b.Quote(RenderChildren(m, b));
+                case BlockType.quote: return b.Quote(m.SpanFormatter.RenderToAny(b, buf, contentStart, contentLen));
 
-			case BlockType.li: return b.ListItem(RenderChildren(m, b));
+                case BlockType.li: return b.ListItem(m.SpanFormatter.RenderToAny(b, buf, contentStart, contentLen));
 
 			case BlockType.ol:
 				{
-                    var items = new List<IRenderer<T>> ();
+                    var items = new List<V> ();
 					foreach (var item in children) {
                             var rendered = item.Render(m, b);
                             if (rendered!=null) items.Add (rendered);
@@ -241,7 +232,7 @@ namespace MarkdownDeep
 
 			case BlockType.ul: 
 				{
-                        var items = new List<IRenderer<T>> ();
+                        var items = new List<V> ();
                         foreach (var item in children) {
                             var rendered = item.Render(m, b);
                             if (rendered != null) items.Add(rendered);

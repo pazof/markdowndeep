@@ -116,22 +116,21 @@ namespace MarkdownDeep
 				b.Append(">\n");
 			}
 		}
-        internal V Render<T,U,V> 
+        internal V Render<T, V> 
         (Markdown m, 
-         IMarkdownDocumentRenderer<T,U,V> b) 
+         IMarkdownDocumentRenderer<T, V> b) 
             where T : IEquatable<T>, ITable<T> 
-            where V: IBlock<T> 
-            where U : ISpan<T>
+            where V: class, IBlock<T> 
 		{
             var head = b.TableHeader(Headers.ToArray());
-            var rows = new List<IRenderer<T>>();
+            var rows = new List<V>();
 
 			foreach (var row in Rows) {
-                var cols = new List<IRenderer<T>>();
+                var cols = new List<V>();
 
                 foreach (var col in row)
                 {
-                    var cell = m.RenderInternal<T,U,V>(col, b);
+                    var cell = m.RenderInternal<T, V>(col, b);
                     cols.Add(b.TableCell(cell));
                 }
                 var renderedRow = b.TableRow(cols.ToArray());

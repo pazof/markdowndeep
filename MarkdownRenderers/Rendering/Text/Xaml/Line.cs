@@ -10,21 +10,21 @@ using System.Text;
 
 namespace MarkdownAVToXaml.Rendering.Text.Xaml
 {
-    public class Line : MdToXamlNode
+    public class Line : MdToXamlBlock
     {
         XmlRenderer xmlRenderer;
 
-        List<IRenderer<string>> spans;
+        List<MdToXamlBlock> spans;
 
-        public IEnumerable<IRenderer<string>> Spans { get {
+        public IEnumerable<MdToXamlBlock> Spans { get {
                 return spans;
             } 
             protected set {
-                spans = new List<IRenderer<string>>(value);
+                spans = new List<MdToXamlBlock>(value);
             }
         }
 
-        public Line(IEnumerable<IRenderer<string>> inner, IMap map)
+        public Line(IEnumerable<MdToXamlBlock> inner, IMap map)
         {
             if (inner.Count() < 1 || inner.Any(i => i == null))
                 throw new InvalidProgramException();

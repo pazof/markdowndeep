@@ -7,8 +7,8 @@ namespace MarkdownAVToXaml.Rendering.Text
     /// Once fully implemented, it could be used to parse markdown and build 
     /// all text based content from md format
     /// </summary>
-    public interface IMarkdownRendererToString<U, V> : IMarkdownDocumentRenderer<string, U, V>
-        where U : ISpan<string> where V : IBlock<string>
+    public interface IMarkdownRendererToString<V> : IMarkdownDocumentRenderer<string, V>
+       where V : class, IBlock<string>
     {
 
     }

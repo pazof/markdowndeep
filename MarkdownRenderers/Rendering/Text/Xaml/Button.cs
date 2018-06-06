@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using MarkdownDeep.Rendering.Abstract;
 namespace MarkdownAVToXaml.Rendering.Text.Xaml
 {
-    public class Button : MdToXamlNode
+    public class Button : MdToXamlBlock
     {
         XmlRenderer xmlRenderer = new XmlRenderer("LinkButton");
 

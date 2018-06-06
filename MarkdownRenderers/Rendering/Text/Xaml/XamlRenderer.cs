@@ -13,7 +13,7 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
     ///  markdown renderer to Xaml
     /// </summary>
 
-    public class XamlRenderer : MarkdownRendererToString<MdToXamlNode, MdToXamlBlock> 
+    public class XamlRenderer : MarkdownRendererToString< MdToXamlBlock> 
     {
         IMap _map;
         private string _mainClass;
@@ -24,32 +24,28 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
             _map = new DefaultMap();
         }
 
-        public override void AddBlankTo(MdToXamlNode span)
-        {
-            throw new System.NotImplementedException();
-        }
 
-        public override IRenderer<string> Aggregate(IEnumerable<IRenderer<string>> children)
+        public override IRenderer<string> Aggregate(IEnumerable<MdToXamlBlock> children)
         {
             if (children.Count() > 1)
                 return new Line(children,_map);
             else return children.FirstOrDefault();
         }
 
-        public override ISpan<string> AggregateSpan(IEnumerable<ISpan<string>> children)
+        public override MdToXamlBlock AggregateSpan(IEnumerable<MdToXamlBlock> children)
         {
             // FIXME how?
             if (children.Count() == 0) return null;
             return new Line(children, _map);
         }
 
-        public override void Emphasis(MdToXamlNode[] spans)
+        public override void Emphasis(MdToXamlBlock[] spans)
         {
             foreach (var node in spans)
                 node.Style |= TextStyle.Italic;
         }
 
-        public override void Strong(MdToXamlNode[] inner)
+        public override void Strong(MdToXamlBlock[] inner)
         {
             foreach (var child in inner)
             {
@@ -57,37 +53,46 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
             }
         }
 
-        public override IRenderer<string> AggregateFinalBlock(IEnumerable<IRenderer<string>> children)
+        public override IRenderer<string> AggregateFinalBlock(IEnumerable<MdToXamlBlock> children)
         {
             return new Document(_mainClass, children);
         }
 
-        public override MdToXamlNode Audio(string href, string alt, string title)
+
+        public override MdToXamlBlock Header(IEnumerable<MdToXamlBlock> inner, HeaderLevel level)
+        {
+            foreach (var child in inner)
+            {
+                if (typeof(XamlText).IsAssignableFrom(child.GetType()))
+                    ((XamlText)child).Level = level;
+            }
+            if (inner.Count() > 1)
+                return new Line(inner, _map);
+            return inner.FirstOrDefault();
+        }
+
+
+        public override MdToXamlBlock Audio(string href, string alt, string title)
         {
             throw new System.NotImplementedException();
         }
 
-        public override ISpan<string> Code(string[] source, string lang)
+        public override void AddBlankTo(MdToXamlBlock span)
         {
             throw new System.NotImplementedException();
         }
 
-        public override ISpan<string> Code(string source, string lang)
+        public override MdToXamlBlock Code(string source, string lang)
         {
             return new CodeNode(source.Split('\n'), lang);
         }
 
-        public override ISpan<string> CodeBlock(string[] lines, string lang)
+        public override MdToXamlBlock CodeBlock(string[] lines, string lang)
         {
             throw new System.NotImplementedException();
         }
 
-        public override MdToXamlBlock DD(MdToXamlNode inner)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override MdToXamlBlock DD(IRenderer<string> inner)
+        public override MdToXamlBlock DD(MdToXamlBlock inner)
         {
             throw new System.NotImplementedException();
         }
@@ -97,57 +102,19 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
             throw new System.NotImplementedException();
         }
 
-
-        public override MdToXamlBlock FootNote(IRenderer<string> inner, string id)
+        public override MdToXamlBlock Image(string href, string alt, string title)
         {
             throw new System.NotImplementedException();
         }
 
-        public override IRenderer<string> Header(IRenderer<string> inner, HeaderLevel level)
-        {
-            if (typeof(IBlockList).IsAssignableFrom(inner.GetType()))
-            {
-                IBlockList blocks = (IBlockList)inner;
-                foreach (var item in blocks.Blocks)
-                {
-                    if (typeof(IHeaderStyleOwner).IsAssignableFrom(item.GetType()))
-                    {
-                        var styled = (IHeaderStyleOwner)item;
-                        styled.Level = level;
-                    }
-                }
-            }
-            return inner;
-        }
-
-        public override MdToXamlNode Image(string href, string alt, string title)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override MdToXamlNode Link(string text, string href, string title)
+        public override MdToXamlBlock Link(string text, string href, string title)
         {
             return new Button(href, text, title);
         }
 
-        public override IRenderer<string> ListItem(IEnumerable<IRenderer<string>> inner )
+        public override MdToXamlBlock ListItem(IEnumerable<MdToXamlBlock> inner )
         {
             return new ListItem(inner, _map);
-        }
-
-        public override MdToXamlBlock OrderedList(IRenderer<string>[] list)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override IRenderer<string> OrderedList(IEnumerable<IRenderer<string>> list)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override IRenderer<string> Paragraph(ISpan<string> inner)
-        {
-            throw new System.NotImplementedException();
         }
 
         public override MdToXamlBlock Separator()
@@ -155,12 +122,11 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
             return new BlockSeparator();
         }
 
-        public override MdToXamlNode Strike(MdToXamlNode span)
+        public override MdToXamlBlock Strike(MdToXamlBlock span)
         {
             span.Style |= TextStyle.Strike;
             return span;
         }
-
 
         public override MdToXamlBlock Table(MdToXamlBlock head, MdToXamlBlock body)
         {
@@ -172,32 +138,17 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
             throw new System.NotImplementedException();
         }
 
-        public override MdToXamlBlock TableBody(IEnumerable<IRenderer<string>> rows)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public override MdToXamlBlock TableHeader(string[] headers)
         {
             throw new System.NotImplementedException();
         }
 
-        public override MdToXamlBlock TableRow(MdToXamlBlock[] cells)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override IRenderer<string> TableRow(IEnumerable<IRenderer<string>> cells)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override MdToXamlNode Text(string txt, int start, int len)
+        public override MdToXamlBlock Text(string txt, int start, int len)
         {
             return new XamlText(txt, start, len, TextStyle.Normal,_map);
         }
 
-        public override MdToXamlNode Underline(MdToXamlNode inner)
+        public override MdToXamlBlock Underline(MdToXamlBlock inner)
         {
             if (typeof(ITextStyleOwner).IsAssignableFrom(inner.GetType()))
             {
@@ -206,27 +157,22 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
             return inner;
         }
 
-        public override IRenderer<string> UnorderedList(IEnumerable<IRenderer<string>> list)
+        public override MdToXamlBlock UnorderedList(IEnumerable<MdToXamlBlock> list)
         {
             return new UnorderedList(list);
         }
 
-        public override MdToXamlBlock UnorderedList(ISpan<string>[] list)
-        {
-            return new UnorderedList(list);
-        }
-
-        public override MdToXamlNode Video(string href, string alt, string title)
+        public override MdToXamlBlock Video(string href, string alt, string title)
         {
             throw new System.NotImplementedException();
         }
 
-        public override void Strong(IEnumerable<MdToXamlNode> inner)
+        public override void Strong(IEnumerable<MdToXamlBlock> inner)
         {
             throw new System.NotImplementedException();
         }
 
-        public override void Emphasis(IEnumerable<MdToXamlNode> TSpan)
+        public override void Emphasis(IEnumerable<MdToXamlBlock> TSpan)
         {
             throw new System.NotImplementedException();
         }
@@ -236,52 +182,74 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
             return new BlockSeparator();
         }
 
-        public override MdToXamlBlock Quote(IEnumerable<IRenderer<string>> inner)
+        public override MdToXamlBlock Quote(IEnumerable<MdToXamlBlock> inner)
         {
             throw new System.NotImplementedException();
         }
 
-        public override void AddNewLineTo(MdToXamlNode span)
+        public override void AddNewLineTo(MdToXamlBlock span)
         {
             throw new System.NotImplementedException();
         }
 
-        public override IRenderer<string> Header(IEnumerable<IRenderer<string>> inner, HeaderLevel level)
-        {
-            foreach (var child in inner)
-            {
-                if (typeof(XamlText).IsAssignableFrom(child.GetType()))
-                    ((XamlText)child).Level = level;
-            }
-            return new Line(inner,_map);
-        }
-
-        public override IRenderer<string> TableCell(IEnumerable<IRenderer<string>> inner)
+        public override MdToXamlBlock Html(IEnumerable<MdToXamlBlock> inner)
         {
             throw new System.NotImplementedException();
         }
 
-        public override MdToXamlBlock Html(IEnumerable<IRenderer<string>> inner)
+        public override MdToXamlBlock DT(IEnumerable<MdToXamlBlock> inner)
         {
             throw new System.NotImplementedException();
         }
 
-        public override MdToXamlBlock DT(IEnumerable<IRenderer<string>> inner)
+        public override MdToXamlBlock DL(IEnumerable<MdToXamlBlock> inner)
         {
             throw new System.NotImplementedException();
         }
 
-        public override MdToXamlBlock DL(IEnumerable<IRenderer<string>> inner)
+        public override MdToXamlBlock DD(IEnumerable<MdToXamlBlock> inner)
         {
             throw new System.NotImplementedException();
         }
 
-        public override MdToXamlBlock DD(IEnumerable<IRenderer<string>> inner)
+        public override MdToXamlBlock FootNote(IEnumerable<MdToXamlBlock> inner, string id)
         {
             throw new System.NotImplementedException();
         }
 
-        public override MdToXamlBlock FootNote(IEnumerable<IRenderer<string>> inner, string id)
+        public override MdToXamlBlock TableBody(IEnumerable<MdToXamlBlock> rows)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override ISpan<string> AggregateSpan(IEnumerable<ISpan<string>> children)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override MdToXamlBlock NewLine(IEnumerable<MdToXamlBlock> words)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override MdToXamlBlock Paragraph(IEnumerable<MdToXamlBlock> inner)
+        {
+            // TODOORNOT introduce a difference between paragraph and lines
+            if (inner.Count() > 1) return new Line(inner, _map);
+            return inner.FirstOrDefault();
+        }
+
+        public override MdToXamlBlock TableCell(IEnumerable<MdToXamlBlock> inner)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override MdToXamlBlock OrderedList(IEnumerable<MdToXamlBlock> list)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override MdToXamlBlock TableRow(IEnumerable<MdToXamlBlock> cells)
         {
             throw new System.NotImplementedException();
         }

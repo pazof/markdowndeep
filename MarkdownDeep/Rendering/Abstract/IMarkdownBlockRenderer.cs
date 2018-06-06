@@ -7,8 +7,8 @@ using System.Collections.Generic;
 
 namespace MarkdownDeep.Rendering.Abstract
 {
-    public interface IMarkdownBlockRenderer<T,U,TBlock> : IMarkdownRenderer<T, U, TBlock>
-        where U:ISpan<T> where TBlock: IBlock<T>
+    public interface IMarkdownBlockRenderer<T, TBlock> : IMarkdownRenderer<T, TBlock>
+        where TBlock: IBlock<T>
     {
         /// <summary>
         /// Displays the specified children on a same line.
@@ -16,7 +16,7 @@ namespace MarkdownDeep.Rendering.Abstract
         /// <returns>The aggregate.</returns>
         /// <param name="children">Children.</param>
         /// <typeparam name="T">The 1st type parameter.</typeparam>
-        IRenderer<T> Aggregate(IEnumerable<IRenderer<T>> children);
+        IRenderer<T> Aggregate(IEnumerable<TBlock> children);
 
         /// <summary>
         /// Separator this instance.
@@ -25,9 +25,9 @@ namespace MarkdownDeep.Rendering.Abstract
 		TBlock Separator();
 
         /// <summary>
-        /// Separator this instance.
+        /// .
         /// </summary>
         /// <returns>The separator.</returns>
-        TBlock NewLine();
+        TBlock NewLine(IEnumerable<TBlock> words);
 	}
 }

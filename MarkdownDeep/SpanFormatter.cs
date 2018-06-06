@@ -1143,21 +1143,21 @@ namespace MarkdownDeep
 		internal bool DisableLinks;
 		List<Token> m_Tokens = new List<Token> ();
 
-        abstract class Grouping<T,U,V> : List<U> where U: ISpan<T> where V:IBlock<T>
+        abstract class Grouping<T,V> : List<V> where V:IBlock<T>
         {
-            internal abstract void Render(IMarkdownRenderer<T, U, V> renderer);
+            internal abstract void Render(IMarkdownRenderer<T, V> renderer);
 		}
 
-        class EmGroup<T,V> : Grouping <T,ISpan<T>,V> where  V : IBlock<T> {
-            internal override void Render (IMarkdownRenderer<T, ISpan<T>, V> renderer)
+        class EmGroup<T,V> : Grouping <T,V> where  V : IBlock<T> {
+            internal override void Render (IMarkdownRenderer<T, V> renderer)
 			{
 				 renderer.Emphasis(this.ToArray());
 			}
 		}
 
-        class StrongGroup <T, V> : Grouping <T, ISpan<T>, V> where V : IBlock<T> {
+        class StrongGroup <T, V> : Grouping <T,  V> where V : IBlock<T> {
 			
-            internal override void Render (IMarkdownRenderer <T,ISpan<T>,V> renderer)
+            internal override void Render (IMarkdownRenderer <T, V> renderer)
 			{
 				 renderer.Strong (this.ToArray());
 			}
@@ -1166,17 +1166,17 @@ namespace MarkdownDeep
 		// Render a list of tokens to a destination object
 		// using str as source,
 		// parsing str starting at start and during len;
-        public IEnumerable<ISpan<T>> RenderToAny <T,U,V> (IMarkdownRenderer <T,U,V> renderer, string str, int start, int len)
-            where U:ISpan<T> where V : IBlock<T>
+        public IEnumerable<V> RenderToAny <T,V> (IMarkdownRenderer <T,V> renderer, string str, int start, int len)
+            where V : class, IBlock<T>
 		{
 			// Parse the string into a list of tokens
 			Tokenize (str, start, len);
-            Stack<List<ISpan<T>>> groups = new Stack<List<ISpan<T>>>() ;
-            List<ISpan<T>> result = new List<ISpan<T>>();
+            Stack<Grouping<T,V>> groups = new Stack<Grouping<T, V>> ();
+            List<V> result = new List<V>();
 			LinkInfo li;
 			var items = m_Tokens.ToArray ();
 			foreach (Token t in items) {
-                ISpan<T> span=null;
+                V span = null;
 				switch (t.type) {
 				case TokenType.Text:
                         span = renderer.Text(str, t.startOffset, t.length);
@@ -1265,7 +1265,7 @@ namespace MarkdownDeep
 				case TokenType.abbreviation:
 					throw new NotImplementedException ();
 				}
-                if (span != null) {
+                if (span!=null) {
                     if (groups.Count > 0)
                         groups.Last().Add(span);
                     else {

@@ -9,21 +9,27 @@ using MarkdownDeep.Rendering.Abstract;
 namespace MarkdownAVToXaml.Rendering.Text.Xaml
 {
     [Serializable]
-    public abstract class MdToXamlBlock : IBlock<string>
+    public abstract class MdToXamlBlock : IBlock<string>, ISpan<string>, ITextStyleOwner, IHeaderStyleOwner
     {
+
         public IRenderer<string>[] Spans { get; protected set; }
 
-        public TextStyle Style { get ; set; }
+        public TextStyle Style { get; set; }
 
         public int Start { get; set; }
 
         public int Length { get; set; }
 
-        public void FromSpan (IRenderer<string> span)
+        public void FromSpan(IRenderer<string> span)
         {
             Spans = new IRenderer<string>[] { span };
         }
 
         public abstract string Render();
+
+
+        public HeaderLevel Level { get; set; }
+
+
     }
 }

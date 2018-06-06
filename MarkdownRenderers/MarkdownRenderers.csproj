@@ -38,7 +38,6 @@
     <Compile Include="Model\IMDNode.cs" />
     <Compile Include="Model\MediaType.cs" />
     <Compile Include="Rendering\Text\Xaml\MdToXamlBlock.cs" />
-    <Compile Include="Rendering\Text\Xaml\MdToXamlNode.cs" />
     <Compile Include="Rendering\Text\Xaml\UnorderedList.cs" />
     <Compile Include="Rendering\Text\Xaml\XamlRenderer.cs" />
     <Compile Include="Rendering\Text\Xaml\XamlText.cs" />

@@ -1,7 +1,7 @@
 ﻿namespace MarkdownAVToXaml.Rendering.Text.Xaml
 {
     
-    public class CodeNode  : MdToXamlNode
+    public class CodeNode  : MdToXamlBlock
     {
         private string[] lines;
         private string lang;

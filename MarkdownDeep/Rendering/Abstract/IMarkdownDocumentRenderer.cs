@@ -7,8 +7,8 @@ using System.Collections.Generic;
 
 namespace MarkdownDeep.Rendering.Abstract
 {
-    public interface IMarkdownDocumentRenderer<T,U,TBlock> : IMarkdownBlockRenderer<T, U, TBlock>
-        where U:ISpan<T> where TBlock:IBlock<T>
+    public interface IMarkdownDocumentRenderer<T, TBlock> : IMarkdownBlockRenderer<T, TBlock>
+        where TBlock:IBlock<T>
     {
         /// <summary>s
         /// Aggregates the final block.
@@ -16,6 +16,6 @@ namespace MarkdownDeep.Rendering.Abstract
         /// </summary>
         /// <returns>The final block.</returns>
         /// <param name="children">Children.</param>
-        IRenderer<T>  AggregateFinalBlock (IEnumerable<IRenderer<T>> children); 
+        IRenderer<T>  AggregateFinalBlock (IEnumerable<TBlock> children); 
     }
 }

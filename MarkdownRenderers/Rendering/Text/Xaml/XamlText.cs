@@ -10,7 +10,7 @@ using System.Linq;
 using MarkdownDeep.Rendering;
 namespace MarkdownAVToXaml.Rendering.Text.Xaml
 {
-    public class XamlText : MdToXamlNode
+    public class XamlText : MdToXamlBlock
     {
         XmlRenderer xmlRenderer;
 
