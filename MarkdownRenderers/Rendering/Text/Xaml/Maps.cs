@@ -17,12 +17,11 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
             TabSize = 16;
             HeaderFont = new Dictionary<HeaderLevel, string>();
             int hsize = BaseTextSize;
-            for (HeaderLevel level = HeaderLevel.Max; level >= 0; level--)
+            for (HeaderLevel level = HeaderLevel.Min; level <= HeaderLevel.Max; level++)
             {
                 HeaderFont.Add(level, $"{FirstFontName}+{SecondFontName}+{hsize}pt");
                 hsize += 2;
             }
-
             TextFont = new Dictionary<TextStyle, string>();
             TextFont.Add(TextStyle.Emphasys, "bold");
             TextFont.Add(TextStyle.Underline, "underline");

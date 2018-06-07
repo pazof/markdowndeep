@@ -61,14 +61,22 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
 
         public override MdToXamlBlock Header(IEnumerable<MdToXamlBlock> inner, HeaderLevel level)
         {
-            foreach (var child in inner)
-            {
-                if (typeof(XamlText).IsAssignableFrom(child.GetType()))
-                    ((XamlText)child).Level = level;
+            if (inner.Count() > 1) {
+                var children = new List<MdToXamlBlock>();
+                foreach (MdToXamlBlock child in inner)
+                {
+                    if (typeof(XamlText).IsAssignableFrom(child.GetType()))
+                    {
+                        var text = child as XamlText;
+                        text.Level = level;
+                    }
+                    children.Add(child);
+                }
+                return new Line(children, _map);
             }
-            if (inner.Count() > 1)
-                return new Line(inner, _map);
-            return inner.FirstOrDefault();
+            MdToXamlBlock result=inner.FirstOrDefault();
+            result.Level = level;
+            return result;
         }
 
 

@@ -210,7 +210,11 @@ namespace MarkdownDeep
 			// Done
 			return sb.ToString();
 		}
-
+        V GenericRenderBlock<T,V>(Block b, IMarkdownBlockRenderer<T, V> renderer)
+            where V : class, IBlock<T>
+        {
+            return b.GenericRender(this,renderer);
+        }
 		// Renders markdown using a client renderer,
 		// thanks to its IMarkdownRenderer implementation
         public IEnumerable<V> Render<T,V>
@@ -239,7 +243,10 @@ namespace MarkdownDeep
 					}
 				);
 			}
-            return blocks.Select(b => b.Render(this, renderer));
+
+
+
+            return blocks.Select(b => b.GenericRender(this, renderer));
 
 			/* 
 			int iSection = -1;
@@ -294,7 +301,7 @@ namespace MarkdownDeep
         /// <typeparam name="T">The 1st type parameter.</typeparam>
         /// <typeparam name="U">The 2nd type parameter.</typeparam>
         /// <typeparam name="V">The 3rd type parameter.</typeparam>
-        public IEnumerable<V> RenderInternal<T,  V>(string str, IMarkdownBlockRenderer<T, V> renderer)
+        public IEnumerable<V> GenericRenderInternal<T,  V>(string str, IMarkdownBlockRenderer<T, V> renderer)
             where V:class, IBlock<T>
 		{
 			if (renderer == null)

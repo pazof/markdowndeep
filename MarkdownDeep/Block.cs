@@ -114,7 +114,7 @@ namespace MarkdownDeep
                 return null;
 			foreach (var child in children)
 			{
-                var rendered = child.Render(m, b);
+                var rendered = child.GenericRender(m, b);
                 // don't bother about null blocks
                 if (rendered!=null)
                     list.Add(rendered);
@@ -162,7 +162,7 @@ namespace MarkdownDeep
         /// <typeparam name="T">The 1st type parameter.</typeparam>
         /// <typeparam name="U">The 2nd type parameter.</typeparam>
         /// <typeparam name="V">The 3rd type parameter.</typeparam>
-        internal V Render<T, V>(Markdown m, IMarkdownBlockRenderer<T,V> b)
+        internal V GenericRender<T, V>(Markdown m, IMarkdownBlockRenderer<T,V> b)
             where V:class, IBlock<T>
 		{
 
@@ -181,12 +181,12 @@ namespace MarkdownDeep
                 case BlockType.span:
                     return b.NewLine(m.SpanFormatter.RenderToAny<T, V>(b, buf, contentStart, contentLen));
 
-			case BlockType.h1: return b.Header (m.RenderInternal (Content, b), HeaderLevel.H1);
-			case BlockType.h2: return b.Header (m.RenderInternal (Content, b), HeaderLevel.H2);
-			case BlockType.h3: return b.Header (m.RenderInternal (Content, b), HeaderLevel.H3);
-			case BlockType.h4: return b.Header (m.RenderInternal (Content, b), HeaderLevel.H4);
-			case BlockType.h5: return b.Header (m.RenderInternal (Content, b), HeaderLevel.H5);
-			case BlockType.h6: return b.Header (m.RenderInternal (Content, b), HeaderLevel.H6);
+			case BlockType.h1: return b.Header (m.GenericRenderInternal (Content, b), HeaderLevel.H1);
+			case BlockType.h2: return b.Header (m.GenericRenderInternal (Content, b), HeaderLevel.H2);
+			case BlockType.h3: return b.Header (m.GenericRenderInternal (Content, b), HeaderLevel.H3);
+			case BlockType.h4: return b.Header (m.GenericRenderInternal (Content, b), HeaderLevel.H4);
+			case BlockType.h5: return b.Header (m.GenericRenderInternal (Content, b), HeaderLevel.H5);
+			case BlockType.h6: return b.Header (m.GenericRenderInternal (Content, b), HeaderLevel.H6);
 
                 case BlockType.user_break:
                     return b.NewLine(null);
@@ -195,7 +195,7 @@ namespace MarkdownDeep
 
 			case BlockType.ol_li:
 			case BlockType.ul_li:
-                    return b.ListItem(m.RenderInternal(Content, b));
+                    return b.ListItem(m.GenericRenderInternal(Content, b));
 
 			case BlockType.dd:
                    return b.DD(m.SpanFormatter.RenderToAny(b, buf, contentStart, contentLen));
@@ -224,7 +224,7 @@ namespace MarkdownDeep
 				{
                     var items = new List<V> ();
 					foreach (var item in children) {
-                            var rendered = item.Render(m, b);
+                            var rendered = item.GenericRender(m, b);
                             if (rendered!=null) items.Add (rendered);
 					}
 					return b.OrderedList (items.ToArray());
@@ -234,7 +234,7 @@ namespace MarkdownDeep
 				{
                         var items = new List<V> ();
                         foreach (var item in children) {
-                            var rendered = item.Render(m, b);
+                            var rendered = item.GenericRender(m, b);
                             if (rendered != null) items.Add(rendered);
 					}
 					return b.UnorderedList (items.ToArray());

@@ -130,7 +130,7 @@ namespace MarkdownDeep
 
                 foreach (var col in row)
                 {
-                    var cell = m.RenderInternal<T, V>(col, b);
+                    var cell = m.GenericRenderInternal<T, V>(col, b);
                     cols.Add(b.TableCell(cell));
                 }
                 var renderedRow = b.TableRow(cols.ToArray());
