@@ -8,6 +8,7 @@ using System.Xml;
 using System.Collections.ObjectModel;
 using System.Resources;
 using System.Windows.Input;
+using System.ComponentModel;
 
 namespace MDGui
 {
@@ -16,7 +17,7 @@ namespace MDGui
     using MarkdownAVToXaml.Rendering.Text;
     using MarkdownAVToXaml.Rendering.Text.Xaml;
     using MarkdownDeep;
-	public partial class MainForm : Form
+    public partial class MainForm : Form, INotifyPropertyChanged
     {
         #pragma warning disable CS0649
         TabPage xamlViewTab;
@@ -128,7 +129,6 @@ namespace MDGui
 			}
             SourcePath = fi.FullName;
             Dirty = false;
-            UpdateBindings(BindingUpdateMode.Source);
 		}
 
         string EncodingDisplay {
@@ -136,11 +136,25 @@ namespace MDGui
                 return encoding.EncodingName;
             }
         }
+
 		public string Source { get { return sourceCode.Text;
 			} set { sourceCode.Text = value;
-			} }
-		
-		public string SourcePath { get; set; }  = null;
+		} }
+
+        string sourcePath;
+
+        public string SourcePath { 
+            get {
+                return sourcePath;
+            } 
+            set {
+                if (value != sourcePath)
+                {
+                    sourcePath = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SourcePath)));
+                }
+            } 
+        }  
 
 		protected void HandleSave (object sender, EventArgs e)
 		{
@@ -154,6 +168,7 @@ namespace MDGui
 			}
 			WriteTo (fi);
 		}
+
         Encoding encoding = Encoding.UTF8;
 
 		private void WriteTo(FileInfo fi)
@@ -172,8 +187,10 @@ namespace MDGui
 			}
 			set { 
 				btnSave.Enabled = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Dirty)));
 			}
 		}
+
         string fileName;
 		private FileInfo AskForAFile()
 		{
@@ -207,6 +224,8 @@ namespace MDGui
 		}
 
 		LogMessagesDialog log = new LogMessagesDialog ();
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         protected void HandleSettings(object sender, EventArgs e)
 		{
