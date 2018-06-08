@@ -28,15 +28,13 @@
     <Form.ToolBar>
         <ToolBar>
             <ButtonToolItem Text="Refresh views" Click="HandleRefresh" />
-           
-                    <ButtonToolItem Text="{Binding SourcePath}" />
-                    <ButtonToolItem Text="{Binding DirtyHint}" />
-                    <ButtonToolItem Text="{Binding EncodingDisplay}" />
-              
+
         </ToolBar>
     </Form.ToolBar>
    
     <Form.Content>
+        <StackLayout >
+            <StackLayoutItem Expand="True" HorizontalAlignment="Stretch">
          <Splitter Orientation="Horizontal" Position="150" >
         <Splitter.Panel1>
             <RichTextArea x:Name="sourceCode" Wrap="True" SpellCheck="True" AcceptsReturn="True" AcceptsTab="True">
@@ -78,7 +76,15 @@ http://dev.pschneider.fr/api/haircutquery
                  -->
             </TabControl>
         </Splitter.Panel2>
-    </Splitter>
+    </Splitter></StackLayoutItem>
+            <StackLayoutItem>
+                <StackLayout Orientation="Horizontal">
+        <Label Text="{Binding SourcePath}" TextColor="Gray"/>
+        <Label Text="{Binding DirtyHint}" TextColor="Gray" />
+        <Label Text="{Binding EncodingDisplay}" TextColor="Gray"/>
+                </StackLayout>
+            </StackLayoutItem>
+        </StackLayout>
     </Form.Content>
    
 </Form>
