@@ -18,10 +18,10 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
         IMap _map;
         private string _mainClass;
 
-        public XamlRenderer(string mainClass)
+        public XamlRenderer(string mainClass, IMap map=null)
         {
             _mainClass = mainClass;
-            _map = new DefaultMap();
+            _map = map ?? new DefaultMap();
         }
 
 

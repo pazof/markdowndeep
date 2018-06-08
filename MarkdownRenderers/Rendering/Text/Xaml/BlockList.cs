@@ -27,7 +27,7 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
         {
             Blocks = new List<IRenderer<String>>(blocks);
             renderer = new XmlRenderer("StackLayout");
-            renderer.Parameters["Padding"] = "7,11,5,5";
+         //   renderer.Parameters["Padding"] = "7,11,5,5";
             renderer.Parameters["HorizontalContentAlignment"] = "Stretch";
         }
 

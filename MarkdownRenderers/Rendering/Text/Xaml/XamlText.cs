@@ -60,8 +60,8 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
                 xmlRenderer.Parameters["Font"] = string.Join("+", variants);
             else if (xmlRenderer.Parameters.ContainsKey("Font"))
                 xmlRenderer.Parameters.Remove("Font");
-            
-            return xmlRenderer.RenderRaw(Text);
+            xmlRenderer.Parameters["Text"] = Text;
+            return xmlRenderer.RenderRaw(null);
         }
 
         public override string ToString()

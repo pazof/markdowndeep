@@ -8,11 +8,11 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
 {
     public class BlockSeparator : MdToXamlBlock
     {
-        public int Height { get; set; } = 4;
-
+        public int Height { get; set; } = 1;
+        public string Color { get; set; } = "Gray";
         public override string Render()
         {
-            string space = $"<StackLayout Height=\"{Height}\" BackgroundColor=\"Gray\"" +
+            string space = $"<StackLayout Height=\"{Height}\" BackgroundColor=\"{Color}\"" +
                 " HorizontalContentAlignment=\"Stretch\" ></StackLayout>";
             return space;
         }

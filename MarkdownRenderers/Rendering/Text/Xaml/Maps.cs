@@ -14,12 +14,17 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
         public DefaultMap()
         {
             BulletSize = BaseTextSize = 10;
-            TabSize = 16;
+            TabSize = 25;
             HeaderFont = new Dictionary<HeaderLevel, string>();
             int hsize = BaseTextSize;
-            for (HeaderLevel level = HeaderLevel.Min; level <= HeaderLevel.Max; level++)
+            for (HeaderLevel level = HeaderLevel.Min; level <= HeaderLevel.H4; level++)
             {
                 HeaderFont.Add(level, $"{FirstFontName}+{SecondFontName}+{hsize}pt");
+                hsize += 2;
+            }
+            for (HeaderLevel level = HeaderLevel.H3; level <= HeaderLevel.Max; level++)
+            {
+                HeaderFont.Add(level, $"{HeaderFontName}+{SecondFontName}+{hsize}pt");
                 hsize += 2;
             }
             TextFont = new Dictionary<TextStyle, string>();
@@ -30,12 +35,13 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
         }
         public string FirstFontName { get; set; } = "Serif" ;
         public string SecondFontName { get; set; } = "Regular";
+        public string HeaderFontName { get; set; } = "Sans";
 
         public Dictionary<HeaderLevel, string> HeaderFont { get; }
 
         public string GetBullet(int headerLevel)
         {
-            return "bullet"+headerLevel.ToString()+".png";
+            return "/home/paul/workspace/markdowndeep/MDGuiGtk3/bullet0.png";
         }
 
         public int TabSize { get; set; } 

@@ -28,9 +28,16 @@
     <Form.ToolBar>
         <ToolBar>
             <ButtonToolItem Text="Refresh views" Click="HandleRefresh" />
+           
+                    <ButtonToolItem Text="{Binding SourcePath}" />
+                    <ButtonToolItem Text="{Binding DirtyHint}" />
+                    <ButtonToolItem Text="{Binding EncodingDisplay}" />
+              
         </ToolBar>
     </Form.ToolBar>
-    <Splitter Orientation="Horizontal" Position="150">
+   
+    <Form.Content>
+         <Splitter Orientation="Horizontal" Position="150" >
         <Splitter.Panel1>
             <RichTextArea x:Name="sourceCode" Wrap="True" SpellCheck="True" AcceptsReturn="True" AcceptsTab="True">
 # Hello Markdown! #
@@ -68,8 +75,10 @@ http://dev.pschneider.fr/api/haircutquery
                 <TabPage Text="hey">
                 <local:GuiControl></local:GuiControl>
                 </TabPage>
-               	 -->
+                 -->
             </TabControl>
         </Splitter.Panel2>
     </Splitter>
+    </Form.Content>
+   
 </Form>

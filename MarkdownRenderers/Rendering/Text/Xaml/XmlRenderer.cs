@@ -26,7 +26,7 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
         {
             StringBuilder sb = new StringBuilder();
             RenderOpeningTag(sb);
-            sb.AppendLine(rawContent);
+            sb.Append(rawContent);
             RenderClosingTag(sb);
             return sb.ToString();
         }
@@ -40,10 +40,14 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
                 sb.Append(" ");
                 sb.Append(parameter.Key);
                 sb.Append("=\"");
-                sb.Append(parameter.Value);
+                sb.Append(ToXmlAttrVal(parameter.Value));
                 sb.Append("\"");
             }
-            sb.AppendLine(">"); 
+            sb.Append(">"); 
+        }
+        string ToXmlAttrVal (string val)
+        {
+            return val?.Replace("\"", "\\\"").Replace("&","&amp;").Replace("<", "&lt;").Replace(">","&gt;");
         }
 
         void RenderClosingTag(StringBuilder sb)

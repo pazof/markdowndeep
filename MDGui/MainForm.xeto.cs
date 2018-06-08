@@ -42,8 +42,6 @@ namespace MDGui
 		/// </summary>
 		public MainForm ()
 		{
-             
-
 			markdown = new Markdown ();
 			Logs = new Log ();
             base.Initialize ();
@@ -51,7 +49,7 @@ namespace MDGui
 			sourceCode.TextChanged += OnSourceChanged; 
 			DataContext = this;
             // TODO Localization
-            menuBar.ApplicationMenu.Text = "Fichier";
+            menuBar.ApplicationMenu.Text = Resources.TitreMenuFichier;
             menuBar.HelpMenu.Text = "Aide";
 		}
 
@@ -91,6 +89,8 @@ namespace MDGui
 			SyncFromSource ();
 		}
 
+        string DirtyHint { get { return Dirty ? "*" : ""; }}
+
 		protected void HandleRefresh (object sender, EventArgs e)
 		{
 			SyncFromSource ();
@@ -120,11 +120,22 @@ namespace MDGui
 		public void LoadMarkdownFile (string fileName) {
 			var fi = new FileInfo(fileName);
 			using (FileStream stream = fi.OpenRead ()) {
-				using (var rdr = new StreamReader (stream)) {
+                
+				using (var rdr = new StreamReader (stream,true)) {
 					Source = rdr.ReadToEnd ();
+                    encoding = rdr.CurrentEncoding;
 				}
 			}
+            SourcePath = fi.FullName;
+            Dirty = false;
+            UpdateBindings(BindingUpdateMode.Source);
 		}
+
+        string EncodingDisplay {
+            get {
+                return encoding.EncodingName;
+            }
+        }
 		public string Source { get { return sourceCode.Text;
 			} set { sourceCode.Text = value;
 			} }
@@ -143,11 +154,12 @@ namespace MDGui
 			}
 			WriteTo (fi);
 		}
+        Encoding encoding = Encoding.UTF8;
 
 		private void WriteTo(FileInfo fi)
 		{
 			using (var stream = fi.OpenWrite ()) {
-				var wr = Encoding.UTF8.GetBytes (sourceCode.Text);
+                var wr = encoding.GetBytes (sourceCode.Text);
 				stream.Write (wr, 0, wr.Length);
 				stream.Close ();
 			}

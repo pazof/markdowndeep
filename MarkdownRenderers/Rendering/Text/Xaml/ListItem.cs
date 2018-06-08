@@ -31,6 +31,7 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
             Spans = inner.ToArray();
 
             renderer = new XmlRenderer("StackLayout");
+            renderer.Parameters["Orientation"] = "Horizontal";
             renderer.Parameters["HorizontalContentAlignment"] = "Stretch";
         }
 
@@ -40,13 +41,12 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
         /// <returns>The render.</returns>
         public override string Render()
         {
-            StringBuilder innerTxtBuilder = new StringBuilder();
+            StringBuilder innerTxtBuilder = new StringBuilder($"<ImageView Image=\"{_map.GetBullet(ListLevel)}\" />");
             foreach (var s in Spans)
                 innerTxtBuilder.AppendLine(s.Render());
             
-          // FIXME  var bullet = _map.GetBullet(ListLevel);
             var marginLeft = _map.TabSize - _map.BulletSize;
-            renderer.Parameters["Padding"] = $"0,0,{marginLeft},0";
+            renderer.Parameters["Padding"] = $"{marginLeft},0,0,0";
             return renderer.RenderRaw(innerTxtBuilder.ToString());
         }
     }

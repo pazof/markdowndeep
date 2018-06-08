@@ -61,10 +61,6 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="gtk-gui\generated.cs" />
-    <Compile Include="Widget.cs" />
-    <Compile Include="gtk-gui\MDGui.Gtk2.Widget.cs" />
-    <Compile Include="GuiControlHandler.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
