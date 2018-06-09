@@ -52,6 +52,8 @@ namespace MDGui
             // TODO Localization
             menuBar.ApplicationMenu.Text = Resources.TitreMenuFichier;
             menuBar.HelpMenu.Text = "Aide";
+            Encoding = UTF8Encoding.UTF8;
+            Dirty = false;
 		}
 
 		protected override void OnLoad (EventArgs e)
@@ -90,7 +92,9 @@ namespace MDGui
 			SyncFromSource ();
 		}
 
-        string DirtyHint { get { return Dirty ? "*" : ""; }}
+        string DirtyHint { get { 
+                return Dirty ? "*" : ""; 
+            }}
 
 		protected void HandleRefresh (object sender, EventArgs e)
 		{
@@ -124,16 +128,20 @@ namespace MDGui
                 
 				using (var rdr = new StreamReader (stream,true)) {
 					Source = rdr.ReadToEnd ();
-                    encoding = rdr.CurrentEncoding;
+                    Encoding = rdr.CurrentEncoding;
 				}
 			}
-            SourcePath = fi.FullName;
-            Dirty = false;
+            Platform.Invoke(()=> 
+            {
+                SourcePath = fi.FullName;
+                Dirty = false;
+                UpdateBindings(BindingUpdateMode.Source);
+            });
 		}
 
         string EncodingDisplay {
             get {
-                return encoding.EncodingName;
+                return Encoding?.EncodingName;
             }
         }
 
@@ -161,37 +169,57 @@ namespace MDGui
 			FileInfo fi = null;
 			if (SourcePath == null) {
 				fi = AskForAFile () ;
-					SourcePath = fi.FullName;
-
 			} else {
 				fi = new FileInfo (SourcePath);
 			}
-			WriteTo (fi);
+			if (fi!=null) WriteTo (fi);
 		}
 
-        Encoding encoding = Encoding.UTF8;
+        Encoding encoding ;
 
-		private void WriteTo(FileInfo fi)
+        public Encoding FileEncoding
+        {
+            get
+            {
+                return encoding;
+            }
+            set 
+            {
+                encoding = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("FileEncoding"));
+            }
+        }
+
+        private void WriteTo(FileInfo fi)
 		{
 			using (var stream = fi.OpenWrite ()) {
-                var wr = encoding.GetBytes (sourceCode.Text);
+                var wr = Encoding.GetBytes (sourceCode.Text);
 				stream.Write (wr, 0, wr.Length);
 				stream.Close ();
 			}
-			Dirty = false;
+
+            Platform.Invoke(() =>
+            {
+                SourcePath = fi.FullName;
+                Dirty = false;
+                UpdateBindings(BindingUpdateMode.Source);
+            });
 		}
 
+        bool dirty;
 		public bool Dirty { 
 			get { 
-				return btnSave.Enabled;
+				return dirty;
 			}
-			set { 
-				btnSave.Enabled = value;
+			set {
+                dirty = value;
+                Title = $"{SourcePath} {DirtyHint} [{EncodingDisplay}]";
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Title)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Dirty)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DirtyHint)));
 			}
 		}
 
-        string fileName;
 		private FileInfo AskForAFile()
 		{
 			var dialog = new SaveFileDialog { 
@@ -200,12 +228,10 @@ namespace MDGui
 					new FileDialogFilter ("Markdown", new string[] { "*.md", "*.txt" }),
 					new FileDialogFilter ("Tous", new string[] { "*" })
 				},
-                FileName = fileName
+                FileName = SourcePath
 			};
 			DialogResult fileToSave = dialog.ShowDialog (this);
 			if (fileToSave.HasFlag (DialogResult.Ok)) {
-                fileName = dialog.FileName;
-				// If file exists, user should have been warn about.
 				return new FileInfo (dialog.FileName);
 			}
 			return null;
@@ -241,6 +267,12 @@ namespace MDGui
 		internal static Log Logs { get; private set; }
 
         public Settings Settings { get; set; } = new Settings { ViewXaml = true, ViewXamlCode = true } ;
-	}
+        public Encoding Encoding { get => encoding; 
+            set
+            { encoding = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Encoding"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("EncodingDisplay"));
+            } }
+    }
 }
 

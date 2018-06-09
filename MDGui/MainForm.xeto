@@ -3,12 +3,12 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
       xmlns:local="clr-namespace:MDGui;assembly=MDGui" 
       xmlns:custom="clr-namespace:Eto.Markdown;assembly=Eto.Markdown"
-      Title="{Binding SourcePath}" x:Name="form" Width="640" Height="540" Padding="5">
+      Title="{Binding Title}" x:Name="form" Width="640" Height="540" Padding="5">
     <Form.Menu >
         <MenuBar x:Name="menuBar">
             <MenuBar.ApplicationItems >
                 <ButtonMenuItem Text="Ouvrir" Shortcut="CommonModifier+O" Click="HandleOpen" />
-                <ButtonMenuItem x:Name="btnSave" Text="Sauver" Shortcut="CommonModifier+S" Click="HandleSave" />
+                <ButtonMenuItem x:Name="btnSave" Enabled="{Binding Dirty}" Text="Sauver" Shortcut="CommonModifier+S" Click="HandleSave" />
                 <ButtonMenuItem Text="Sauver sous" Shortcut="CommonModifier+W" Click="HandleSaveAs" />
                 <SeparatorMenuItem ></SeparatorMenuItem>
                 <ButtonMenuItem Text="Preferences.." Click="HandleSettings" Shortcut="{On Control+O, Mac=Application+Comma}" />
@@ -76,14 +76,16 @@ http://dev.pschneider.fr/api/haircutquery
                  -->
             </TabControl>
         </Splitter.Panel2>
-    </Splitter></StackLayoutItem>
+    </Splitter>
+            </StackLayoutItem>
+            <!-- FIXME no binding update here
             <StackLayoutItem>
                 <StackLayout Orientation="Horizontal">
         <Label Text="{Binding SourcePath}" TextColor="Gray"/>
         <Label Text="{Binding DirtyHint}" TextColor="Gray" />
         <Label Text="{Binding EncodingDisplay}" TextColor="Gray"/>
-                </StackLayout>
-            </StackLayoutItem>
+                </StackLayout> 
+            </StackLayoutItem> -->
         </StackLayout>
     </Form.Content>
    
