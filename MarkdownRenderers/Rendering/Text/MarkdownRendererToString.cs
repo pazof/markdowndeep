@@ -9,8 +9,8 @@ using MarkdownDeep.Rendering.Abstract;
 namespace MarkdownAVToXaml.Rendering.Text
 {
 
-    public abstract class MarkdownRendererToString<V> : IMarkdownRendererToString<V>
-        where V : class, IBlock<string>
+    public abstract class MarkdownRendererToString<V> : IMarkdownDocumentRenderer<string, V>
+       where V : class, IBlock<string>
     {
         public abstract void AddBlankTo(V span);
 

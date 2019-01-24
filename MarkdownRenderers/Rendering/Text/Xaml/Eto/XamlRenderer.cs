@@ -7,13 +7,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Serialization;
 
-namespace MarkdownAVToXaml.Rendering.Text.Xaml
+namespace MarkdownAVToXaml.Rendering.Text.Xaml.Eto
 {
     /// <summary>
     ///  markdown renderer to Xaml
     /// </summary>
 
-    public class XamlRenderer : MarkdownRendererToString< MdToXamlBlock> 
+    public class XamlRenderer : MarkdownRendererToString<MdToXamlBlock> 
     {
         IMap _map;
         private string _mainClass;
@@ -27,9 +27,12 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
 
         public override IRenderer<string> Aggregate(IEnumerable<MdToXamlBlock> children)
         {
-            if (children.Count() > 1)
-                return new Line(children,_map);
-            else return children.FirstOrDefault();
+            var first = children.FirstOrDefault();
+            if (children.Count() > 1) if (first!=null) if (typeof(Line).IsAssignableFrom(first.GetType()))
+            {
+                return first;
+            }
+            return new Line(children,_map);
         }
 
         public override MdToXamlBlock AggregateSpan(IEnumerable<MdToXamlBlock> children)
@@ -61,22 +64,20 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
 
         public override MdToXamlBlock Header(IEnumerable<MdToXamlBlock> inner, HeaderLevel level)
         {
-            if (inner.Count() > 1) {
-                var children = new List<MdToXamlBlock>();
-                foreach (MdToXamlBlock child in inner)
+            var children = new List<MdToXamlBlock>();
+            foreach (MdToXamlBlock child in inner)
+            {
+                if (typeof(XamlText).IsAssignableFrom(child.GetType()))
                 {
-                    if (typeof(XamlText).IsAssignableFrom(child.GetType()))
-                    {
-                        var text = child as XamlText;
-                        text.Level = level;
-                    }
+                    var text = child as XamlText;
+                    text.Level = level;
                     children.Add(child);
                 }
-                return new Line(children, _map);
+                else {
+                    children.Add(child);
+                }
             }
-            MdToXamlBlock result=inner.FirstOrDefault();
-            result.Level = level;
-            return result;
+            return new Line(children, _map);
         }
 
 
@@ -153,14 +154,14 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
 
         public override MdToXamlBlock Text(string txt, int start, int len)
         {
-            return new XamlText(txt, start, len, TextStyle.Normal,_map);
+            return new Line(txt, start, len, _map);
         }
 
         public override MdToXamlBlock Underline(MdToXamlBlock inner)
         {
-            if (typeof(ITextStyleOwner).IsAssignableFrom(inner.GetType()))
+            if (typeof(ITextStyled).IsAssignableFrom(inner.GetType()))
             {
-                ((ITextStyleOwner)inner).Style |= TextStyle.Underline;
+                ((ITextStyled)inner).Style |= TextStyle.Underline;
             }
             return inner;
         }

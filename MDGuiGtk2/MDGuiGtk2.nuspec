@@ -16,8 +16,8 @@
   </metadata>
 	<files>
 		<file src="bin/Release/*.exe" target="bin" />
-		<file src="bin/Release/*.dll" target="lib" />
-        <file src="bin/Release/*.mdb" target="lib" />
+		<file src="bin/Release/*.dll" target="lib\.NetFramework 4.6.1" />
+        <file src="bin/Release/*.mdb" target="lib\.NetFramework 4.6.1" />
 	</files>
 
 </package>

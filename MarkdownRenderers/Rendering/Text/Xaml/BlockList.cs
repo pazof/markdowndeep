@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace MarkdownAVToXaml.Rendering.Text.Xaml
 {
-    public class BlockList : IRenderer<string>, IBlockList, ISerializable
+    public class BlockList : IRenderer<string>
     {
         protected XmlRenderer renderer;
 
@@ -27,8 +27,6 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
         {
             Blocks = new List<IRenderer<String>>(blocks);
             renderer = new XmlRenderer("StackLayout");
-         //   renderer.Parameters["Padding"] = "7,11,5,5";
-            renderer.Parameters["HorizontalContentAlignment"] = "Stretch";
         }
 
         public string Render()
@@ -40,11 +38,6 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
                 return renderer.RenderRaw(sb.ToString());
             }
             return Blocks.FirstOrDefault()?.Render();
-        }
-
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            throw new NotImplementedException();
         }
     }
 }

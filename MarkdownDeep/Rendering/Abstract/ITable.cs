@@ -5,7 +5,7 @@ namespace MarkdownDeep.Rendering
     /// <summary>
     /// Table.
     /// </summary>
-    public interface ITable<T> : IRenderer<T>, ISimpleTextReference
+    public interface ITable<T> : IRenderer<T>, ISourceLocation
     {
         string GetInnerText(int row, int col);
         int RowCount { get; }

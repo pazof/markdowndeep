@@ -181,12 +181,12 @@ namespace MarkdownDeep
                 case BlockType.span:
                     return b.NewLine(m.SpanFormatter.RenderToAny<T, V>(b, buf, contentStart, contentLen));
 
-			case BlockType.h1: return b.Header (m.GenericRenderInternal (Content, b), HeaderLevel.H1);
-			case BlockType.h2: return b.Header (m.GenericRenderInternal (Content, b), HeaderLevel.H2);
-			case BlockType.h3: return b.Header (m.GenericRenderInternal (Content, b), HeaderLevel.H3);
-			case BlockType.h4: return b.Header (m.GenericRenderInternal (Content, b), HeaderLevel.H4);
-			case BlockType.h5: return b.Header (m.GenericRenderInternal (Content, b), HeaderLevel.H5);
-			case BlockType.h6: return b.Header (m.GenericRenderInternal (Content, b), HeaderLevel.H6);
+			case BlockType.h1: return b.Header (m.SpanFormatter.RenderToAny(b, buf, contentStart, contentLen), HeaderLevel.H1);
+			case BlockType.h2: return b.Header (m.SpanFormatter.RenderToAny(b, buf, contentStart, contentLen), HeaderLevel.H2);
+			case BlockType.h3: return b.Header (m.SpanFormatter.RenderToAny(b, buf, contentStart, contentLen), HeaderLevel.H3);
+			case BlockType.h4: return b.Header (m.SpanFormatter.RenderToAny(b, buf, contentStart, contentLen), HeaderLevel.H4);
+			case BlockType.h5: return b.Header (m.SpanFormatter.RenderToAny(b, buf, contentStart, contentLen), HeaderLevel.H5);
+			case BlockType.h6: return b.Header (m.SpanFormatter.RenderToAny(b, buf, contentStart, contentLen), HeaderLevel.H6);
 
                 case BlockType.user_break:
                     return b.NewLine(null);
@@ -195,7 +195,7 @@ namespace MarkdownDeep
 
 			case BlockType.ol_li:
 			case BlockType.ul_li:
-                    return b.ListItem(m.GenericRenderInternal(Content, b));
+                    return b.ListItem(m.SpanFormatter.RenderToAny(b, buf, contentStart, contentLen));
 
 			case BlockType.dd:
                    return b.DD(m.SpanFormatter.RenderToAny(b, buf, contentStart, contentLen));

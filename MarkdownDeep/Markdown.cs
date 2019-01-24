@@ -68,7 +68,6 @@ namespace MarkdownDeep
 				throw new InvalidOperationException (
 					"No renderer were specified");
 
-
             var items = Render<T,  V>(str, out definitions, renderer);
             return renderer.AggregateFinalBlock(items).Render(); 
 		}

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using MarkdownDeep.Rendering.Abstract;
 using System.Linq;
 
-namespace MarkdownAVToXaml.Rendering.Text.Xaml
+namespace MarkdownAVToXaml.Rendering.Text.Xaml.Xamarin
 {
     public class Document : IRenderer<string>
     {
@@ -17,15 +17,15 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
         {
             Content = new BlockList(blocks);
             Renderer = new XmlRenderer(mainClass);
-            Renderer.Parameters.Add("xmlns", "http://schema.picoe.ca/eto.forms");
-            Renderer.Parameters.Add("xmlns:x", "http://schemas.microsoft.com/winfx/2006/xaml");
+            Renderer.Parameters.Add("xmlns", "http://xamarin.com/schemas/2014/forms");
+            Renderer.Parameters.Add("xmlns:x", "http://schemas.microsoft.com/winfx/2009/xaml");
         }
 
         public XmlRenderer Renderer { get => renderer; set => renderer = value; }
 
         public string Render()
         {
-            return XmlRenderer.XmlHeader+renderer.Render(Content);
+            return XmlRenderer.XmlHeader+renderer.Process (Content, "StackLayout");
         }
     }
 }

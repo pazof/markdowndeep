@@ -2,6 +2,7 @@
 using Xunit;
 using MarkdownDeep;
 using MarkdownAVToXaml.Rendering.Text.Xaml;
+using MarkdownAVToXaml.Rendering.Text.Xaml.Eto;
 
 namespace MarkdownDeepTest
 {

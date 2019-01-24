@@ -55,12 +55,14 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
             sb.AppendLine($"</{MainClass}>");
         }
 
-        internal string Render(IRenderer<string> block)
+        internal string Process(IRenderer<string> block, string destProperty)
         {
             StringBuilder sb = new StringBuilder();
             RenderOpeningTag(sb);
+            sb.Append($"<{destProperty}>");
             if (block != null)
                 sb.AppendLine(block.Render());
+            sb.Append($"</{destProperty}>");
             RenderClosingTag(sb);
             return sb.ToString();
         }

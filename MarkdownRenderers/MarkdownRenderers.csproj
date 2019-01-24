@@ -39,8 +39,6 @@
     <Compile Include="Model\MediaType.cs" />
     <Compile Include="Rendering\Text\Xaml\MdToXamlBlock.cs" />
     <Compile Include="Rendering\Text\Xaml\UnorderedList.cs" />
-    <Compile Include="Rendering\Text\Xaml\XamlRenderer.cs" />
-    <Compile Include="Rendering\Text\Xaml\XamlText.cs" />
     <Compile Include="Rendering\Text\Md\MarkdownRenderer.cs" />
     <Compile Include="Rendering\Text\Md\DD.cs" />
     <Compile Include="Rendering\Text\Md\DT.cs" />
@@ -57,21 +55,25 @@
     <Compile Include="Rendering\Text\Md\OrderedList.cs" />
     <Compile Include="Rendering\Text\Md\Quote.cs" />
     <Compile Include="Rendering\Text\Md\Table.cs" />
-    <Compile Include="Rendering\Text\Xaml\ITextStyleOwner.cs" />
+    <Compile Include="Rendering\Text\Xaml\ITextStyled.cs" />
     <Compile Include="Rendering\Text\Xaml\Button.cs" />
     <Compile Include="Rendering\Text\Xaml\XmlRenderer.cs" />
     <Compile Include="Rendering\Text\Xaml\Maps.cs" />
-    <Compile Include="Rendering\Text\Xaml\Line.cs" />
     <Compile Include="Rendering\Text\Xaml\BlockList.cs" />
     <Compile Include="Rendering\Text\Xaml\ListItem.cs" />
     <Compile Include="Rendering\Text\Xaml\IMap.cs" />
     <Compile Include="Rendering\Text\Xaml\CodeBlock.cs" />
     <Compile Include="Rendering\Text\Xaml\BlockSeparator.cs" />
-    <Compile Include="Rendering\Text\Xaml\IHeaderStyleOwner.cs" />
-    <Compile Include="Rendering\Text\IMarkdownRendererToString.cs" />
+    <Compile Include="Rendering\Text\Xaml\IHeaderStyled.cs" />
     <Compile Include="Rendering\Text\MarkdownRendererToString.cs" />
-    <Compile Include="Rendering\Text\Xaml\IBlockList.cs" />
-    <Compile Include="Rendering\Text\Xaml\Document.cs" />
+    <Compile Include="Rendering\Text\Xaml\Xamarin\Document.cs" />
+    <Compile Include="Rendering\Text\Xaml\Xamarin\Line.cs" />
+    <Compile Include="Rendering\Text\Xaml\Xamarin\XamlText.cs" />
+    <Compile Include="Rendering\Text\Xaml\Xamarin\XamlRenderer.cs" />
+    <Compile Include="Rendering\Text\Xaml\Eto\Document.cs" />
+    <Compile Include="Rendering\Text\Xaml\Eto\Line.cs" />
+    <Compile Include="Rendering\Text\Xaml\Eto\XamlRenderer.cs" />
+    <Compile Include="Rendering\Text\Xaml\Eto\XamlText.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -80,6 +82,8 @@
     <Folder Include="Rendering\Text\" />
     <Folder Include="Rendering\Text\Xaml\" />
     <Folder Include="Rendering\Text\Md\" />
+    <Folder Include="Rendering\Text\Xaml\Xamarin\" />
+    <Folder Include="Rendering\Text\Xaml\Eto\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MarkdownDeep\MarkdownDeep.csproj">

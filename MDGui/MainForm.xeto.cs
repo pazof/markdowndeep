@@ -16,7 +16,9 @@ namespace MDGui
     using Eto.Serialization.Xaml;
     using MarkdownAVToXaml.Rendering.Text;
     using MarkdownAVToXaml.Rendering.Text.Xaml;
+    using MarkdownAVToXaml.Rendering.Text.Xaml.Eto;
     using MarkdownDeep;
+
     public partial class MainForm : Form, INotifyPropertyChanged
     {
         #pragma warning disable CS0649
@@ -78,7 +80,13 @@ namespace MDGui
 					XamlReader.Load (reader, xamlViewTab);
 				}
 				catch (XmlException ex) {
-					Log.LogError($"Xml({ex.LineNumber},{ex.LinePosition})", ex.Message);
+					Log.LogError($"XmlException ({ex.LineNumber},{ex.LinePosition})", ex.Message);
+				}
+				catch (Portable.Xaml.XamlDuplicateMemberException ex) {
+					Log.LogError($"Portable.Xaml.XamlDuplicateMemberException ({ex.LineNumber},{ex.LinePosition})", ex.Message);
+				}
+				catch (Exception ex) {
+					Log.LogError($"Exception", ex.Message);
 				}
 				finally {
 					xamlViewTab.ResumeLayout ();
@@ -111,8 +119,8 @@ namespace MDGui
            
 			var dialog = new OpenFileDialog {
                 Filters =  {
-                    new FileDialogFilter("Markdown", new string[] { "*.md", "*.txt" }),
-                    new FileDialogFilter("Tous", new string[] { "*" })
+                    new FileFilter("Markdown", new string[] { "*.md", "*.txt" }),
+                    new FileFilter("Tous", new string[] { "*" })
                 },
 				Title = "Ouvrir un fichier texte"
 			};
@@ -225,8 +233,8 @@ namespace MDGui
 			var dialog = new SaveFileDialog { 
                 Title = "Fichier de destination",
 				Filters = { 
-					new FileDialogFilter ("Markdown", new string[] { "*.md", "*.txt" }),
-					new FileDialogFilter ("Tous", new string[] { "*" })
+					new FileFilter ("Markdown", new string[] { "*.md", "*.txt" }),
+					new FileFilter ("Tous", new string[] { "*" })
 				},
                 FileName = SourcePath
 			};

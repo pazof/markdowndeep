@@ -8,7 +8,7 @@ using MarkdownDeep.Rendering.Abstract;
 using System.Text;
 using System.Linq;
 using MarkdownDeep.Rendering;
-namespace MarkdownAVToXaml.Rendering.Text.Xaml
+namespace MarkdownAVToXaml.Rendering.Text.Xaml.Xamarin
 {
     public class XamlText : MdToXamlBlock
     {
@@ -23,10 +23,10 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
         {
             init();
         }
+
         void init()
         {
-            xmlRenderer = new XmlRenderer("Label");
-            xmlRenderer.Parameters.Add("Wrap", "word");
+            xmlRenderer = new XmlRenderer("Span");
         }
 
         public XamlText(string txt, int start, int len, TextStyle style, IMap map)
@@ -37,7 +37,6 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml
             _map = map;
             Style = style;
             init();
-
         }
 
         public override string Render()

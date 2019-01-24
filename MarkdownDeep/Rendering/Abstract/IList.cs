@@ -1,10 +1,10 @@
 ﻿
 namespace MarkdownDeep.Rendering.Abstract
 {
-    public interface IList : IListedTextChunk
+    public interface IList : ISourceLocation
     {
         ListStyle DefaultStyle { get; set; }
-        ISimpleTextReference[] Items { get; set; }
+        ISourceLocation[] Items { get; set; }
     }
 
 }

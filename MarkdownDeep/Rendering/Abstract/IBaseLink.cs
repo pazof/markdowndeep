@@ -2,9 +2,9 @@
 
 namespace MarkdownDeep.Rendering.Abstract
 {
-    public interface IBaseLink : ISimpleTextReference
+    public interface IBaseLink : ISourceLocation
     {
-        IBaseTextChunk Label { get; }
-        IBaseTextChunk Address { get; }
+        ISourceLocation Label { get; }
+        ISourceLocation Address { get; }
     }
 }

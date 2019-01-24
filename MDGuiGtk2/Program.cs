@@ -9,7 +9,7 @@ namespace MDGui.Gtk2
 		[STAThread]
 		public static void Main (string[] args)
 		{
-			new Application (Platforms.Gtk2).Run (new MainForm ());
+			new Application (Platforms.Gtk).Run (new MainForm ());
 		}
 	}
 }

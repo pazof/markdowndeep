@@ -1,7 +1,7 @@
 ﻿using MarkdownDeep.Rendering.Abstract;
 namespace MarkdownAVToXaml.Rendering.Text.Xaml
 {
-    internal interface ITextStyleOwner
+    internal interface ITextStyled
     {
         TextStyle Style { get; set; }
     }

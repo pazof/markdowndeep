@@ -7,7 +7,7 @@ using MarkdownDeep.Rendering.Abstract;
 
 namespace MarkdownAVToXaml.Rendering.Text.Xaml
 {
-    public interface IHeaderStyleOwner
+    public interface IHeaderStyled
     {
         HeaderLevel Level { get; set; }
     }

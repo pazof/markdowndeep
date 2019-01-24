@@ -92,9 +92,7 @@
     <Compile Include="Utils.cs" />
     <Compile Include="ImageInfo.cs" />
     <Compile Include="Markdown.cs" />
-    <Compile Include="Rendering\Abstract\ISimpleTextReference.cs" />
-    <Compile Include="Rendering\Abstract\IBaseTextChunk.cs" />
-    <Compile Include="Rendering\Abstract\IListedTextChunk.cs" />
+    <Compile Include="Rendering\Abstract\ISourceLocation.cs" />
     <Compile Include="Rendering\Abstract\IMarkdownDocumentRenderer.cs" />
     <Compile Include="Rendering\Abstract\IMarkdownBlockRenderer.cs" />
     <Compile Include="Rendering\Abstract\HeaderLevel.cs" />

@@ -19,13 +19,13 @@ namespace MarkdownDeep.Rendering.Abstract
         IRenderer<T> Aggregate(IEnumerable<TBlock> children);
 
         /// <summary>
-        /// Separator this instance.
+        /// Adds a separator to the end of this block.
         /// </summary>
         /// <returns>The separator.</returns>
 		TBlock Separator();
 
         /// <summary>
-        /// .
+        /// Adds a new line to this block.
         /// </summary>
         /// <returns>The separator.</returns>
         TBlock NewLine(IEnumerable<TBlock> words);
