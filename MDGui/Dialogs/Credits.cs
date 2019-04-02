@@ -25,7 +25,7 @@ namespace MDGui
 
 			Content = new StackLayout {
 				Items = {
-					new Label { Text = "Some content" },
+					new Label { Text = "Some content", Style="strike+fixed" },
 					new StackLayoutItem (buttons, HorizontalAlignment.Right)
 				}
 			};

@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("MarkdownDeep")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Topten Software")]
+[assembly: AssemblyDescription("markdown parser")]
+[assembly: AssemblyConfiguration("Av")]
+[assembly: AssemblyCompany("Paul Schneider")]
 [assembly: AssemblyProduct("MarkdownDeep")]
-[assembly: AssemblyCopyright("Copyright © 2010-2011 Topten Software")]
+[assembly: AssemblyCopyright("Copyright © 2019 Paul Schneider")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.5.6.5")]
+[assembly: AssemblyVersion("1.5.18")]
 [assembly: InternalsVisibleTo("MarkdownDeepTests")]

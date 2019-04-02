@@ -106,8 +106,9 @@ namespace MarkdownDeep
 			}
 		}
 
-        IEnumerable<V> RenderChildren<T, V>(Markdown m, IMarkdownBlockRenderer<T,V> b)
-            where V:class, IBlock<T>, IRenderer<T>
+        IEnumerable<V> RenderChildren<T, V, S>(Markdown m, IMarkdownRenderer<T,V, S> b)
+            where V:class, IBlock
+            where S : ISpan
 		{
             var list = new List<V> ();
             if (children == null)
@@ -162,8 +163,9 @@ namespace MarkdownDeep
         /// <typeparam name="T">The 1st type parameter.</typeparam>
         /// <typeparam name="U">The 2nd type parameter.</typeparam>
         /// <typeparam name="V">The 3rd type parameter.</typeparam>
-        internal V GenericRender<T, V>(Markdown m, IMarkdownBlockRenderer<T,V> b)
-            where V:class, IBlock<T>
+        internal V GenericRender<T, V, S>(Markdown m, IMarkdownRenderer<T,V,S> b)
+            where V:class, IBlock
+            where S: ISpan
 		{
 
 			switch (blockType)
@@ -177,9 +179,9 @@ namespace MarkdownDeep
                     return default(V);
 			case BlockType.p:
                 case BlockType.div:
-                    return b.Paragraph(m.SpanFormatter.RenderToAny<T, V>(b, buf, contentStart, contentLen));
+                    return b.Paragraph(m.SpanFormatter.RenderToAny<T, V, S>(b, buf, contentStart, contentLen));
                 case BlockType.span:
-                    return b.NewLine(m.SpanFormatter.RenderToAny<T, V>(b, buf, contentStart, contentLen));
+                    return b.Aggregate(m.SpanFormatter.RenderToAny<T, V, S>(b, buf, contentStart, contentLen));
 
 			case BlockType.h1: return b.Header (m.SpanFormatter.RenderToAny(b, buf, contentStart, contentLen), HeaderLevel.H1);
 			case BlockType.h2: return b.Header (m.SpanFormatter.RenderToAny(b, buf, contentStart, contentLen), HeaderLevel.H2);
@@ -191,7 +193,7 @@ namespace MarkdownDeep
                 case BlockType.user_break:
                     return b.NewLine(null);
                 case BlockType.hr:
-                    return b.Separator();
+                    return b.Ruler();
 
 			case BlockType.ol_li:
 			case BlockType.ul_li:
@@ -208,7 +210,7 @@ namespace MarkdownDeep
 
 			case BlockType.html:
 			case BlockType.unsafe_html:
-                    return b.Text(Content, 0, Content.Length);
+                  return b.Html(m.SpanFormatter.RenderToAny(b, buf, contentStart, contentLen));
 
 			case BlockType.codeblock: 
 				{
@@ -255,25 +257,23 @@ namespace MarkdownDeep
 				}
 
 			case BlockType.Composite:
-			case BlockType.footnote:
-                    return b.FootNote(RenderChildren(m, b),(string) data);
 
 			case BlockType.table_spec:
-				throw new NotImplementedException ();
+                
+                    ((TableSpec)data).Render<T,V,S>(m,b);
+                    break;
 
-			case BlockType.p_footnote:
-				if (contentLen > 0)
+                case BlockType.footnote:
+                case BlockType.p_footnote:
+                    // FIXME where is the difference between p_footnote & footnote?
+                    if (contentLen > 0)
 				{
 					return b.FootNote( m.SpanFormatter.RenderToAny(b, buf, contentStart, contentLen ), (string) data);
 				}
 				return b.FootNote(null,(string) data);
-
-			default:
-                    return b.AggregateSpan(
-                       m.SpanFormatter.RenderToAny(
-                            b, buf, contentStart, contentLen));
 			}
-		}
+            return default(V);
+        }
 
 		internal void Render(Markdown m, StringBuilder b)
 		{

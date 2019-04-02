@@ -10,6 +10,7 @@
     <RootNamespace>MDToTeX</RootNamespace>
     <AssemblyName>MDToTeX</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <ReleaseVersion>1.5.10</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,10 +41,6 @@
     <ProjectReference Include="..\MarkdownDeep\MarkdownDeep.csproj">
       <Project>{1569ED47-C7C9-4261-B6F4-7445BD0F2C95}</Project>
       <Name>MarkdownDeep</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MarkdownRenderers\MarkdownRenderers.csproj">
-      <Project>{B855AE85-C96A-4C28-944F-D1C3F332E0D6}</Project>
-      <Name>MarkdownRenderers</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

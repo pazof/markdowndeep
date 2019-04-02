@@ -26,3 +26,8 @@ Test spans **emhasysis**
 ![video:test](test.avi)
 
 ![audio:test](test.avi)
+
+# __emphasys *and* other__ in *title* or **strong** text
+
+blah
+

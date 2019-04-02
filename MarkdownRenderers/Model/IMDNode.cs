@@ -5,7 +5,7 @@ using MarkdownDeep.Rendering.Abstract;
 namespace MarkdownDeep.Model
 {
     [Obsolete("Use IBlock or ISpan interfaces")]
-    public interface IMDNode : ISpan<string>  {
+    public interface IMDNode : ISpan  {
 		string Display { get; set; }
 		string Data { get; set; }
 		string Meta {  get; set; }

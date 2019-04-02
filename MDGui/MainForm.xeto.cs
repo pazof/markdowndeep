@@ -12,10 +12,7 @@ using System.ComponentModel;
 
 namespace MDGui
 {
-    using Eto.Markdown;
     using Eto.Serialization.Xaml;
-    using MarkdownAVToXaml.Rendering.Text;
-    using MarkdownAVToXaml.Rendering.Text.Xaml;
     using MarkdownAVToXaml.Rendering.Text.Xaml.Eto;
     using MarkdownDeep;
 
@@ -29,13 +26,12 @@ namespace MDGui
         ButtonMenuItem btnSave;
         TextArea xamlCode;
         MenuBar menuBar;
-        MarkdownArea mdArea;
         #pragma warning disable CS0649
 
 
 		private Markdown markdown;
 
-		private XamlRenderer xamlRenderer = new XamlRenderer("TabPage");
+		private XamlRenderer xamlRenderer = new XamlRenderer("TabPage", "Content");
 
 		// private MyDynamicControl xamlContainer;
 
@@ -56,7 +52,7 @@ namespace MDGui
             menuBar.HelpMenu.Text = "Aide";
             Encoding = UTF8Encoding.UTF8;
             Dirty = false;
-		}
+        }
 
 		protected override void OnLoad (EventArgs e)
 		{

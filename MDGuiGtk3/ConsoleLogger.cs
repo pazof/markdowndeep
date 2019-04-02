@@ -14,7 +14,7 @@ namespace MDGui.Gtk3
 		}
 
 		public void OnNext (Message value) {
-			Console.WriteLine($"{value.Level}: {value.Text}");
+			Console.WriteLine($"{value.Level} [{value.Tag}] {value.Text}");
 		}
 
 	}

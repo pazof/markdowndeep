@@ -18,7 +18,7 @@ namespace Eto.GtkSharp.Forms.Controls
     /// <summary>
     /// Markdown area area handler.
     /// </summary>
-    public class MarkdownAreaAreaHandler : TextAreaHandler<Gtk.TextView, MarkdownArea, MarkdownArea.ICallback>, MarkdownArea.IHandler, Markdown.ITextBuffer
+    public class MarkdownAreaAreaHandler : TextAreaHandler<Gtk.TextView, MarkdownArea, MarkdownArea.ICallback>, MarkdownArea.IMarkdownArea, Markdown.ITextBuffer
     {
         List<Gtk.TextTag> insertTags = new List<Gtk.TextTag>();
         List<Gtk.TextTag> removeTags = new List<Gtk.TextTag>();
@@ -59,11 +59,9 @@ namespace Eto.GtkSharp.Forms.Controls
 		{
 			// when text is inserted, apply insertion formatting
 			var buffer = Control.Buffer;
-#if GTK3
+
 			var start = buffer.GetIterAtOffset(args.Pos.Offset - args.NewTextLength);
-#elif GTK2
-			var start = buffer.GetIterAtOffset(args.Pos.Offset - args.Length);
-#endif
+
 			foreach (var tag in removeTags)
 			{
                 buffer.RemoveTag(tag, start, args.Pos);
@@ -577,6 +575,9 @@ namespace Eto.GtkSharp.Forms.Controls
 		{
 			get { return this; }
 		}
-	}
+
+        public string Markdown { get; set; }
+
+    }
 }
 

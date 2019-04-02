@@ -6,6 +6,8 @@ using MarkdownDeep;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using MarkdownAVToXaml.Rendering.Text.Md;
+using MarkdownAVToXaml.Rendering.Text.Xaml.Eto;
 
 namespace MarkdownDevBed
 {
@@ -90,7 +92,9 @@ namespace MarkdownDevBed
             Console.WriteLine("-----------start source------------------");
             Console.WriteLine(markdown);
             Console.WriteLine("------end source - start filtered -------");
-            Console.WriteLine(m.Render(markdown, new MarkdownRenderer()).Render());
+
+            throw new NotImplementedException();
+            // Console.WriteLine(m.Render(markdown, new XamlRenderer("Page",null))());
             Console.WriteLine("-----------end filtered------------------");
             Console.ReadLine();
 #endif

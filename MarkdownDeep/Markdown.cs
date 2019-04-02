@@ -61,15 +61,16 @@ namespace MarkdownDeep
 
 		// Renders markdown using a client renderer,
 		// thanks to its IMarkdownRenderer implementation
-        public T Render<T, V>(string str, IMarkdownDocumentRenderer<T,V> renderer)
-           where V:class, IBlock<T>
+        public T Render<T, V, S>(string str, IMarkdownDocumentRenderer<T,V, S> renderer)
+           where V:class, IBlock
+            where S : ISpan
 		{
 			if (renderer == null)
 				throw new InvalidOperationException (
 					"No renderer were specified");
 
-            var items = Render<T,  V>(str, out definitions, renderer);
-            return renderer.AggregateFinalBlock(items).Render(); 
+            var items = Render<T, V,S>(str, out definitions, renderer);
+            return renderer.AggregateFinalBlock(items); 
 		}
 
 		// Transform a string
@@ -209,18 +210,14 @@ namespace MarkdownDeep
 			// Done
 			return sb.ToString();
 		}
-        V GenericRenderBlock<T,V>(Block b, IMarkdownBlockRenderer<T, V> renderer)
-            where V : class, IBlock<T>
-        {
-            return b.GenericRender(this,renderer);
-        }
 		// Renders markdown using a client renderer,
 		// thanks to its IMarkdownRenderer implementation
-        public IEnumerable<V> Render<T,V>
+        public IEnumerable<V> Render<T,V,S>
         (string str, out Dictionary<string, 
-         LinkDefinition> definitions, 
-         IMarkdownBlockRenderer<T,V> renderer)
-             where V: class, IBlock<T>
+         LinkDefinition> definitions,
+         IMarkdownDocumentRenderer<T,V,S> renderer)
+             where V: class, IBlock
+            where S:ISpan
 		{
 			if (renderer == null)
 				throw new InvalidOperationException();
@@ -243,72 +240,12 @@ namespace MarkdownDeep
 				);
 			}
 
+            var br = blocks.Select(b => b.GenericRender<T,V,S>(this, renderer));
+            // TODO table rendering
 
-
-            return blocks.Select(b => b.GenericRender(this, renderer));
-
-			/* 
-			int iSection = -1;
-
-			// Leading section (ie: plain text before first heading)
-			if (blocks.Count > 0 && !IsSectionHeader(blocks[0]))
-			{
-				iSection = 0;
-			// TODO	OnSectionHeader(renderer, 0);
-			// but not this, that yet was a non sense
-			// using a string builder: OnSectionHeadingSuffix(renderer, 0);
-			}
-
-
-			foreach (var b in blocks) { 
-				// New section?
-				if (IsSectionHeader(b))
-				{
-					// Finish the previous section
-					if (iSection >= 0)
-					{
-						OnSectionFooter(sb, iSection);
-					}
-
-					// Work out next section index
-					iSection = iSection < 0 ? 1 : iSection + 1;
-
-					// Section header
-					OnSectionHeader(sb, iSection);
-
-					// Section Heading
-					b.Render(this, sb);
-
-					// Section Heading suffix
-					OnSectionHeadingSuffix(sb, iSection);
-				}
-				else
-				{
-					// Regular section
-					b.Render(this, sb);
-				}
-			}
-*/
+            return br;
 		}
 
-        /// <summary>
-        /// Renders a line.
-        /// </summary>
-        /// <returns>The internal.</returns>
-        /// <param name="str">String.</param>
-        /// <param name="renderer">Renderer.</param>
-        /// <typeparam name="T">The 1st type parameter.</typeparam>
-        /// <typeparam name="U">The 2nd type parameter.</typeparam>
-        /// <typeparam name="V">The 3rd type parameter.</typeparam>
-        public IEnumerable<V> GenericRenderInternal<T,  V>(string str, IMarkdownBlockRenderer<T, V> renderer)
-            where V:class, IBlock<T>
-		{
-			if (renderer == null)
-				throw new InvalidOperationException (
-					"No renderer were specified");
-			var result = Render<T,V>(str, out definitions, renderer);
-            return result;
-		}
 
 		public int SummaryLength
 		{
@@ -701,7 +638,7 @@ namespace MarkdownDeep
 		public static List<string> SplitUserSections(string markdown)
 		{
 			// Build blocks
-			var md = new MarkdownDeep.Markdown();
+			var md = new Markdown();
 			md.UserBreaks = true;
 
 			// Process blocks
@@ -770,7 +707,8 @@ namespace MarkdownDeep
 		public static List<string> SplitSections(string markdown)
 		{
 			// Build blocks
-			var md = new MarkdownDeep.Markdown();
+			var md = new Markdown();
+			md.UserBreaks = true;
 
 			// Process blocks
 			var blocks = md.ProcessBlocks(markdown);
@@ -986,7 +924,7 @@ namespace MarkdownDeep
 				return null;
 
 			// Extract a pandoc style cleaned header id from the header text
-			string strBase=m_SpanFormatter.MakeID(strHeaderText, startOffset, length);
+			string strBase= null; //FIXME Collection was changed : m_SpanFormatter.MakeID(strHeaderText, startOffset, length);
 
 			// If nothing left, use "section"
 			if (String.IsNullOrEmpty(strBase))

@@ -10,6 +10,7 @@
     <RootNamespace>MarkdownDeepTest</RootNamespace>
     <AssemblyName>MarkdownDeepTest</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <ReleaseVersion>1.5.10</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -58,9 +59,17 @@
       <Project>{1569ED47-C7C9-4261-B6F4-7445BD0F2C95}</Project>
       <Name>MarkdownDeep</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MarkdownRenderers\MarkdownRenderers.csproj">
+    <ProjectReference Include="..\MdToEtoXaml\MdToEtoXaml.csproj">
+      <Project>{7C0E58BF-2FC8-4F3E-8B12-9BB32C5AB18C}</Project>
+      <Name>MdToEtoXaml</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MarkdownRenderers\MDToXaml.csproj">
       <Project>{B855AE85-C96A-4C28-944F-D1C3F332E0D6}</Project>
-      <Name>MarkdownRenderers</Name>
+      <Name>MDToXaml</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MdToXamarinFormsXaml\MdToXamarinFormsXaml.csproj">
+      <Project>{D2414ECA-26A0-4C4C-8BAD-BB7451E387CF}</Project>
+      <Name>MdToXamarinFormsXaml</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

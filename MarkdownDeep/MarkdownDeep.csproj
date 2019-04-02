@@ -42,6 +42,7 @@
     <PackageProjectUrl>https://github.com/pazof/markdowndeep</PackageProjectUrl>
     <PackageReleaseNotes>This package add mechanism to implement rendering to any format</PackageReleaseNotes>
     <PackageTags>Markdown MarkdownExtra MarkdownDeep Audio Video</PackageTags>
+    <ReleaseVersion>1.5.10</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -96,14 +97,9 @@
     <Compile Include="Rendering\Abstract\IMarkdownDocumentRenderer.cs" />
     <Compile Include="Rendering\Abstract\IMarkdownBlockRenderer.cs" />
     <Compile Include="Rendering\Abstract\HeaderLevel.cs" />
-    <Compile Include="Rendering\Abstract\IBaseLink.cs" />
     <Compile Include="Rendering\Abstract\IBlock.cs" />
-    <Compile Include="Rendering\Abstract\IList.cs" />
     <Compile Include="Rendering\Abstract\IMarkdownRenderer.cs" />
-    <Compile Include="Rendering\Abstract\IRenderer.cs" />
     <Compile Include="Rendering\Abstract\ISpan.cs" />
-    <Compile Include="Rendering\Abstract\ITable.cs" />
-    <Compile Include="Rendering\Abstract\ITableRenderer.cs" />
     <Compile Include="Rendering\Abstract\ListStyle.cs" />
     <Compile Include="Rendering\Abstract\TextStyle.cs" />
   </ItemGroup>

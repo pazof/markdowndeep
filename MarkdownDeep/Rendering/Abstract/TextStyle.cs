@@ -11,11 +11,11 @@ namespace MarkdownDeep.Rendering.Abstract
     [Flags][Serializable]
     public enum TextStyle: int
     {
-        Normal=0,     // normal body text style
-        Emphasys=1,   // **emphasys**
-        Underline=2,  // _underline_ 
-        Italic=4,     // *italic*
-        Strike=8,     // ~~strike~~
-        Fixed=16  // `code`
+        Normal=0,      // normal body text style
+        Emphasys=1,    // *emphasys*
+        Underline =2,  // _underline_ 
+        Strong = 4,    // **Strong**
+        Strike =8,     // ~~strike~~
+        Fixed = 16     // `code`
     }
 }

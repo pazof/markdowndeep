@@ -3,31 +3,27 @@ using System.Collections.Generic;
 
 namespace MarkdownDeep.Rendering.Abstract
 {
-    public interface IMarkdownRenderer<TFinal,TBlock> 
-        where TBlock : IBlock<TFinal>
+    public interface IMarkdownRenderer<TFinal,TBlock,TSpan> 
+        : IMarkdownBlockRenderer<TFinal, TBlock, TSpan>
+         where TBlock : IBlock
+        where TSpan : ISpan
 	{
-		/// <summary>
-		/// Paragraph the specified inner.
-		/// </summary>
-		/// <param name="inner">Inner.</param>
+        /// <summary>
+        /// Paragraph the specified inner.
+        /// </summary>
+        /// <param name="inner">Inner.</param>
         TBlock Paragraph (IEnumerable<TBlock> inner);
-		/// <summary>
-		/// Aggregates the span.
-		/// </summary>
-		/// <returns>The span.</returns>
-		/// <param name="children">Children.</param>
-        TBlock AggregateSpan (IEnumerable<TBlock> children); 
 
-		/// <summary>
-		/// Render as text the specified txt.
-		/// </summary>
-		/// <param name="txt">Text.</param>
-        TBlock Text (string txt, int start, int len);
-		/// <summary>
-		/// Header the specified inner at level.
-		/// </summary>
-		/// <param name="inner">Inner.</param>
-		/// <param name="level">Level.</param>
+        /// <summary>
+        /// Render as text the specified txt.
+        /// </summary>
+        /// <param name="txt">Text.</param>
+        TSpan Text (string txt, int start, int len);
+        /// <summary>
+        /// Header the specified inner at level.
+        /// </summary>
+        /// <param name="inner">Inner.</param>
+        /// <param name="level">Level.</param>
         TBlock Header (IEnumerable<TBlock> inner, HeaderLevel level);
 		/// <summary>
 		/// Lists the item.
@@ -49,23 +45,14 @@ namespace MarkdownDeep.Rendering.Abstract
 		/// <returns>The list.</returns>
 		/// <param name="list">List.</param>
         TBlock OrderedList (IEnumerable<TBlock> list);
-		/// <summary>
-		/// Strong the specified inner.
-		/// </summary>
-		/// <param name="inner">Inner.</param>
-        void Strong (IEnumerable<TBlock> inner);
+		
         /// <summary>
-        /// Emphasis the specified inner.
+        /// Link the specified inner, href and title.
         /// </summary>
-        /// <param name="existant">inner.</param>
-        void Emphasis(IEnumerable<TBlock> TSpan);
-		/// <summary>
-		/// Link the specified inner, href and title.
-		/// </summary>
-		/// <param name="inner">Inner.</param>
-		/// <param name="href">Href.</param>
-		/// <param name="title">Title.</param>
-        TBlock Link (string text, string href, string title);
+        /// <param name="inner">Inner.</param>
+        /// <param name="href">Href.</param>
+        /// <param name="title">Title.</param>
+        TSpan Link (string text, string href, string title);
 		/// <summary>
 		/// Audio the specified href, alt and title.
 		/// </summary>
@@ -91,7 +78,7 @@ namespace MarkdownDeep.Rendering.Abstract
 		/// Code the specified source.
 		/// </summary>
 		/// <param name="source">Source.</param>
-        TBlock Code (string source, string lang);
+        TSpan Code (string source, string lang);
 
         TBlock CodeBlock (string[] lines, string lang);
 		/// <summary>
@@ -101,21 +88,7 @@ namespace MarkdownDeep.Rendering.Abstract
         TBlock Quote (IEnumerable<TBlock> inner);
         TBlock Html(IEnumerable<TBlock> inner);
 
-		/// <summary>
-		/// Emphasis the specified inner.
-		/// </summary>
-		/// <param name="existant">inner.</param>
-        TBlock Strike (TBlock TSpan);
-		/// <summary>
-		/// Emphasis the specified inner.
-		/// </summary>
-		/// <param name="inner">inner.</param>
-        TBlock Underline (TBlock inner);
 
-		/// <summary>
-		/// Blank this instance.
-		/// </summary>
-        void AddBlankTo (TBlock span);
 		/// <summary>
 		/// D the specified inner.
 		/// </summary>

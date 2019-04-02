@@ -2,10 +2,9 @@
 <Form xmlns="http://schema.picoe.ca/eto.forms" 
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
       xmlns:local="clr-namespace:MDGui;assembly=MDGui" 
-      xmlns:custom="clr-namespace:Eto.Markdown;assembly=Eto.Markdown"
       Title="{Binding Title}" x:Name="form" Width="640" Height="540" Padding="5">
     <Form.Menu >
-        <MenuBar x:Name="menuBar">
+    <MenuBar x:Name="menuBar">
             <MenuBar.ApplicationItems >
                 <ButtonMenuItem Text="Ouvrir" Shortcut="CommonModifier+O" Click="HandleOpen" />
                 <ButtonMenuItem x:Name="btnSave" Enabled="{Binding Dirty}" Text="Sauver" Shortcut="CommonModifier+S" Click="HandleSave" />
@@ -41,7 +40,7 @@
 # Hello Markdown! #
 
 * 1 
-* Deux ~mots~
+* Deux ~mots~ **là** __souligné__
 * trois _ici_
 
 ```urls
@@ -66,26 +65,17 @@ http://dev.pschneider.fr/api/haircutquery
                 <TabPage Text="Xaml code" DataContext="{Binding Settings}" Visible="{Binding ViewXamlCode}">
                     <TextArea Font="Fixed+10pt" Enabled="True" ReadOnly="True" x:Name="xamlCode">Xaml code</TextArea>
                 </TabPage>
-               <!-- FIXME  
-                <TabPage Text="Editeur">
-                    <custom:MarkdownArea x:Name="mdArea" >#Hello *Markdown*</custom:MarkdownArea>
-                </TabPage>
-                <TabPage Text="hey">
-                <local:GuiControl></local:GuiControl>
-                </TabPage>
-                 -->
             </TabControl>
         </Splitter.Panel2>
     </Splitter>
             </StackLayoutItem>
-            <!-- FIXME no binding update here
             <StackLayoutItem>
                 <StackLayout Orientation="Horizontal">
         <Label Text="{Binding SourcePath}" TextColor="Gray"/>
         <Label Text="{Binding DirtyHint}" TextColor="Gray" />
         <Label Text="{Binding EncodingDisplay}" TextColor="Gray"/>
                 </StackLayout> 
-            </StackLayoutItem> -->
+            </StackLayoutItem> 
         </StackLayout>
     </Form.Content>
    

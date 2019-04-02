@@ -41,7 +41,7 @@ namespace MarkdownDeepTest
 		{
 			var m = new Markdown ();
             //TODO fix expected
-			var xr = new XamlRenderer ("Page");
+			var xr = new XamlRenderer ("Page", "Content");
             var xaml = m.Render (source, xr);
 			Assert.Equal (expxaml,xaml);
 		}

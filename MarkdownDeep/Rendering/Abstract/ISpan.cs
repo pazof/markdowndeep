@@ -6,9 +6,10 @@ namespace MarkdownDeep.Rendering.Abstract
     /// Span.
     /// seen as the unique terminal in the md grammar
     /// </summary>
-    public interface ISpan<T> : IRenderer<T>, ISourceLocation
+    public interface ISpan : ISourceLocation
     {
         TextStyle Style { get; set; }
+
     }
 
 }

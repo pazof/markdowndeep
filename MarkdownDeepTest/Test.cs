@@ -1,7 +1,6 @@
 ﻿using System;
 using Xunit;
 using MarkdownDeep;
-using MarkdownAVToXaml.Rendering.Text.Xaml;
 using MarkdownAVToXaml.Rendering.Text.Xaml.Eto;
 
 namespace MarkdownDeepTest
@@ -12,7 +11,7 @@ namespace MarkdownDeepTest
 		public void MarkdownXamlRuns ()
 		{
 			var m = new Markdown ();
-			var xr = new XamlRenderer ("Page");
+			var xr = new XamlRenderer ("Page", "Content");
 			var str = Resources.ResourceManager.GetString ("LegacyTestSource");
             string xaml = m.Render (str, xr) ;
 		}
