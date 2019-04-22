@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>MdToMd</RootNamespace>
     <AssemblyName>MdToMd</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <ReleaseVersion>1.5.10</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
