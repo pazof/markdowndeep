@@ -1293,12 +1293,15 @@ namespace MarkdownDeep
                         break;
 
                     case TokenType.strike:
-                        var text = RenderToAny(renderer, str, t.startOffset, t.length, spans, currentTextStyle | TextStyle.Strike);
+                        var strikeSpanFormatter = new SpanFormatter(m_Markdown);
+
+                        var text = strikeSpanFormatter.RenderToAny(renderer, str, t.startOffset, t.length, spans, currentTextStyle | TextStyle.Strike);
                         result.AddRange(text);
                         break;
 
                     case TokenType.underline:
-                        var underline = RenderToAny(renderer, str, t.startOffset, t.length, spans, currentTextStyle | TextStyle.Underline);
+                        var underlineSpanFormatter = new SpanFormatter(m_Markdown);
+                        var underline = underlineSpanFormatter.RenderToAny(renderer, str, t.startOffset, t.length, spans, currentTextStyle | TextStyle.Underline);
                         result.AddRange(underline); break;
 
                     case TokenType.link:
@@ -1337,7 +1340,8 @@ namespace MarkdownDeep
                             result.Add(renderer.NewLine(spans));
                         }
                         FootnoteReference r = (FootnoteReference)t.data;
-                        result.Add(renderer.FootNote(RenderToAny(renderer, str, t.startOffset, t.length), r.id));
+                        var footlineSpanFormatter = new SpanFormatter(m_Markdown);
+                        result.Add(renderer.FootNote(footlineSpanFormatter.RenderToAny(renderer, str, t.startOffset, t.length), r.id));
                         break;
                     case TokenType.abbreviation:
                         if (spans.Count > 0)
@@ -1348,7 +1352,6 @@ namespace MarkdownDeep
                         result.Add(renderer.Abbreviation(a.Abbr, a.Title));
                         break;
                 }
-
 
                 FreeToken(t);
             }
