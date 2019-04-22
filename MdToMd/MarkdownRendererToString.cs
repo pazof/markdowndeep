@@ -25,7 +25,7 @@ namespace MarkdownAVToXaml.Rendering.Text
 
         public abstract V Image(string href, string alt, string title);
 
-        public abstract S Link(string text, string href, string title);
+        public abstract IEnumerable<S> Link(IEnumerable<S> display, string href, string title);
 
 
         public abstract V Ruler();

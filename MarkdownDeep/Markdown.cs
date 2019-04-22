@@ -924,7 +924,9 @@ namespace MarkdownDeep
 				return null;
 
 			// Extract a pandoc style cleaned header id from the header text
-			string strBase= null; //FIXME Collection was changed : m_SpanFormatter.MakeID(strHeaderText, startOffset, length);
+			string strBase= null; 
+
+            m_SpanFormatter.MakeID(strHeaderText, startOffset, length);
 
 			// If nothing left, use "section"
 			if (String.IsNullOrEmpty(strBase))

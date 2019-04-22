@@ -4,17 +4,29 @@
 // */
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using MarkdownDeep.Rendering.Abstract;
 namespace MarkdownAVToXaml.Rendering.Text.Xaml.Eto
 {
     public class Button : XamlText
     {
-        public Button(string action, string txt, string title, TextStyle style, IMap map) : base(txt, style,  map)
+        public Button(string action, IEnumerable<MdToXamlBlock<MDSpan>> txt, string title, TextStyle style, IMap map) : base(null, style,  map)
         {
             Tag="Button";
+            Text = string.Join(" ", txt.Select(b => string.Join(" ", b.Select(w => w.Text))));
             Parameters.Add("CommandParameter", action);
-            Parameters.Add("Text", txt);
+
+            Parameters.Add("Text", Text);
             Parameters.Add("ToolTip", title);
         }
+
+        public Button(string action, string txt, string title, TextStyle style, IMap map) : base(txt, style, map)
+        {
+            Tag = "Button";
+            Parameters.Add("CommandParameter", action);
+            Parameters.Add("Text", Text);
+            Parameters.Add("ToolTip", title);
+        }
+
     }
 }

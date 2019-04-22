@@ -19,14 +19,15 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml.Eto
         IMap _map;
 
         public HeaderLevel Level { get; private set; }
+        public XamlText(string display, TextStyle style, IMap map)
 
-        public XamlText(string txt, TextStyle style, IMap map)
         {
-            xmlRenderer = new XmlRenderer("Label",null);
-            Text = txt;
+            xmlRenderer = new XmlRenderer("Label", null);
+            Text = display;
             _map = map;
             Style = style;
         }
+
         public string Tag { get => xmlRenderer.MainClass; set => xmlRenderer.MainClass = value; }
 
         public override string GetRenderer()

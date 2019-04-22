@@ -16,6 +16,10 @@ namespace MarkdownAVToXaml
 
         public string Text { get; set; }
 
+        public string HRef { get; set; }
+
+        public string Title { get; set; }
+
         public int Start { get; set; }
 
         public int Length { get; set; }

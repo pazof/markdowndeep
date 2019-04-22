@@ -45,14 +45,14 @@ namespace MarkdownDeep.Rendering.Abstract
 		/// <returns>The list.</returns>
 		/// <param name="list">List.</param>
         TBlock OrderedList (IEnumerable<TBlock> list);
-		
+
         /// <summary>
         /// Link the specified inner, href and title.
         /// </summary>
         /// <param name="inner">Inner.</param>
         /// <param name="href">Href.</param>
         /// <param name="title">Title.</param>
-        TSpan Link (string text, string href, string title);
+        IEnumerable<TSpan> Link (IEnumerable<TSpan> display, string href, string title);
 		/// <summary>
 		/// Audio the specified href, alt and title.
 		/// </summary>

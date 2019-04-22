@@ -25,7 +25,7 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml.Eto
 
         public string GetRenderer()
         {
-            var content = Content.Select(b=>b.GetRenderer()).ToArray();
+            var content = Content.Select(b=>b?.GetRenderer() ?? null).ToArray();
             return Renderer.Render("<StackLayout>" +string.Join("\n",content) + "</StackLayout>");
         }
     }

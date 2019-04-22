@@ -102,6 +102,7 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml.Eto
 
         public override MdToXamlBlock<MDSpan> Header(IEnumerable<MdToXamlBlock<MDSpan>> inner, HeaderLevel level)
         {
+            if (inner.Count() == 0) return null;
             var head = new TextLine(inner.First(), _map)
             {
                 Level = level
@@ -129,9 +130,15 @@ namespace MarkdownAVToXaml.Rendering.Text.Xaml.Eto
             return q;
         }
 
-        public override MDSpan Link(string text, string href, string title)
+        // return new Button(href, display, title, TextStyle.Underline, _map);
+        public override IEnumerable<MDSpan> Link(IEnumerable<MDSpan> display, string href, string title)
         {
-            return new Button(href, text, title, TextStyle.Underline, _map);
+            foreach (var w in display)
+            {
+                w.HRef = href;
+                w.Title = title;
+            }
+            return display;
         }
 
         public override MdToXamlBlock<MDSpan> ListItem(IEnumerable<MdToXamlBlock<MDSpan>> inner)

@@ -2,7 +2,7 @@
 
 CONFIG=Debug
 MSBARGS=/p:Configuration=$(CONFIG) /p:RunCodeAnalysis=true
-VERSION=1.5.19
+VERSION=1.5.21
 
 NUSF=MarkdownDeep/MarkdownDeep.nuspec MDGuiGtk2/MDGuiGtk2.nuspec MarkdownRenderers/MarkdownRenderers.nuspec  MDGuiGtk3/MDGuiGtk3.nuspec
 PKGS=$(notdir $(patsubst %.nuspec,%-$(VERSION).nupkg,$(NUSF)))

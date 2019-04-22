@@ -1305,9 +1305,12 @@ namespace MarkdownDeep
                         result.AddRange(underline); break;
 
                     case TokenType.link:
+                        var linkSpanFormatter = new SpanFormatter(m_Markdown);
+
                         li = (LinkInfo)t.data;
-                        spans.Add(renderer.Link(li.link_text,
-                                              li.def.url, li.def.title));
+                        var linkdisplay = linkSpanFormatter.RenderLinkDisplay(renderer, li.link_text, 0, li.link_text.Length, currentTextStyle );
+                        var link = renderer.Link(linkdisplay, li.def.url, li.def.title);
+                        spans.AddRange(link);
                         break;
 
                     case TokenType.img:
@@ -1364,5 +1367,81 @@ namespace MarkdownDeep
             return result;
         }
 
+        private IEnumerable<S> RenderLinkDisplay<T, V, S>(IMarkdownRenderer<T, V, S> renderer, string link_text, int start, int length, TextStyle globalStyle)
+            where V : class, IBlock
+            where S : ISpan
+        {
+            TextStyle currentTextStyle = globalStyle;
+
+            // Parse the string into a list of tokens
+            Tokenize(link_text, start, length);
+            List<S> spans = new List<S>();
+            foreach (Token t in m_Tokens)
+            {
+                switch (t.type)
+                {
+                    case TokenType.Text:
+                    case TokenType.img:
+                    case TokenType.footnote:
+                    case TokenType.abbreviation:
+                        var span = renderer.Text(link_text, t.startOffset, t.length);
+                        spans.Add(span);
+                        break;
+
+                    case TokenType.HtmlTag:
+                        break;
+
+                    case TokenType.Html:
+                    case TokenType.opening_mark:
+                    case TokenType.closing_mark:
+                    case TokenType.internal_mark:
+                        break;
+
+                    case TokenType.br:
+                        // ignoring breaks inside link texts
+                        break;
+
+                    case TokenType.open_em:
+                        currentTextStyle |= TextStyle.Emphasys;
+                        break;
+                    case TokenType.close_em:
+                        currentTextStyle &= ~TextStyle.Emphasys;
+                        break;
+                    case TokenType.open_strong:
+                        currentTextStyle |= TextStyle.Strong;
+                        break;
+                    case TokenType.close_strong:
+                        currentTextStyle &= ~TextStyle.Strong;
+                        break;
+
+                    case TokenType.code_span:
+                        string code = link_text.Substring(t.startOffset, t.length);
+                        // allows a code span to be rendered
+                        spans.Add(renderer.Code(code, t.data?.ToString()));
+                        break;
+
+                    case TokenType.strike:
+                        var strikeSpanFormatter = new SpanFormatter(m_Markdown);
+                        var text = strikeSpanFormatter.RenderLinkDisplay(renderer, link_text, t.startOffset, t.length,  currentTextStyle | TextStyle.Strike);
+                        spans.AddRange(text);
+                        break;
+
+                    case TokenType.underline:
+                        var underlineSpanFormatter = new SpanFormatter(m_Markdown);
+                        var underline = underlineSpanFormatter.RenderLinkDisplay(renderer, link_text, t.startOffset, t.length,  currentTextStyle | TextStyle.Underline);
+                        spans.AddRange(underline); break;
+
+                    case TokenType.link:
+                        // TODO render the fact it was a link ...
+                        var linkSpanFormatter = new SpanFormatter(m_Markdown);
+                        var linkdisplay = linkSpanFormatter.RenderLinkDisplay(renderer, link_text, t.startOffset, t.length, currentTextStyle);
+                        spans.AddRange(linkdisplay);
+                        break;
+                }
+
+                FreeToken(t);
+            }
+            return spans;
+        }
     }
 }
